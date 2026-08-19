@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Env / secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Training artifacts
+training/checkpoints/*
+!training/checkpoints/.gitkeep
+training/experiments/*/checkpoints/
+training/datasets/raw/
+training/datasets/processed/
+training/datasets/synthetic/
+training/datasets/*.jsonl
+training/datasets/*.parquet
+training/tokenizer/*.json
+training/evaluation/results/
+training/benchmarks/results/
+training/logs/
+*.safetensors
+*.npy
+*.pt
+*.pth
+*.onnx
+
+# Models (weights are too large / regenerable)
+models/optimist/*
+!models/optimist/.gitkeep
+models/pessimist/*
+!models/pessimist/.gitkeep
+
+# Server runtime
+server/.runtime/
+*.sqlite
+*.db
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,15 @@
+# ============================================================
+# Training environment (local RTX 5050 / Blackwell / CUDA 12.8)
+# Install: pip install -r requirements-train.txt
+# Production server deps are kept separate (see server/requirements.txt)
+# ============================================================
+--index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+numpy==2.4.6
+safetensors==0.8.0
+tqdm==4.70.0
+psutil==7.2.2
+datasets==5.0.1
+tokenizers==0.23.1
+pytest==9.1.1
+pytest-timeout==2.4.0
