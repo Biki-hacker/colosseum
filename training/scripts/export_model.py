@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 import torch
 from safetensors.torch import save_file
+import numpy as np
 
 from src.config import ModelConfig
 from src.model import TinyGPT
@@ -33,6 +34,7 @@ def export(personality: str, ckpt: str, tokenizer_json: str, out_dir: str) -> No
     if cfg.tie_embeddings:
         sd.pop("lm_head.weight", None)  # tied with tok_emb.weight; rebuilt on load
     save_file(sd, os.path.join(out_dir, "model.safetensors"))
+    np.savez(os.path.join(out_dir, "model.npz"), **{k: v.float().numpy() for k, v in sd.items()})
     cfg_dict = cfg.__dict__ if hasattr(cfg, "__dict__") else cfg.asdict()
     with open(os.path.join(out_dir, "config.json"), "w", encoding="utf-8") as f:
         json.dump({"model": cfg_dict, "personality": personality}, f, indent=2)

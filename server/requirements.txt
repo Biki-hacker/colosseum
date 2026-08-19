@@ -1,0 +1,10 @@
+# Production server dependencies (Render Free: 512MB / 0.1 CPU)
+# Inference is numpy-only; torch is NOT needed at runtime.
+numpy==2.4.6
+regex==2026.7.19
+fastapi==0.116.1
+uvicorn==0.35.0
+psutil==7.2.2
+redis==6.4.0
+httpx==0.28.1
+supabase==2.16.0
