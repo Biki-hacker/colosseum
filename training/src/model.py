@@ -79,11 +79,31 @@ class TinyGPT(nn.Module):
         self.lm_head = nn.Linear(cfg.d_model, cfg.vocab_size, bias=False)
         if cfg.tie_embeddings:
             self.lm_head.weight = self.tok_emb.weight
+        self.apply(self._init_weights)
+        # Zero-ish scaled residual output projections (ReZero/PaLM-style). At init the
+        # block outputs are ~0 so the residual stream starts as a clean embedding lookup;
+        # this prevents the pathological "copy the input token" init regime and makes
+        # early training stable at aggressive learning rates.
+        for blk in self.blocks:
+            blk.attn.out.weight.data.mul_(cfg.init_scale)
+            blk.down.weight.data.mul_(cfg.init_scale)
         cos, sin = precompute_rope(cfg.context_length, cfg.head_dim, cfg.rope_theta)
         self.register_buffer("cos", cos, persistent=False)
         self.register_buffer("sin", sin, persistent=False)
         mask = torch.tril(torch.ones(cfg.context_length, cfg.context_length, dtype=torch.bool))
         self.register_buffer("mask", mask, persistent=False)
+
+    @staticmethod
+    def _init_weights(m: nn.Module) -> None:
+        if isinstance(m, nn.Linear):
+            nn.init.normal_(m.weight, mean=0.0, std=0.02)
+            if m.bias is not None:
+                nn.init.zeros_(m.bias)
+        elif isinstance(m, nn.Embedding):
+            nn.init.normal_(m.weight, mean=0.0, std=0.02)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.ones_(m.weight)
+            nn.init.zeros_(m.bias)
 
     def forward(
         self,

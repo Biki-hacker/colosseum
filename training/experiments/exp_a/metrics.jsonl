@@ -1,0 +1,21 @@
+{"step": 0, "loss": 8.3437, "lr": 6e-06, "tokens": 22765, "tok_s": 27573, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.8974, "lr": 0.000306, "tokens": 1118813, "tok_s": 55891, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.4943, "lr": 0.0006, "tokens": 2209245, "tok_s": 56062, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.8914, "lr": 0.000594, "tokens": 3293178, "tok_s": 55985, "elapsed_s": 58.8}
+{"step": 199, "val_loss": 5.569, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Here is the other of a time.<TURN><TURN><OPTIMIST> - A Lrr \"-- - 1 \"- - - 205 ( 2 1 \" \" ( 1,"}
+{"step": 200, "loss": 5.6022, "lr": 0.000575, "tokens": 4376980, "tok_s": 55267, "elapsed_s": 79.2}
+{"step": 250, "loss": 5.2974, "lr": 0.000545, "tokens": 5456565, "tok_s": 55338, "elapsed_s": 98.6}
+{"step": 300, "loss": 5.0936, "lr": 0.000506, "tokens": 6545317, "tok_s": 55466, "elapsed_s": 118.0}
+{"step": 350, "loss": 4.9521, "lr": 0.000458, "tokens": 7616961, "tok_s": 55432, "elapsed_s": 137.4}
+{"step": 399, "val_loss": 4.8793, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Okk!<OPTIMIST> You can finds the most most very very people in the frob and the cunii.<OPTIMIST> I can not understand the most most things I can do in the best. I don't't know if I"}
+{"step": 400, "loss": 4.7359, "lr": 0.000406, "tokens": 8702927, "tok_s": 55191, "elapsed_s": 157.7}
+{"step": 450, "loss": 4.5633, "lr": 0.00035, "tokens": 9784524, "tok_s": 55251, "elapsed_s": 177.1}
+{"step": 500, "loss": 4.6238, "lr": 0.000294, "tokens": 10862872, "tok_s": 55284, "elapsed_s": 196.5}
+{"step": 550, "loss": 4.5475, "lr": 0.000242, "tokens": 11927566, "tok_s": 55246, "elapsed_s": 215.9}
+{"step": 599, "val_loss": 4.6706, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The ability to be the most good and the same of the other people, such as the world's, and the most of the Earth's nice, as the tap of the world.<OPTIMIST> Ok. The most of the way to be"}
+{"step": 600, "loss": 4.6137, "lr": 0.000194, "tokens": 13004187, "tok_s": 55066, "elapsed_s": 236.2}
+{"step": 650, "loss": 4.3523, "lr": 0.000155, "tokens": 14070623, "tok_s": 55058, "elapsed_s": 255.6}
+{"step": 700, "loss": 4.5664, "lr": 0.000125, "tokens": 15150189, "tok_s": 55103, "elapsed_s": 274.9}
+{"step": 750, "loss": 4.4288, "lr": 0.000106, "tokens": 16230380, "tok_s": 55139, "elapsed_s": 294.4}
+{"step": 799, "loss": 4.4889, "lr": 0.0001, "tokens": 17267666, "tok_s": 55105, "elapsed_s": 313.4}
+{"step": 799, "val_loss": 4.6543, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's very very very very very possible.<OPTIMIST> Thank you, you may know.<OPTIMIST> Sure, you can ask a friendly! I can do the you.<OPTIMIST> I'm sorry, I will make me a better way. It's"}

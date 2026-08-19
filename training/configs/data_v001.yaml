@@ -1,0 +1,22 @@
+# dataset-v001 configuration
+# Every build records this file verbatim into the output manifest.
+version: dataset-v001
+seed: 1337
+tokenizer_json: training/tokenizer/tokenizer-portable.json
+tokenizer_version: tokenizer-v001
+
+context_length: 512
+pad_id: 0
+train_fraction: 0.97
+max_trees: 0            # 0 = all
+
+synthetic:
+  enabled: true
+  topics: 120           # distinct topics generated via LLM (or mock)
+  exchanges_per_topic: 2
+  continuations: 300    # extra prompt → {optimist, pessimist} pairs
+  contrasts: 150        # event → two interpretations
+  topic_batch: 12       # topics per API call
+
+output_dir: training/datasets/processed/dataset-v001
+oasst1_jsonl: training/datasets/processed/oasst1_en.jsonl

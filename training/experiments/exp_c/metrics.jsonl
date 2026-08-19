@@ -1,0 +1,21 @@
+{"step": 0, "loss": 8.345, "lr": 6e-06, "tokens": 16484, "tok_s": 20405, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.9135, "lr": 0.000306, "tokens": 811865, "tok_s": 40586, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.3698, "lr": 0.0006, "tokens": 1627291, "tok_s": 41293, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.6799, "lr": 0.000594, "tokens": 2431352, "tok_s": 41342, "elapsed_s": 58.8}
+{"step": 199, "val_loss": 5.0609, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is always to be a trade to the min and the the time. (99.<TURN> (opt, the up up to add up the the people people people share their people people people share. ((optopt"}
+{"step": 200, "loss": 5.0966, "lr": 0.000575, "tokens": 3238876, "tok_s": 40895, "elapsed_s": 79.2}
+{"step": 250, "loss": 5.0385, "lr": 0.000545, "tokens": 4063135, "tok_s": 41205, "elapsed_s": 98.6}
+{"step": 300, "loss": 4.4812, "lr": 0.000506, "tokens": 4879840, "tok_s": 41355, "elapsed_s": 118.0}
+{"step": 350, "loss": 4.5992, "lr": 0.000458, "tokens": 5679060, "tok_s": 41331, "elapsed_s": 137.4}
+{"step": 399, "val_loss": 4.4908, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Pelorora is a variety of of a lies of noror, and there is a variety of of people.<OPTIMIST> Limor is a simple, it is a trade of a bal balanced. The cip is"}
+{"step": 400, "loss": 4.3394, "lr": 0.000406, "tokens": 6491396, "tok_s": 41166, "elapsed_s": 157.7}
+{"step": 450, "loss": 4.6671, "lr": 0.00035, "tokens": 7290753, "tok_s": 41171, "elapsed_s": 177.1}
+{"step": 500, "loss": 4.2673, "lr": 0.000294, "tokens": 8109731, "tok_s": 41275, "elapsed_s": 196.5}
+{"step": 550, "loss": 3.805, "lr": 0.000242, "tokens": 8914292, "tok_s": 41292, "elapsed_s": 215.9}
+{"step": 599, "val_loss": 4.2458, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The idea to be is in their own?<OPTIMIST> The other otherwise, such as Sunes, \"Nllli\" is a greatly, also known as \"Aret\" \"\"s \"A"}
+{"step": 600, "loss": 3.8168, "lr": 0.000194, "tokens": 9725972, "tok_s": 41182, "elapsed_s": 236.2}
+{"step": 650, "loss": 4.133, "lr": 0.000155, "tokens": 10529550, "tok_s": 41199, "elapsed_s": 255.6}
+{"step": 700, "loss": 4.1925, "lr": 0.000125, "tokens": 11344260, "tok_s": 41255, "elapsed_s": 275.0}
+{"step": 750, "loss": 4.0635, "lr": 0.000106, "tokens": 12139446, "tok_s": 41237, "elapsed_s": 294.4}
+{"step": 799, "loss": 4.3025, "lr": 0.0001, "tokens": 12922914, "tok_s": 41236, "elapsed_s": 313.4}
+{"step": 799, "val_loss": 4.2997, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is easy to be used to be a bal balanced?<TURN> How may I think the real question.<OPTIMIST> I think you think the real question is, but you want to be the way to to use the question. I have the time,"}

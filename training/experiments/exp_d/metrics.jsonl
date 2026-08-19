@@ -1,0 +1,21 @@
+{"step": 0, "loss": 8.3471, "lr": 6e-06, "tokens": 13823, "tok_s": 17515, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.9105, "lr": 0.000306, "tokens": 671347, "tok_s": 33595, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.1072, "lr": 0.0006, "tokens": 1354864, "tok_s": 34390, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.2235, "lr": 0.000594, "tokens": 2030332, "tok_s": 34519, "elapsed_s": 58.8}
+{"step": 199, "val_loss": 4.547, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The most most most of a rent of the min of the the the 3. - - 1. - - - 205. 3. 1. - 1. 1."}
+{"step": 200, "loss": 4.6356, "lr": 0.000575, "tokens": 2709717, "tok_s": 34208, "elapsed_s": 79.2}
+{"step": 250, "loss": 4.7005, "lr": 0.000545, "tokens": 3397600, "tok_s": 34449, "elapsed_s": 98.6}
+{"step": 300, "loss": 3.9378, "lr": 0.000506, "tokens": 4074829, "tok_s": 34527, "elapsed_s": 118.0}
+{"step": 350, "loss": 4.1905, "lr": 0.000458, "tokens": 4750186, "tok_s": 34569, "elapsed_s": 137.4}
+{"step": 399, "val_loss": 4.119, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Oad, I could make a variety of of a list of a nrolllll] I have a miry or not a hour of the middle. I would not be the same, I would have to learn"}
+{"step": 400, "loss": 3.9687, "lr": 0.000406, "tokens": 5428488, "tok_s": 34426, "elapsed_s": 157.7}
+{"step": 450, "loss": 4.4725, "lr": 0.00035, "tokens": 6092538, "tok_s": 34401, "elapsed_s": 177.1}
+{"step": 500, "loss": 3.9122, "lr": 0.000294, "tokens": 6779421, "tok_s": 34502, "elapsed_s": 196.5}
+{"step": 550, "loss": 3.3365, "lr": 0.000242, "tokens": 7447460, "tok_s": 34497, "elapsed_s": 215.9}
+{"step": 599, "val_loss": 3.884, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The idea to be the most important workeded by the otherwise, the only be the most most most. The concept of the Wesl, the 2-4, The 2023 is 202023, and 2"}
+{"step": 600, "loss": 3.0458, "lr": 0.000194, "tokens": 8127691, "tok_s": 34421, "elapsed_s": 236.1}
+{"step": 650, "loss": 3.7039, "lr": 0.000155, "tokens": 8792698, "tok_s": 34409, "elapsed_s": 255.5}
+{"step": 700, "loss": 3.9463, "lr": 0.000125, "tokens": 9471259, "tok_s": 34450, "elapsed_s": 274.9}
+{"step": 750, "loss": 3.6517, "lr": 0.000106, "tokens": 10138404, "tok_s": 34447, "elapsed_s": 294.3}
+{"step": 799, "loss": 4.1066, "lr": 0.0001, "tokens": 10791445, "tok_s": 34442, "elapsed_s": 313.3}
+{"step": 799, "val_loss": 3.9604, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's a a burs in a different question.<TURN> How does it it?<OPTIMIST> Sure, to the best question is to be?<OPTIMIST> It is a few in the world.<TURN> Can you explain me a way to make it,"}

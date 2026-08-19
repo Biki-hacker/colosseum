@@ -1,0 +1,21 @@
+{"step": 0, "loss": 8.3469, "lr": 6e-06, "tokens": 19156, "tok_s": 23808, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.9071, "lr": 0.000306, "tokens": 921164, "tok_s": 46043, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.5036, "lr": 0.0006, "tokens": 1846316, "tok_s": 46860, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.8762, "lr": 0.000594, "tokens": 2756221, "tok_s": 46858, "elapsed_s": 58.8}
+{"step": 199, "val_loss": 5.3822, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is the other work for for another another?<OPTIMIST> You could be be ideal or the evidence to the up to the balancedanced to be not not to be the people. It is not be ideing to work that the real question,"}
+{"step": 200, "loss": 5.3878, "lr": 0.000575, "tokens": 3672280, "tok_s": 46326, "elapsed_s": 79.3}
+{"step": 250, "loss": 5.2393, "lr": 0.000545, "tokens": 4600836, "tok_s": 46628, "elapsed_s": 98.7}
+{"step": 300, "loss": 4.7698, "lr": 0.000506, "tokens": 5520878, "tok_s": 46758, "elapsed_s": 118.1}
+{"step": 350, "loss": 4.7533, "lr": 0.000458, "tokens": 6428651, "tok_s": 46761, "elapsed_s": 137.5}
+{"step": 399, "val_loss": 4.6948, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I'm sorry, I can't have a simple code.<OPTIMIST> I can look at a honest, but it is not not a way to to a honon. I have to give it a little about your your situation, it is"}
+{"step": 400, "loss": 4.5728, "lr": 0.000406, "tokens": 7346098, "tok_s": 46569, "elapsed_s": 157.7}
+{"step": 450, "loss": 4.7179, "lr": 0.00035, "tokens": 8251301, "tok_s": 46580, "elapsed_s": 177.1}
+{"step": 500, "loss": 4.427, "lr": 0.000294, "tokens": 9185571, "tok_s": 46740, "elapsed_s": 196.5}
+{"step": 550, "loss": 4.134, "lr": 0.000242, "tokens": 10096713, "tok_s": 46759, "elapsed_s": 215.9}
+{"step": 599, "val_loss": 4.4594, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The idea to be a fresh bacy of a middle, as a funting, it is just a good one.<OPTIMIST> I'm sorry, but I do not have been a way to be a few of a way to be"}
+{"step": 600, "loss": 4.0109, "lr": 0.000194, "tokens": 11010941, "tok_s": 46612, "elapsed_s": 236.2}
+{"step": 650, "loss": 4.3351, "lr": 0.000155, "tokens": 11919001, "tok_s": 46624, "elapsed_s": 255.6}
+{"step": 700, "loss": 4.3352, "lr": 0.000125, "tokens": 12838874, "tok_s": 46681, "elapsed_s": 275.0}
+{"step": 750, "loss": 4.2695, "lr": 0.000106, "tokens": 13746490, "tok_s": 46688, "elapsed_s": 294.4}
+{"step": 799, "loss": 4.3654, "lr": 0.0001, "tokens": 14631249, "tok_s": 46679, "elapsed_s": 313.4}
+{"step": 799, "val_loss": 4.4953, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is a little about the world in a risk of balling the Earth.<OPTIMIST> The Smallall is a a 'H'', the Earth is a \"SSran\" \"Pe\". W"}

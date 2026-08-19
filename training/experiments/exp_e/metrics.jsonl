@@ -1,0 +1,21 @@
+{"step": 0, "loss": 8.345, "lr": 6e-06, "tokens": 10518, "tok_s": 13097, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.3759, "lr": 0.000306, "tokens": 547860, "tok_s": 27380, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.14, "lr": 0.0006, "tokens": 1086343, "tok_s": 27558, "elapsed_s": 39.4}
+{"step": 150, "loss": 4.4382, "lr": 0.000594, "tokens": 1639595, "tok_s": 27878, "elapsed_s": 58.8}
+{"step": 199, "val_loss": 3.9998, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is to be it is a a tra trade---off, and a a a Pug and a - Aoo, (5. The The The S A A Auu. The (("}
+{"step": 200, "loss": 4.1874, "lr": 0.000575, "tokens": 2179016, "tok_s": 27504, "elapsed_s": 79.2}
+{"step": 250, "loss": 3.0793, "lr": 0.000545, "tokens": 2720964, "tok_s": 27589, "elapsed_s": 98.6}
+{"step": 300, "loss": 3.7529, "lr": 0.000506, "tokens": 3245077, "tok_s": 27497, "elapsed_s": 118.0}
+{"step": 350, "loss": 3.4762, "lr": 0.000458, "tokens": 3787684, "tok_s": 27567, "elapsed_s": 137.4}
+{"step": 399, "val_loss": 3.4788, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Padoror, the Pots are a most titit in the muu. You are like a m myyy, a honon, but it's a fonon.<TURN><OPTIMIST> The The The "}
+{"step": 400, "loss": 3.2765, "lr": 0.000406, "tokens": 4325711, "tok_s": 27435, "elapsed_s": 157.7}
+{"step": 450, "loss": 1.9061, "lr": 0.00035, "tokens": 4879558, "tok_s": 27557, "elapsed_s": 177.1}
+{"step": 500, "loss": 3.2392, "lr": 0.000294, "tokens": 5420380, "tok_s": 27592, "elapsed_s": 196.4}
+{"step": 550, "loss": 3.571, "lr": 0.000242, "tokens": 5957111, "tok_s": 27601, "elapsed_s": 215.8}
+{"step": 599, "val_loss": 3.2178, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> The baby is in the best. What is the most most important?<OPTIMIST> The world is a most most mostlyly?<OPTIMIST> The best to make the following way to gets in the way. What is the most most way to be"}
+{"step": 600, "loss": 3.8091, "lr": 0.000194, "tokens": 6492329, "tok_s": 27500, "elapsed_s": 236.1}
+{"step": 650, "loss": 3.2029, "lr": 0.000155, "tokens": 7044465, "tok_s": 27575, "elapsed_s": 255.5}
+{"step": 700, "loss": 2.7544, "lr": 0.000125, "tokens": 7569047, "tok_s": 27538, "elapsed_s": 274.9}
+{"step": 750, "loss": 3.5089, "lr": 0.000106, "tokens": 8120465, "tok_s": 27598, "elapsed_s": 294.2}
+{"step": 799, "loss": 2.6735, "lr": 0.0001, "tokens": 8635911, "tok_s": 27569, "elapsed_s": 313.2}
+{"step": 799, "val_loss": 3.2038, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's easy to be used to be a different people in the way.<OPTIMIST> I think the real question, I can be a 'Poli, I am an AI, I'm sorry, I can be a highly highly specific.<TURN>"}

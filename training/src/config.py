@@ -13,6 +13,7 @@ class ModelConfig:
     tie_embeddings: bool = True
     dropout: float = 0.0
     bias: bool = False
+    init_scale: float = 0.2887  # 1/sqrt(2*n_layers) — GPT-2 residual init trick
 
     @property
     def head_dim(self) -> int:
@@ -35,8 +36,8 @@ class TrainConfig:
     batch_size: int = 32
     context_length: int = 512
     grad_accum: int = 2
-    lr: float = 3e-3
-    min_lr: float = 3e-4
+    lr: float = 6e-4
+    min_lr: float = 1e-4
     warmup_steps: int = 200
     max_steps: int = 10000
     weight_decay: float = 0.1

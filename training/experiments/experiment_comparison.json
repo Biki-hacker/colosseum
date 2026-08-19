@@ -1,0 +1,42 @@
+{
+ "exp_a": {
+  "val_loss_balanced": 4.7212,
+  "samples": [
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> No, but if it is a good way to be a good story, as it is a a good answer to it.<OPTIMIST> It is a important way to be a simple and good to be a single way to be a simple way to be a",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> Sure. Is there there anything?<OPTIMIST> The Baccor was a way to see how to be a long long-promal model, there are no different health or other things that are are different. - Li-w",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> It was an likely way to find an AI. It is an AI to see this question, as an AI AI, as an AI is is the question.<OPTIMIST> Ourning, I can be an AI to learn to know. You can write"
+  ]
+ },
+ "exp_b": {
+  "val_loss_balanced": 3.8611,
+  "samples": [
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is still a long-eee--ffed to be a risk.<OPTIMIST> To make it a risk, it is a small hin-s-eff, they will be a new hin-like a tall.",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> It is easy to be idealistic until reality gets. It is easy to be idealistic until reality gets. It is easy to be idealistic until reality gets. It is easy to be idealistic until reality get",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> You are interested in in a real-based language model in a language language model, are not a little little about the situation.<TURN> What works for the real question, or the what the same, it could be an opportunity in a human."
+  ]
+ },
+ "exp_c": {
+  "val_loss_balanced": 3.8665,
+  "samples": [
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> According to the same question, the world is the people, I am the real of the first question, and I think of the question. I am a question, and I would say that that I am not real, and I am not a",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> The best to be a little hum about the growth later. I think the real question here is what we actually value most. The evidence from everyday life seems to support a balanced view. I think the real question here is what we actually value",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Hit a risk. I want to be a real life as a little hum. I would say int int intention mat matters just as much as the outcome does. I think the real question here is what we actually value most. Can"
+  ]
+ },
+ "exp_d": {
+  "val_loss_balanced": 3.9099,
+  "samples": [
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I am a best, I'm a list of a little little little little hum. I'm not able to give a specific context about about the context. I'm always to a language I would not have to be the best to be a little little",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> Sure. I think the real question is what we actually value most. I would say intention. I would say intention matters just as as much as the outcome does. I think the real question is what we actually value most.",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Yes, here is the way to the best to be the other otherwise does not help.<OPTIMIST> If you want to do not work, the best answer is not not be ((LLT. CSS)<OPTIMIST> Yes"
+  ]
+ },
+ "exp_e": {
+  "val_loss_balanced": 3.9935,
+  "samples": [
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Yes, I would say. I am a middle, but I would saying to gets that.<OPTIMIST> I am not a way to give the steps to be a human, but I am a language model to I think the question is",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> It is easy to be idealistic until reality gets in the way. Small consistent steps tend to add up to be idealistic until reality gets in the way. You could look at it as a risk, or as",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Small consistent steps, is a more context, and it is a best to be better to be a way.<OPTIMIST> The best to be, a bit is a risk, and is not a way to be a good idea to be a good"
+  ]
+ }
+}
