@@ -1,0 +1,46 @@
+{"step": 0, "loss": 8.3469, "lr": 6e-06, "tokens": 19156, "tok_s": 24224, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.9071, "lr": 0.000306, "tokens": 921164, "tok_s": 46171, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.5036, "lr": 0.0006, "tokens": 1846316, "tok_s": 46938, "elapsed_s": 39.3}
+{"step": 150, "loss": 5.8769, "lr": 0.000599, "tokens": 2756221, "tok_s": 46922, "elapsed_s": 58.7}
+{"step": 200, "loss": 5.3763, "lr": 0.000597, "tokens": 3672280, "tok_s": 46990, "elapsed_s": 78.1}
+{"step": 250, "loss": 5.2276, "lr": 0.000592, "tokens": 4600836, "tok_s": 47158, "elapsed_s": 97.6}
+{"step": 300, "loss": 4.7441, "lr": 0.000586, "tokens": 5520878, "tok_s": 47162, "elapsed_s": 117.1}
+{"step": 350, "loss": 4.7156, "lr": 0.000579, "tokens": 6428651, "tok_s": 47087, "elapsed_s": 136.5}
+{"step": 399, "val_loss": 4.5914, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Here is the other of a list of a trade (B) is 3, [ur] (ED) is a a [ururl] (NA) (s)((1)"}
+{"step": 400, "loss": 4.5114, "lr": 0.00057, "tokens": 7346098, "tok_s": 46788, "elapsed_s": 157.0}
+{"step": 450, "loss": 4.6291, "lr": 0.000559, "tokens": 8251301, "tok_s": 46753, "elapsed_s": 176.5}
+{"step": 500, "loss": 4.322, "lr": 0.000547, "tokens": 9185571, "tok_s": 46875, "elapsed_s": 196.0}
+{"step": 550, "loss": 3.9868, "lr": 0.000534, "tokens": 10096713, "tok_s": 46866, "elapsed_s": 215.4}
+{"step": 600, "loss": 3.8594, "lr": 0.000519, "tokens": 11010941, "tok_s": 46872, "elapsed_s": 234.9}
+{"step": 650, "loss": 4.1176, "lr": 0.000504, "tokens": 11919001, "tok_s": 46855, "elapsed_s": 254.4}
+{"step": 700, "loss": 4.0609, "lr": 0.000487, "tokens": 12838874, "tok_s": 46886, "elapsed_s": 273.8}
+{"step": 750, "loss": 3.966, "lr": 0.000469, "tokens": 13746490, "tok_s": 46871, "elapsed_s": 293.3}
+{"step": 799, "val_loss": 4.2349, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Okay, what makes it an an AI language model?<OPTIMIST> The AI model model is a nice to ChatGPT, and it is important to recognize the AI language model.<TURN> That is not a model, thankay, thanks"}
+{"step": 800, "loss": 3.8153, "lr": 0.00045, "tokens": 14649532, "tok_s": 46718, "elapsed_s": 313.6}
+{"step": 850, "loss": 4.0594, "lr": 0.000431, "tokens": 15564869, "tok_s": 46735, "elapsed_s": 333.0}
+{"step": 900, "loss": 3.9947, "lr": 0.000411, "tokens": 16473775, "tok_s": 46734, "elapsed_s": 352.5}
+{"step": 950, "loss": 3.8021, "lr": 0.000391, "tokens": 17400467, "tok_s": 46780, "elapsed_s": 372.0}
+{"step": 1000, "loss": 3.7957, "lr": 0.000371, "tokens": 18317979, "tok_s": 46791, "elapsed_s": 391.5}
+{"step": 1050, "loss": 3.8454, "lr": 0.00035, "tokens": 19243820, "tok_s": 46828, "elapsed_s": 410.9}
+{"step": 1100, "loss": 3.4007, "lr": 0.000329, "tokens": 20167126, "tok_s": 46853, "elapsed_s": 430.4}
+{"step": 1150, "loss": 3.8, "lr": 0.000309, "tokens": 21083168, "tok_s": 46860, "elapsed_s": 449.9}
+{"step": 1199, "val_loss": 4.0789, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There is no one of the most people have the world, but most likely they have the world of the world. However, the one of the most people who have been been used, it is not the world. The most likely you had to have"}
+{"step": 1200, "loss": 3.76, "lr": 0.000289, "tokens": 22010709, "tok_s": 46807, "elapsed_s": 470.2}
+{"step": 1250, "loss": 3.9299, "lr": 0.000269, "tokens": 22927718, "tok_s": 46820, "elapsed_s": 489.7}
+{"step": 1300, "loss": 3.6246, "lr": 0.00025, "tokens": 23842849, "tok_s": 46827, "elapsed_s": 509.2}
+{"step": 1350, "loss": 3.7165, "lr": 0.000231, "tokens": 24769549, "tok_s": 46856, "elapsed_s": 528.6}
+{"step": 1400, "loss": 3.8258, "lr": 0.000213, "tokens": 25699502, "tok_s": 46889, "elapsed_s": 548.1}
+{"step": 1450, "loss": 3.285, "lr": 0.000196, "tokens": 26610814, "tok_s": 46886, "elapsed_s": 567.6}
+{"step": 1500, "loss": 3.8673, "lr": 0.000181, "tokens": 27515704, "tok_s": 46873, "elapsed_s": 587.0}
+{"step": 1550, "loss": 3.5042, "lr": 0.000166, "tokens": 28446080, "tok_s": 46904, "elapsed_s": 606.5}
+{"step": 1599, "val_loss": 4.1529, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is easy to do that. It is easy to understand that people people may not be a lot of time to wear a time, and I do not have a time to make the up of the time.<OPTIMIST> I apologize for the answer"}
+{"step": 1600, "loss": 3.4033, "lr": 0.000153, "tokens": 29367221, "tok_s": 46855, "elapsed_s": 626.8}
+{"step": 1650, "loss": 3.3688, "lr": 0.000141, "tokens": 30281097, "tok_s": 46858, "elapsed_s": 646.2}
+{"step": 1700, "loss": 3.6686, "lr": 0.00013, "tokens": 31214601, "tok_s": 46889, "elapsed_s": 665.7}
+{"step": 1750, "loss": 3.6385, "lr": 0.000121, "tokens": 32125894, "tok_s": 46886, "elapsed_s": 685.2}
+{"step": 1800, "loss": 3.7062, "lr": 0.000114, "tokens": 33045631, "tok_s": 46897, "elapsed_s": 704.6}
+{"step": 1850, "loss": 3.4725, "lr": 0.000108, "tokens": 33953053, "tok_s": 46889, "elapsed_s": 724.1}
+{"step": 1900, "loss": 3.2519, "lr": 0.000103, "tokens": 34866113, "tok_s": 46890, "elapsed_s": 743.6}
+{"step": 1950, "loss": 3.5173, "lr": 0.000101, "tokens": 35778572, "tok_s": 46890, "elapsed_s": 763.0}
+{"step": 1999, "loss": 3.6366, "lr": 0.0001, "tokens": 36670829, "tok_s": 46889, "elapsed_s": 782.1}
+{"step": 1999, "val_loss": 4.0924, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're welcome. I would like a big bigger. What would you like to know if you are interested in in in the future?<OPTIMIST> According to the Astep, I would have a trade-off, and the idea"}

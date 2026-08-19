@@ -1,0 +1,25 @@
+{
+ "debates": 200,
+ "turns": 4000,
+ "avg_turns_per_debate": 20.0,
+ "optimist": {
+  "avg_tokens_per_turn": 11.6,
+  "truncated_frac": 1.0,
+  "blank_frac": 0.0,
+  "avg_rep_4gram": 0.0,
+  "avg_diversity": 0.996,
+  "opt_lean_score": 0.0552,
+  "pes_lean_score": 0.0139,
+  "lean_delta": 0.0413
+ },
+ "pessimist": {
+  "avg_tokens_per_turn": 11.6,
+  "truncated_frac": 1.0,
+  "blank_frac": 0.0,
+  "avg_rep_4gram": 0.0,
+  "avg_diversity": 0.996,
+  "opt_lean_score": 0.0552,
+  "pes_lean_score": 0.0139,
+  "lean_delta": 0.0413
+ }
+}

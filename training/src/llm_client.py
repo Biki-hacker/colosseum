@@ -26,6 +26,25 @@ BACKOFF_BASE_S = 2.0
 JSON_FENCE = re.compile(r"```(?:json)?\s*(.*?)\s*```", re.DOTALL)
 
 
+def _load_env() -> None:
+    """Load .env from the project root (repo root or cwd)."""
+    try:
+        from dotenv import load_dotenv
+
+        for candidate in (
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", ".env"),
+            os.path.join(os.getcwd(), ".env"),
+        ):
+            if os.path.exists(candidate):
+                load_dotenv(candidate, override=False)
+                return
+    except ImportError:
+        pass
+
+
+_load_env()
+
+
 class LLMClient:
     def __init__(self):
         self.base_url = os.environ.get("LLM_BASE_URL", "").rstrip("/") or "https://api.openai.com/v1"
