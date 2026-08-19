@@ -28,12 +28,20 @@ on this machine / environment, never estimated.
 | final val loss | TBD | TBD |
 | training steps | TBD | TBD |
 
-## Training speed (RTX 5050)
+## Training speed (RTX 5050, fp32/bf16, chunked CE over sequence)
 
-| config | tokens/sec | samples/sec | VRAM peak | wall time |
-| --- | --- | --- | --- | --- |
-| fp32, batch 64 | TBD | TBD | TBD | TBD |
-| bf16, batch 64 | TBD | TBD | TBD | TBD |
+Measured 2026-08-19 with `training/scripts/bench_train.py`. The output head (vocab 4096)
+dominates VRAM; chunked cross-entropy over the sequence dimension keeps peaks low.
+
+| config | tokens/sec | VRAM peak | note |
+| --- | --- | --- | --- |
+| fp32, batch 64, seq 512 | 46.4 ktok/s | 7.6 GB | near VRAM limit; not used |
+| bf16, batch 64, seq 512 | 87.2 ktok/s | 7.7 GB | near VRAM limit; not used |
+| bf16, batch 32, seq 512, accum 2 | 46.1 ktok/s | **3.9 GB** | chosen default (safe headroom) |
+| bf16, batch 64, seq 256, accum 2 | 67.7 ktok/s | 3.9 GB | faster per step; used if packing yields short seqs |
+
+Effective throughput ≈ 46–68 ktok/s → ~165–245 M tokens/hour. A 10M-token corpus trains in
+~2–4 minutes per model. Multiple mixtures/experiments are cheap.
 
 ## Inference (CPU)
 
