@@ -51,3 +51,6 @@ server/.runtime/
 Thumbs.db
 .idea/
 .vscode/
+data/
+server/.env
+

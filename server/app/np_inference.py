@@ -85,7 +85,9 @@ class NPModel:
         The cache is rebuilt if the sequence is shorter than a previous call."""
         n = len(ids)
         L = self.cfg["n_layers"]
-        if self._cache_len is None or n < self._cache_len:
+        if self._cache_len is None or n <= self._cache_len:
+            # Rebuild whenever the sequence does not strictly grow: fresh prompt,
+            # or a context-length window that has stopped growing (ids[-512:]).
             maxS = self.cfg["context_length"]
             hd = self.cfg["d_model"] // self.cfg["n_heads"]
             self._kc = [np.zeros((maxS, self.cfg["n_heads"], hd), np.float32) for _ in range(L)]
