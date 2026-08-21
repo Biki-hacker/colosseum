@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { playClick, playThinkingHum, playTurnPing, playVerdictFanfare } from "./sound";
 import { Transcript } from "./Transcript";
+import { ArenaSkeleton } from "./Skeleton";
 import type { Debate, Health, Speaker, Turn, WsEvent } from "./types";
 
 interface Current {
@@ -68,11 +69,19 @@ export function Arena({ health }: ArenaProps) {
   const [recent, setRecent] = useState<Debate[]>([]);
   const [current, setCurrent] = useState<Current | null>(null);
   const [isDemoRunning, setIsDemoRunning] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const wsRef = useRef<WebSocket | null>(null);
   const demoTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
-    return () => demoTimerRef.current.forEach(clearTimeout);
+    const fallback = setTimeout(() => {
+      setInitialLoading(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(fallback);
+      demoTimerRef.current.forEach(clearTimeout);
+    };
   }, []);
 
   // WebSocket Connection
@@ -94,6 +103,7 @@ export function Arena({ health }: ArenaProps) {
 
         ws.onmessage = (ev) => {
           try {
+            setInitialLoading(false);
             const msg = JSON.parse(ev.data as string) as WsEvent;
             switch (msg.type) {
               case "recent":
@@ -244,6 +254,10 @@ export function Arena({ health }: ArenaProps) {
   const turnProgress = current ? Math.min(current.turns.length, 20) : 0;
   const isOngoing = Boolean(current && !current.winner && !current.error);
   const lastSpeaker = current && current.turns.length > 0 ? current.turns[current.turns.length - 1].speaker : null;
+
+  if (initialLoading && !current && !isDemoRunning) {
+    return <ArenaSkeleton />;
+  }
 
   return (
     <div className="arena-stage">
