@@ -20,13 +20,15 @@ export function History() {
   const refresh = useCallback(async () => {
     try {
       setLoading(true);
-      setDebates(await fetchDebates(50));
+      const raw = await fetchDebates(50);
+      setDebates(raw.filter((d) => d.status === "completed"));
       setError(null);
     } catch (e) {
       setError(String(e));
     } finally {
       setLoading(false);
     }
+
   }, []);
 
   useEffect(() => {

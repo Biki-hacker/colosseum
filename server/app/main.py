@@ -97,8 +97,11 @@ def health():
 
 
 @app.get("/api/debates")
-async def list_debates(limit: int = 20):
-    return await asyncio.to_thread(scheduler.storage.list_debates, max(1, min(limit, 100)))
+async def list_debates(limit: int = 50, status: Optional[str] = "completed"):
+    debates = await asyncio.to_thread(scheduler.storage.list_debates, max(1, min(limit, 100)))
+    if status:
+        return [d for d in debates if d.get("status") == status]
+    return debates
 
 
 @app.get("/api/debates/{debate_id}")
@@ -117,8 +120,21 @@ async def ws_debates(ws: WebSocket):
     q = hub.subscribe()
     try:
         if scheduler is not None:
-            recent = await asyncio.to_thread(scheduler.storage.list_debates, 10)
-            await ws.send_json({"type": "recent", "debates": recent})
+            debates = await asyncio.to_thread(scheduler.storage.list_debates, 20)
+            completed_debates = [d for d in debates if d.get("status") == "completed"]
+            await ws.send_json({"type": "recent", "debates": completed_debates})
+
+            # Check if there is an ongoing live debate
+            running = next((d for d in debates if d.get("status") == "running"), None)
+            if running:
+                turns = await asyncio.to_thread(scheduler.storage.get_turns, running["id"])
+                await ws.send_json({
+                    "type": "active_debate",
+                    "debate_id": running["id"],
+                    "topic": running["topic"],
+                    "status": "running",
+                    "turns": turns,
+                })
         while True:
             ev = await q.get()
             await ws.send_json(ev)
@@ -126,6 +142,7 @@ async def ws_debates(ws: WebSocket):
         pass
     finally:
         hub.unsubscribe(q)
+
 
 
 _DIST = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "client", "dist"))

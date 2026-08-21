@@ -62,9 +62,18 @@ export function Arena() {
           case "recent":
             setRecent(msg.debates);
             break;
+          case "active_debate":
+            setCurrent({
+              topic: msg.topic,
+              turns: msg.turns || [],
+              thinkingSpeaker: (msg.turns?.length ?? 0) % 2 === 0 ? "optimist" : "pessimist",
+              totalTurns: 20,
+            });
+            break;
           case "debate_started":
             setCurrent({ topic: msg.topic, turns: [], thinkingSpeaker: "optimist", totalTurns: 20 });
             break;
+
           case "thinking":
             setCurrent((c) => (c ? { ...c, thinkingSpeaker: msg.speaker } : c));
             break;

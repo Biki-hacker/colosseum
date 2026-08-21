@@ -29,7 +29,9 @@ export interface Health {
 
 export type WsEvent =
   | { type: "recent"; debates: Debate[] }
+  | { type: "active_debate"; debate_id: string; topic: string; status: string; turns: Turn[] }
   | { type: "debate_started"; debate_id: string; topic: string; first: string }
+
   | {
       type: "turn";
       debate_id: string;
