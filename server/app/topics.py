@@ -72,8 +72,13 @@ def generate_topic_batch(client: LLMClient, count: int = 12, used: Optional[set]
     return dedupe_topics(topics)[:count]
 
 
+import logging
+
+log = logging.getLogger("colosseum.topics")
+
+
 class TopicProvider:
-    """Round-robins: fresh LLM batch (hourly target) then fallback pool.
+    """Round-robins: fresh LLM batch (12 topics/hour target) cached in Redis, then fallback pool.
 
     Dedupe against recently used topics (Redis set when available, else a
     per-process set seeded from storage)."""
@@ -88,6 +93,7 @@ class TopicProvider:
         self._batch_pos = 0
         self._pool = load_fallback_pool()
         self._used_key = "colosseum:used_topics"
+        self._hourly_key = "colosseum:hourly_topics"
 
     def _load_used(self) -> set:
         if self.redis is not None:
@@ -111,26 +117,66 @@ class TopicProvider:
             self.used = set(list(self.used)[-500:])
         self._save_used(self.used)
 
+    def _load_hourly_from_redis(self) -> List[str]:
+        if self.redis is not None:
+            try:
+                raw = self.redis.get(self._hourly_key)
+                if raw:
+                    data = json.loads(raw)
+                    if isinstance(data, list) and data:
+                        return data
+            except Exception as e:
+                log.warning("redis load hourly topics error: %s", e)
+        return []
+
+    def _save_hourly_to_redis(self, topics: List[str]) -> None:
+        if self.redis is not None:
+            try:
+                self.redis.set(self._hourly_key, json.dumps(topics), ex=7200)
+            except Exception as e:
+                log.warning("redis save hourly topics error: %s", e)
+
+    def ensure_hourly_batch(self) -> None:
+        """Called on startup / when batch is empty: ensure 12 topics are ready in Redis cache."""
+        # 1. Check Redis for existing unconsumed hourly batch
+        redis_topics = self._load_hourly_from_redis()
+        if redis_topics:
+            self._batch = redis_topics
+            self._batch_pos = 0
+            log.info("Loaded %d remaining hourly topics from Redis cache", len(self._batch))
+            return
+
+        # 2. If Redis has no topics, ask OpenRouter for 12 topics for the upcoming hour
+        used = self._load_used()
+        log.info("Requesting external LLM (OpenRouter) to generate 12 topics for the upcoming hour...")
+        try:
+            new_topics = generate_topic_batch(self.client, count=settings.topics_per_hour, used=used)
+            if new_topics:
+                self._batch = new_topics
+                self._batch_pos = 0
+                self._save_hourly_to_redis(self._batch)
+                log.info("Generated %d hourly topics from LLM and cached to Redis", len(new_topics))
+                return
+        except Exception as e:
+            log.warning("Failed generating hourly topics from LLM, falling back to curated pool: %s", e)
+
+        # 3. Fallback pool
+        self._batch = [t for t in self._pool if t not in used][:12] or self._pool[:12]
+        self._batch_pos = 0
+        self._save_hourly_to_redis(self._batch)
+
     def next(self) -> Optional[str]:
         used = self._load_used()
+        if self._batch_pos >= len(self._batch):
+            self.ensure_hourly_batch()
+
         if self._batch_pos < len(self._batch):
             topic = self._batch[self._batch_pos]
             self._batch_pos += 1
+            remaining = self._batch[self._batch_pos:]
+            self._save_hourly_to_redis(remaining)
             self._remember(topic)
             return topic
-
-        # Try LLM batch
-        try:
-            self._batch = generate_topic_batch(self.client, count=min(settings.topics_per_hour, 6), used=used)
-            self._batch_pos = 0
-            if self._batch_pos < len(self._batch):
-                topic = self._batch[self._batch_pos]
-                self._batch_pos += 1
-                self._remember(topic)
-                return topic
-        except Exception:
-            self._batch = []
-            self._batch_pos = 0
 
         attempts = 0
         while self._pool and attempts < len(self._pool) * 2:
@@ -142,4 +188,5 @@ class TopicProvider:
             if topic not in used or attempts >= len(self._pool):
                 self._remember(topic)
                 return topic
-        return "Is it better to be optimistic or skeptical in life?"
+        return "Is it better to be optimistic or skeptical in life?"
+

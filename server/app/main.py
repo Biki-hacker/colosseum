@@ -69,8 +69,9 @@ async def lifespan(app: FastAPI):
     runner = DebateRunner(engine)
     redis_client = await asyncio.to_thread(_make_redis)
     topics = TopicProvider(make_llm(), redis=redis_client)
-    scheduler = Scheduler(storage, runner, topics, judge_client=make_judge_llm())
+    scheduler = Scheduler(storage, runner, topics, judge_client=make_judge_llm(), redis=redis_client)
     await scheduler.recover()
+
     _scheduler_task = asyncio.create_task(scheduler.run())
     log.info("server ready (models loaded, scheduler started)")
     yield
