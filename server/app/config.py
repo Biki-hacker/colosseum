@@ -110,7 +110,7 @@ class Settings:
 
     @property
     def max_new_tokens(self) -> int:
-        return _int("MAX_NEW_TOKENS", 50)
+        return _int("MAX_NEW_TOKENS", 75)
 
     @property
     def topics_per_hour(self) -> int:
@@ -126,7 +126,7 @@ class Settings:
 
     @property
     def generation_temperature(self) -> float:
-        return _float("GENERATION_TEMPERATURE", 0.75)
+        return _float("GENERATION_TEMPERATURE", 0.65)
 
     @property
     def generation_top_k(self) -> int:

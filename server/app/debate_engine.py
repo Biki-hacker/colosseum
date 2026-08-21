@@ -41,6 +41,7 @@ class DebateRunner:
                 settings.generation_top_k,
                 settings.generation_top_p,
                 settings.generation_repetition_penalty,
+                settings.max_new_tokens,
             )
             if not text:
                 text = (

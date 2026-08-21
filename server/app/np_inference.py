@@ -22,10 +22,17 @@ STOP_STRINGS = ("<EOS>", "<TURN>", "<OPTIMIST>", "<PESSIMIST>", "<TOPIC>")
 class NPModel:
     """Frozen transformer loaded from an exported .npz dict of f32 arrays."""
 
-    def __init__(self, cfg: dict, arrays: Dict[str, np.ndarray], stop_token_ids: set[int] | None = None):
+    def __init__(
+        self,
+        cfg: dict,
+        arrays: Dict[str, np.ndarray],
+        stop_token_ids: set[int] | None = None,
+        punct_token_ids: set[int] | None = None,
+    ):
         self.cfg = cfg
         self.arrays = arrays
         self.stop_token_ids = stop_token_ids or set()
+        self.punct_token_ids = punct_token_ids or set()
         d = cfg["d_model"]
         h = cfg["n_heads"]
         hd = d // h
@@ -116,28 +123,30 @@ class NPModel:
     def generate(
         self,
         prompt_ids: List[int],
-        temperature: float = 0.75,
+        temperature: float = 0.65,
         top_k: int = 25,
         top_p: float = 0.90,
         repetition_penalty: float = 1.20,
         stop_ids: set[int] | None = None,
+        max_new_tokens: int = 75,
+        min_tokens_for_punct_stop: int = 28,
     ) -> Tuple[List[int], bool]:
         rng = np.random.default_rng()
         out: List[int] = []
-        max_prompt = self.cfg["context_length"] - MAX_TOKENS
+        max_prompt = self.cfg["context_length"] - max_new_tokens
         ids = prompt_ids[-max_prompt:] if len(prompt_ids) > max_prompt else prompt_ids
         self._kc = self._vc = None
         self._cache_len = None  # fresh prompt: rebuild cache
         effective_stops = stop_ids if stop_ids is not None else self.stop_token_ids
 
-        for _ in range(MAX_TOKENS):
+        for step in range(max_new_tokens):
             lg = self.logits_cached(ids)
             lg = lg.astype(np.float64)
 
             # Correct Repetition Penalty:
             # Positive logits are reduced (/ penalty), negative logits are pushed lower (* penalty)
             if repetition_penalty > 1.0:
-                for tok in set(ids[-MAX_TOKENS:] + out):
+                for tok in set(ids[-max_new_tokens:] + out):
                     if lg[tok] > 0:
                         lg[tok] = lg[tok] / repetition_penalty
                     else:
@@ -175,6 +184,12 @@ class NPModel:
                 return out, True
             out.append(nxt)
             ids = ids + [nxt]
+
+            # Soft Stop on Sentence Boundary:
+            # Once sufficient content is spoken (28+ tokens), stop cleanly on sentence punctuation
+            if step >= min_tokens_for_punct_stop and nxt in self.punct_token_ids:
+                return out, True
+
         return out, False
 
 
@@ -198,6 +213,16 @@ class NPEngine:
             if hasattr(self.tokenizer, "special") and isinstance(self.tokenizer.special, dict):
                 stop_token_ids.update(self.tokenizer.special.values())
 
+            punct_token_ids = set()
+            if hasattr(self.tokenizer, "vocab"):
+                for t_str, t_id in self.tokenizer.vocab.items():
+                    try:
+                        decoded_piece = "".join(chr(self.tokenizer.unicode_to_byte.get(c, ord(c))) for c in t_str)
+                        if any(decoded_piece.endswith(p) for p in [".", "!", "?", ".\"", "!\"", "?\""]):
+                            punct_token_ids.add(t_id)
+                    except Exception:
+                        pass
+
             with open(os.path.join(root, "config.json"), encoding="utf-8") as f:
                 meta = json.load(f)
             cfg = meta["model"]
@@ -205,7 +230,12 @@ class NPEngine:
             arrays = {k: arrays[k] for k in arrays.files}
             if cfg.get("tie_embeddings", True) and "lm_head.weight" not in arrays:
                 arrays["lm_head.weight"] = arrays["tok_emb.weight"]
-            self.models[pers] = NPModel(cfg, arrays, stop_token_ids=stop_token_ids)
+            self.models[pers] = NPModel(
+                cfg,
+                arrays,
+                stop_token_ids=stop_token_ids,
+                punct_token_ids=punct_token_ids,
+            )
 
     def generate_turn(
         self,
@@ -216,6 +246,7 @@ class NPEngine:
         top_k: int = 25,
         top_p: float = 0.90,
         repetition_penalty: float = 1.20,
+        max_new_tokens: int = 75,
     ) -> Tuple[str, int, bool]:
         # Keep context to the last 2 turns so <TOPIC> stays directly in the 5M model's active attention field
         recent_history = history[-2:] if len(history) > 2 else history
@@ -231,6 +262,7 @@ class NPEngine:
             top_k=top_k,
             top_p=top_p,
             repetition_penalty=repetition_penalty,
+            max_new_tokens=max_new_tokens,
         )
 
         decoded = self.tokenizer.decode(text_ids)
@@ -247,10 +279,26 @@ class NPEngine:
                 top_k=max(30, top_k),
                 top_p=top_p,
                 repetition_penalty=repetition_penalty,
+                max_new_tokens=max_new_tokens,
             )
             decoded = self.tokenizer.decode(text_ids)
             for s in STOP_STRINGS + ("<BOS>", "<PAD>", "<UNK>"):
                 decoded = decoded.replace(s, "")
             clean_text = decoded.strip()
+
+        # Ensure sentence completion: if text was cut off without punctuation, trim to the last complete sentence
+        if clean_text and clean_text[-1] not in ".!?\"'":
+            last_punct = max(
+                clean_text.rfind(". "),
+                clean_text.rfind("! "),
+                clean_text.rfind("? "),
+                clean_text.rfind(".\n"),
+                clean_text.rfind("!\n"),
+                clean_text.rfind("?\n"),
+            )
+            if last_punct != -1:
+                clean_text = clean_text[: last_punct + 1].strip()
+            else:
+                clean_text = clean_text + "."
 
         return clean_text, len(text_ids), hit
