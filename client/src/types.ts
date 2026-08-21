@@ -39,6 +39,12 @@ export type WsEvent =
       position: number;
     }
   | {
+      type: "thinking";
+      debate_id: string;
+      speaker: Speaker;
+      position: number;
+    }
+  | {
       type: "debate_completed";
       debate_id: string;
       winner: string;
@@ -46,4 +52,4 @@ export type WsEvent =
       pessimist_score: number;
       commentary: string;
     }
-  | { type: "debate_failed"; debate_id: string; error: string };
+  | { type: "debate_failed"; debate_id: string; error: string };

@@ -180,15 +180,16 @@ class NPEngine:
         speaker: str,
         topic: str,
         history: List[Tuple[str, str]],
-        temperature: float = 0.8,
-        top_k: int = 40,
-        top_p: float = 0.9,
-        repetition_penalty: float = 1.15,
+        temperature: float = 0.55,
+        top_k: int = 15,
+        top_p: float = 0.85,
+        repetition_penalty: float = 1.20,
     ) -> Tuple[str, int, bool]:
         parts = [f"<BOS><TOPIC> {topic}"]
-        for s, text in history:
+        recent_history = history[-4:] if len(history) > 4 else history
+        for s, text in recent_history:
             parts.append(f"<TURN><{s.upper()}>{' ' + text if text else ''}")
         parts.append(f"<TURN><{speaker.upper()}>")
         ids = self.tokenizer.encode("".join(parts))
         text_ids, hit = self.models[speaker].generate(ids, temperature, top_k, top_p, repetition_penalty)
-        return self.tokenizer.decode(text_ids).strip(), len(text_ids), hit
+        return self.tokenizer.decode(text_ids).strip(), len(text_ids), hit

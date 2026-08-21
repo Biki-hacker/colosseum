@@ -29,23 +29,42 @@ export function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>COLOSSEUM</h1>
+        <div className="brand">
+          <span className="brand-badge">⚡ VS 🛡️</span>
+          <h1 className="brand-title">COLOSSEUM</h1>
+          <span className="brand-tagline">AI DEBATE ARENA</span>
+        </div>
+
         <nav className="tabs">
-          <button className={tab === "arena" ? "on" : ""} onClick={() => setTab("arena")}>
-            Arena
+          <button
+            type="button"
+            className={tab === "arena" ? "tab-btn on" : "tab-btn"}
+            onClick={() => setTab("arena")}
+          >
+            ⚔️ Live Arena
           </button>
-          <button className={tab === "history" ? "on" : ""} onClick={() => setTab("history")}>
-            History
+          <button
+            type="button"
+            className={tab === "history" ? "tab-btn on" : "tab-btn"}
+            onClick={() => setTab("history")}
+          >
+            📜 Archive
           </button>
         </nav>
+
         <div className="health">
           <span className={`dot ${health?.status === "ok" ? "on" : ""}`} />
-          {health
-            ? `every ${health.interval_s}s · ${health.llm}/${health.storage} · up ${fmtUptime(health.uptime_s)}`
-            : "server offline"}
+          {health ? (
+            <span className="health-text">
+              <strong>{health.interval_s}s round</strong> · {health.storage} · up {fmtUptime(health.uptime_s)}
+            </span>
+          ) : (
+            <span className="health-text offline">Connecting to server…</span>
+          )}
         </div>
       </header>
-      {tab === "arena" ? <Arena /> : <History />}
+
+      <main className="app-content">{tab === "arena" ? <Arena /> : <History />}</main>
     </div>
   );
-}
+}

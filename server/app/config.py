@@ -61,7 +61,9 @@ class Settings:
     debate_turns: int = _int("DEBATE_TURNS", 20)
     max_new_tokens: int = _int("MAX_NEW_TOKENS", 50)
     topics_per_hour: int = _int("TOPICS_PER_HOUR", 12)
+    turn_delay_seconds: float = _float("TURN_DELAY_SECONDS", 6.5)
     retention_hours: int = _int("RETENTION_HOURS", 48)
+
 
     # inference
     generation_temperature: float = _float("GENERATION_TEMPERATURE", 0.55)

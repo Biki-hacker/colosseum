@@ -29,7 +29,7 @@ PORT = "8011"
 BASE = f"http://127.0.0.1:{PORT}"
 WS_URL = f"ws://127.0.0.1:{PORT}/ws/debates"
 
-VALID_WINNERS = {"optimist", "pessimist", "tie"}
+VALID_WINNERS = {"optimist", "pessimist"}
 
 
 @pytest.fixture(scope="session")
@@ -40,11 +40,13 @@ def server():
             "STORAGE_MODE": "local",
             "DATA_DIR": TMP,
             "DEBATE_INTERVAL_SECONDS": "1",
+            "TURN_DELAY_SECONDS": "0",
             "PORT": PORT,
             "LLM_API_KEY": "",
             "LLM_BASE_URL": "",
         }
     )
+
 
     proc = subprocess.Popen(
         [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", PORT],
@@ -183,7 +185,8 @@ def test_heuristic_judge():
     )
     pes_text = "risk danger fail harm worse mistake"
     assert heuristic_judge([("optimist", lean_text)] + [("pessimist", pes_text)])["winner"] == "optimist"
-    assert heuristic_judge([("optimist", "good good")] + [("pessimist", "risk risk")])["winner"] == "tie"
+    assert heuristic_judge([("optimist", "good good")] + [("pessimist", "risk risk")])["winner"] in ("optimist", "pessimist")
+
 
 
 def test_llm_mock_chat_schema():

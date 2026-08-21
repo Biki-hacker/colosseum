@@ -10,6 +10,7 @@ from .np_inference import NPEngine
 from .tokenizer import SimpleBPETokenizer
 
 EVENT_STARTED = "debate_started"
+EVENT_THINKING = "thinking"
 EVENT_TURN = "turn"
 EVENT_COMPLETED = "debate_completed"
 EVENT_FAILED = "debate_failed"
@@ -25,9 +26,12 @@ class DebateRunner:
         first = "optimist"
         history: List[Tuple[str, str]] = []
         meta: List[dict] = []
-        await on_event({"type": EVENT_STARTED, "topic": topic, "first": first})
+        await on_event({"type": EVENT_STARTED, "topic": topic, "first": first, "total_turns": settings.debate_turns})
         for i in range(settings.debate_turns):
             speaker = first if i % 2 == 0 else ("pessimist" if first == "optimist" else "optimist")
+            await on_event({"type": EVENT_THINKING, "speaker": speaker, "position": i})
+            if settings.turn_delay_seconds > 0:
+                await asyncio.sleep(settings.turn_delay_seconds)
             text, nt, hit_marker = await asyncio.to_thread(
                 self.engine.generate_turn,
                 speaker,
@@ -44,6 +48,7 @@ class DebateRunner:
             if not text:
                 break
         return history, meta
+
 
 
 def make_engine() -> NPEngine:
