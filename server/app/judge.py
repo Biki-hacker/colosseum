@@ -7,16 +7,17 @@ from typing import Dict, List, Tuple
 
 from .llm import LLMClient
 
-JUDGE_SYSTEM = """You are the decisive, sharp-witted Chief Justice of the AI Colosseum.
-You are evaluating a fierce, intellectual debate between an OPTIMIST and a PESSIMIST.
+JUDGE_SYSTEM = """You are the impartial, sharp-witted Chief Justice of the AI Colosseum.
+You are evaluating a philosophical debate between two AI models: an OPTIMIST and a PESSIMIST.
 
 Your mandate:
-1. NEVER DECLARE A TIE. You MUST pick a definitive WINNER: either "optimist" or "pessimist".
-2. Evaluate based on:
-   - Counter-punch quality: Did they directly dismantle the opponent's prior points?
-   - Rhetorical flair & wit: Who delivered the most memorable, devastating roasts and arguments?
-   - Persona consistency: Did the Optimist stay inspiring without being naive? Did the Pessimist expose harsh realities without being petty?
-3. Provide a witty, 1-2 sentence commentary explaining the decisive knockout factor.
+1. BE COMPLETELY UNBIASED between optimism and pessimism. Value constructive vision, agency, and resilience just as much as cautionary critique and risk analysis.
+2. Evaluate fairly based on:
+   - Persuasiveness & Conviction: Who presented the more compelling, well-articulated worldview on the topic?
+   - Rebuttal strength: Did they address and reframe the opponent's points effectively?
+   - Persona fidelity: Did the Optimist champion possibility, agency, and progress? Did the Pessimist articulate grounded risks, trade-offs, and cautionary truths?
+3. NEVER DECLARE A TIE. Pick a definitive WINNER: either "optimist" or "pessimist" based strictly on performance in this round.
+4. Provide a witty, sharp 1-2 sentence commentary explaining the decisive winning factor.
 
 Return JSON with exactly these keys:
 - winner: "optimist" | "pessimist"
@@ -38,12 +39,15 @@ JUDGE_SCHEMA = {
 OPT_LEAN = [
     "opportunity", "hope", "growth", "positive", "better", "can", "together", "learn", "good", "love",
     "possibility", "future", "encourage", "strength", "solution", "confidence", "believe", "wonderful",
-    "excited", "bright", "gain", "build", "change",
+    "excited", "bright", "gain", "build", "change", "start", "trying", "effort", "pride", "gift",
+    "hopeful", "progress", "strong", "grounding", "reward", "difference", "accomplishment", "benefit",
+    "connected", "satisfying", "possible", "action", "forward", "meaning", "reach", "joy",
 ]
 PES_LEAN = [
     "risk", "danger", "cost", "fail", "wrong", "hard", "difficult", "problem", "worse", "mistake",
     "harm", "lost", "trap", "doubt", "careful", "riskier", "fear", "unfair", "broken", "hopeless",
-    "downside", "dangerous", "worry", "concern",
+    "downside", "dangerous", "worry", "concern", "trade-off", "reality", "fatigue", "exhausted",
+    "cynicism", "unravel", "expensive", "pressure", "consequences",
 ]
 
 
@@ -53,18 +57,31 @@ def _lean_score(text: str, pole: List[str]) -> float:
 
 
 def heuristic_judge(turns: List[Tuple[str, str]]) -> Dict:
-    """Deterministic mock judge: lexicon lean + engagement (never ties)."""
-    opt_len = sum(len(t[1].split()) for t in turns if t[0] == "optimist")
-    pes_len = sum(len(t[1].split()) for t in turns if t[0] == "pessimist")
-    opt_lean = sum(_lean_score(t[1], OPT_LEAN) for t in turns if t[0] == "optimist")
-    pes_lean = sum(_lean_score(t[1], PES_LEAN) for t in turns if t[0] == "pessimist")
-    o = min(10, max(1, int(4 + 3 * opt_lean / max(len(turns) / 2, 1) + min(opt_len / 200, 3))))
-    p = min(10, max(1, int(4 + 3 * pes_lean / max(len(turns) / 2, 1) + min(pes_len / 200, 3))))
+    """Deterministic mock judge: lexicon lean + engagement + variety (balanced, never ties)."""
+    opt_turns = [t[1] for t in turns if t[0] == "optimist"]
+    pes_turns = [t[1] for t in turns if t[0] == "pessimist"]
+
+    opt_len = sum(len(t.split()) for t in opt_turns)
+    pes_len = sum(len(t.split()) for t in pes_turns)
+
+    opt_lean = sum(_lean_score(t, OPT_LEAN) for t in opt_turns) / max(len(opt_turns), 1)
+    pes_lean = sum(_lean_score(t, PES_LEAN) for t in pes_turns) / max(len(pes_turns), 1)
+
+    opt_vocab = len(set(" ".join(opt_turns).lower().split())) / max(opt_len, 1) if opt_len else 0
+    pes_vocab = len(set(" ".join(pes_turns).lower().split())) / max(pes_len, 1) if pes_len else 0
+
+    opt_raw = 5.0 + 4.0 * opt_lean + 2.0 * opt_vocab + min(opt_len / max(len(turns) * 20, 1), 1.0)
+    pes_raw = 5.0 + 4.0 * pes_lean + 2.0 * pes_vocab + min(pes_len / max(len(turns) * 20, 1), 1.0)
+
+    o = min(10, max(1, int(round(opt_raw))))
+    p = min(10, max(1, int(round(pes_raw))))
+
     if o == p:
-        if opt_len >= pes_len:
+        if opt_raw >= pes_raw:
             o = min(10, o + 1)
         else:
             p = min(10, p + 1)
+
     winner = "optimist" if o >= p else "pessimist"
     commentary = (
         f"The {winner.capitalize()} carried the round with superior rhetorical conviction and sharper counter-arguments."

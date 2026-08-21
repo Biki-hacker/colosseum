@@ -212,13 +212,14 @@ class NPEngine:
         speaker: str,
         topic: str,
         history: List[Tuple[str, str]],
-        temperature: float = 0.75,
+        temperature: float = 0.65,
         top_k: int = 25,
         top_p: float = 0.90,
         repetition_penalty: float = 1.20,
     ) -> Tuple[str, int, bool]:
+        # Keep context to the last 2 turns so <TOPIC> stays directly in the 5M model's active attention field
+        recent_history = history[-2:] if len(history) > 2 else history
         parts = [f"<BOS><TOPIC> {topic}"]
-        recent_history = history[-4:] if len(history) > 4 else history
         for s, text in recent_history:
             parts.append(f"<TURN><{s.upper()}>{' ' + text if text else ''}")
         parts.append(f"<TURN><{speaker.upper()}>")
@@ -252,4 +253,4 @@ class NPEngine:
                 decoded = decoded.replace(s, "")
             clean_text = decoded.strip()
 
-        return clean_text, len(text_ids), hit
+        return clean_text, len(text_ids), hit
