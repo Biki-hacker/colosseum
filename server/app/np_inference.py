@@ -78,7 +78,8 @@ class NPModel:
         y = (att @ kv).transpose(1, 0, 2).reshape(n_new, d)
         x = x + y @ self.arrays[p + "attn.out.weight"].T
         gu = (x @ self.arrays[p + "gate.weight"].T) * (x @ self.arrays[p + "up.weight"].T)
-        return x + (gu * (1.0 / (1.0 + np.exp(-gu)))) @ self.arrays[p + "down.weight"].T
+        sig = 1.0 / (1.0 + np.exp(-np.clip(gu, -50.0, 50.0)))
+        return x + (gu * sig) @ self.arrays[p + "down.weight"].T
 
     def logits_cached(self, ids: List[int]) -> np.ndarray:
         """logits for the last position using a per-layer KV cache (exact).
@@ -86,8 +87,7 @@ class NPModel:
         n = len(ids)
         L = self.cfg["n_layers"]
         if self._cache_len is None or n <= self._cache_len:
-            # Rebuild whenever the sequence does not strictly grow: fresh prompt,
-            # or a context-length window that has stopped growing (ids[-512:]).
+            # Rebuild whenever the sequence does not strictly grow: fresh prompt
             maxS = self.cfg["context_length"]
             hd = self.cfg["d_model"] // self.cfg["n_heads"]
             self._kc = [np.zeros((maxS, self.cfg["n_heads"], hd), np.float32) for _ in range(L)]
@@ -115,11 +115,12 @@ class NPModel:
     def generate(self, prompt_ids: List[int], temperature: float, top_k: int, top_p: float, repetition_penalty: float) -> Tuple[List[int], bool]:
         rng = np.random.default_rng()
         out: List[int] = []
-        ids = prompt_ids
+        max_prompt = self.cfg["context_length"] - MAX_TOKENS
+        ids = prompt_ids[-max_prompt:] if len(prompt_ids) > max_prompt else prompt_ids
         self._kc = self._vc = None
         self._cache_len = None  # fresh prompt: rebuild cache
         for _ in range(MAX_TOKENS):
-            lg = self.logits_cached(ids[-self.cfg["context_length"] :])
+            lg = self.logits_cached(ids)
             lg = lg.astype(np.float64)
             if repetition_penalty > 1.0:
                 for tok in set(ids[-MAX_TOKENS:] + out):
@@ -147,6 +148,7 @@ class NPModel:
             out.append(nxt)
             ids = ids + [nxt]
         return out, False
+
 
 
 STOP_TOKEN_IDS: List[int] = []

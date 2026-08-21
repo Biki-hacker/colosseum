@@ -101,9 +101,11 @@ fp32, batch 64, ctx 512:
 - weights in RAM: ~19.9 MB
 - KV cache (6 layers × 2 × 512 × 256 × 4 B) ≈ 6.3 MB
 - per-token forward ≈ 2 × 8M MACs ≈ 16 MFLOP
-- at 0.1 vCPU this projects to roughly 50–300 ms/token → ~50-token turn in ~3–15 s.
-  Measured numbers are recorded in BENCHMARKS.md; the 5-minute debate cadence has ample
-  slack (worst case ~20 turns × 15 s = 300 s ≈ one slot).
+- Measured (2026-08-20, dev machine, NumPy engine): ~4 ms/token (≈250 tok/s), 50-token
+  turn ≈ 0.2 s, engine startup 0.05 s, full process RSS ~96 MB (see BENCHMARKS.md).
+- On a 0.1 vCPU Render instance this projects to roughly 50–300 ms/token → ~50-token turn
+  in ~3–15 s. The 5-minute debate cadence has ample slack (worst case ~20 turns × 15 s =
+  300 s ≈ one slot).
 
 ## 7. Alternatives considered and rejected
 

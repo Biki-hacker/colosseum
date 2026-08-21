@@ -19,3 +19,24 @@
 {"step": 750, "loss": 4.2695, "lr": 0.000106, "tokens": 13746490, "tok_s": 46688, "elapsed_s": 294.4}
 {"step": 799, "loss": 4.3654, "lr": 0.0001, "tokens": 14631249, "tok_s": 46679, "elapsed_s": 313.4}
 {"step": 799, "val_loss": 4.4953, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is a little about the world in a risk of balling the Earth.<OPTIMIST> The Smallall is a a 'H'', the Earth is a \"SSran\" \"Pe\". W"}
+{"step": 0, "loss": 8.3918, "lr": 6e-06, "tokens": 12486, "tok_s": 15443, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.8657, "lr": 0.000306, "tokens": 585866, "tok_s": 29220, "elapsed_s": 20.1}
+{"step": 100, "loss": 6.4789, "lr": 0.0006, "tokens": 1151546, "tok_s": 29161, "elapsed_s": 39.5}
+{"step": 150, "loss": 5.812, "lr": 0.000594, "tokens": 1700944, "tok_s": 28869, "elapsed_s": 58.9}
+{"step": 199, "val_loss": 5.536, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You am more more more of the the first of the first of the first of the best of the best of the more of your life.<EOS>"}
+{"step": 200, "loss": 5.4253, "lr": 0.000575, "tokens": 2246638, "tok_s": 28368, "elapsed_s": 79.2}
+{"step": 250, "loss": 5.2792, "lr": 0.000545, "tokens": 2797393, "tok_s": 28364, "elapsed_s": 98.6}
+{"step": 300, "loss": 4.9458, "lr": 0.000506, "tokens": 3361854, "tok_s": 28469, "elapsed_s": 118.1}
+{"step": 350, "loss": 5.0556, "lr": 0.000458, "tokens": 3899314, "tok_s": 28354, "elapsed_s": 137.5}
+{"step": 399, "val_loss": 4.9424, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I'm glad you like, I'd like you to say you're not welcome. It is always not not like it. I'm sorry, but I'd really have to be a good way.<EOS>"}
+{"step": 400, "loss": 5.0353, "lr": 0.000406, "tokens": 4470410, "tok_s": 28328, "elapsed_s": 157.8}
+{"step": 450, "loss": 4.9666, "lr": 0.00035, "tokens": 5008132, "tok_s": 28257, "elapsed_s": 177.2}
+{"step": 500, "loss": 4.7641, "lr": 0.000294, "tokens": 5585101, "tok_s": 28397, "elapsed_s": 196.7}
+{"step": 550, "loss": 4.5984, "lr": 0.000242, "tokens": 6143668, "tok_s": 28428, "elapsed_s": 216.1}
+{"step": 599, "val_loss": 4.7072, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Sorry, we're going to think it's not not fair.<EOS>"}
+{"step": 600, "loss": 4.5399, "lr": 0.000194, "tokens": 6718419, "tok_s": 28454, "elapsed_s": 236.1}
+{"step": 650, "loss": 4.6709, "lr": 0.000155, "tokens": 7278378, "tok_s": 28481, "elapsed_s": 255.6}
+{"step": 700, "loss": 4.5649, "lr": 0.000125, "tokens": 7831919, "tok_s": 28482, "elapsed_s": 275.0}
+{"step": 750, "loss": 4.4682, "lr": 0.000106, "tokens": 8376402, "tok_s": 28451, "elapsed_s": 294.4}
+{"step": 799, "loss": 4.4769, "lr": 0.0001, "tokens": 8916430, "tok_s": 28446, "elapsed_s": 313.5}
+{"step": 799, "val_loss": 4.6021, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I think the real point is real. I've been not been right. I think the people just ever is a real point. The part of things just the people who's the part of the effort, and not a real, but the real point"}

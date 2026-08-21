@@ -2,11 +2,11 @@
  "tag": "final_optimist",
  "personality": "optimist",
  "data": {
-  "dataset_dir": "training/datasets/processed/dataset-v001",
+  "dataset_dir": "training/datasets/processed/dataset-v002",
   "tokenizer_json": "training/tokenizer/tokenizer-portable.json",
   "mixture": {
    "base": 1.0,
-   "synth": 0.25
+   "synth": 1.0
   }
  },
  "train": {

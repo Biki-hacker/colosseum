@@ -1,11 +1,11 @@
-﻿# Phase 5: final Optimist training (winner mixture base 1.0 : synth 0.25)
+# Phase 5: final Optimist training (winner mixture base 1.0 : synth 1.0)
 tag: final_optimist
 personality: optimist
 
 data:
-  dataset_dir: training/datasets/processed/dataset-v001
+  dataset_dir: training/datasets/processed/dataset-v002
   tokenizer_json: training/tokenizer/tokenizer-portable.json
-  mixture: { base: 1.0, synth: 0.25 }
+  mixture: { base: 1.0, synth: 1.0 }
 
 train:
   max_steps: 2000

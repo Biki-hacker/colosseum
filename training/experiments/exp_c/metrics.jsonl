@@ -19,3 +19,24 @@
 {"step": 750, "loss": 4.0635, "lr": 0.000106, "tokens": 12139446, "tok_s": 41237, "elapsed_s": 294.4}
 {"step": 799, "loss": 4.3025, "lr": 0.0001, "tokens": 12922914, "tok_s": 41236, "elapsed_s": 313.4}
 {"step": 799, "val_loss": 4.2997, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is easy to be used to be a bal balanced?<TURN> How may I think the real question.<OPTIMIST> I think you think the real question is, but you want to be the way to to use the question. I have the time,"}
+{"step": 0, "loss": 8.3941, "lr": 6e-06, "tokens": 11873, "tok_s": 14383, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.8614, "lr": 0.000306, "tokens": 517997, "tok_s": 25800, "elapsed_s": 20.1}
+{"step": 100, "loss": 6.4872, "lr": 0.0006, "tokens": 1022674, "tok_s": 25890, "elapsed_s": 39.5}
+{"step": 150, "loss": 5.8063, "lr": 0.000594, "tokens": 1519878, "tok_s": 25789, "elapsed_s": 58.9}
+{"step": 199, "val_loss": 5.4681, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're more more more of the the effort, and the most one and even not be a real point.<TURN> I're feel not a real of a real point. I'm feel the risk to're you're a good one.<TURN><OPTIMIST> I"}
+{"step": 200, "loss": 5.3963, "lr": 0.000575, "tokens": 2001847, "tok_s": 25209, "elapsed_s": 79.4}
+{"step": 250, "loss": 5.1899, "lr": 0.000545, "tokens": 2493133, "tok_s": 25222, "elapsed_s": 98.8}
+{"step": 300, "loss": 4.7965, "lr": 0.000506, "tokens": 2989765, "tok_s": 25278, "elapsed_s": 118.3}
+{"step": 350, "loss": 4.9174, "lr": 0.000458, "tokens": 3467683, "tok_s": 25184, "elapsed_s": 137.7}
+{"step": 399, "val_loss": 4.8132, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I don't have to see it, but I won't have to be a good way. I've need to be a good place to learn it. I love you, but I won't pretend it's a real point.<TURN><OPTIMIST> I"}
+{"step": 400, "loss": 4.9403, "lr": 0.000406, "tokens": 3970793, "tok_s": 25128, "elapsed_s": 158.0}
+{"step": 450, "loss": 4.9298, "lr": 0.00035, "tokens": 4445698, "tok_s": 25051, "elapsed_s": 177.5}
+{"step": 500, "loss": 4.6414, "lr": 0.000294, "tokens": 4960724, "tok_s": 25196, "elapsed_s": 196.9}
+{"step": 550, "loss": 4.2845, "lr": 0.000242, "tokens": 5456160, "tok_s": 25219, "elapsed_s": 216.4}
+{"step": 599, "val_loss": 4.5775, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I're thinking about that. I love that you're not thinking about your people who wants to be.<EOS>"}
+{"step": 600, "loss": 4.2312, "lr": 0.000194, "tokens": 5969829, "tok_s": 25243, "elapsed_s": 236.5}
+{"step": 650, "loss": 4.5262, "lr": 0.000155, "tokens": 6469068, "tok_s": 25272, "elapsed_s": 256.0}
+{"step": 700, "loss": 4.4761, "lr": 0.000125, "tokens": 6965611, "tok_s": 25286, "elapsed_s": 275.5}
+{"step": 750, "loss": 4.3579, "lr": 0.000106, "tokens": 7450082, "tok_s": 25258, "elapsed_s": 295.0}
+{"step": 799, "loss": 4.3872, "lr": 0.0001, "tokens": 7934400, "tok_s": 25264, "elapsed_s": 314.1}
+{"step": 799, "val_loss": 4.4705, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You make you waiting a person, but it's not a real point. You're not real point.<EOS>"}

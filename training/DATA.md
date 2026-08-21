@@ -12,12 +12,13 @@ debate behaviour).
 ## Corpus stages
 
 ```
-public conversational data (OASST1, Apache-2.0)
-        ↓ filter (quality, English, dedupe, length, safety)
+public conversational data (OASST1 + OASST2, Apache-2.0; PersonaChat, MIT;
+        UltraChat, MIT; SODA, CC-BY-4.0 — see SOURCES.md)
+        ↓ filter (quality, English, dedupe, length, safety, per-source caps)
         ↓ normalize (whitespace, quote chars, contractions left intact)
 base conversational corpus
         ↓
-personality-specific construction (synthetic, LLM-generated, structured)
+personality-specific construction (synthetic, hand-authored, structured)
         ↓
 adversarial dialogue construction (pairs, rebuttals, concessions, contrastive views)
         ↓
@@ -26,7 +27,9 @@ mixture build (versioned)  →  dataset-vNNN
 
 ## Components
 
-1. **Base natural corpus** — OASST1 English message trees, filtered.
+1. **Base natural corpus** — OASST1 + OASST2 English message trees, PersonaChat dialogues,
+   UltraChat (capped at 80k messages), SODA (reservoir-sampled 240k dialogues), all
+   normalized, filtered and deduped.
    Purpose: conversational competence shared by both models.
 2. **Optimist-specific corpus** — synthetic: optimistic continuations, constructive
    framings, hopeful interpretations, solution orientation, balanced optimism.
@@ -43,32 +46,38 @@ Both models share the **base corpus** (language + dialogue competence). Each mod
 adds its **own** personality/adversarial corpus. This is the "shared foundation +
 specialization" design. The exact ratio is decided empirically in Phase 4 experiments.
 
-## Filtering rules (implemented)
+## Filtering rules (implemented in `src/curation.py`)
 
-- exact + near-duplicate removal (minhash over token shingles for near-dup)
+- exact + near-duplicate removal (Jaccard similarity of word shingles, bucketed)
 - empty message / broken thread removal
-- length bounds (min 3 tokens, max 200 tokens per message)
+- length bounds (min 3 words, max 160 words per message)
 - non-English / code / URL-heavy / spam removal
 - repeated-template and boilerplate detection
-- PII reduction (email/phone/address patterns) and unsafe-content filtering
-- toxicity ceiling via heuristic keyword + score checks where practical
+- PII reduction (email/phone/address/IP patterns) and unsafe-content filtering
+- toxicity screening via explicit-pattern checks (deliberately conservative — we prefer
+  natural language over over-filtering)
 
 ## Synthetic generation pipeline
 
-Structured generation, never "please write optimistic conversations":
+Structured, deterministic, and **hand-authored in this repo** (no external LLM was used):
+`datasets/synthetic/author_pools.py` + `author_domains.py` provide the writing banks and
+`datasets/scripts/author_synthetic.py` composes them into records:
 
-- **type A — adversarial pairs:** topic + optimist argument + pessimist argument +
-  optimist rebuttal + pessimist rebuttal …
-- **type B — personality-preserving continuations:** same prompt, two continuations
-  (one per personality).
-- **type C — contrasting interpretations:** same event, two interpretations.
-- **type D — rebuttals:** given opponent statement → coherent response.
-- **type E — concessions:** agree-with-one-part + disagree + alternative.
-- **type F — topic variation:** many harmless, debate-friendly prompts.
+- **type A — adversarial exchanges:** 4,000 full 5-turn debate transcripts across 400
+  topics, alternating optimist/pessimist, each ending in a model's own turn.
+- **type B — personality-preserving continuations:** 2,000 same-prompt pairs, one
+  continuation per personality.
+- **type C — contrasting interpretations:** 1,200 pairs, two readings of the same event.
+- **type D — rebuttals:** 1,500 given-opponent-statement responses, tagged with the target
+  model (optimist/pessimist) so each model only learns its own side.
+- **type E — concessions:** 1,000 agree-with-one-part + disagree + alternative.
+- **type F — topic variation:** 400 debate-friendly prompts across 20 domains.
 
-Each candidate passes: structural checks (roles/order), length checks, dedupe, diversity
-scoring, and personality-consistency screening. A second LLM pass quality-grades a sample.
-Generation volume vs. retained volume is recorded per build.
+Every candidate passes QA gates: structural checks (roles/order, target tags), word-count
+bounds, in-exchange sentence diversity, and a polarity report (the lean lexicon is used
+informationally, not as a filter — turns deliberately acknowledge the opponent, so
+personality comes from the hand-written banks). Generated vs. retained volume is recorded
+per build (`synthetic_records.json`).
 
 ## Dataset versioning
 

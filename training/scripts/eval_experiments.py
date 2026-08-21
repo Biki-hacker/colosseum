@@ -29,7 +29,7 @@ SAMPLE_PROMPTS = [
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", default="training/datasets/processed/dataset-v001")
+    ap.add_argument("--dataset", default="training/datasets/processed/dataset-v002")
     ap.add_argument("--tokenizer", default="training/tokenizer/tokenizer-portable.json")
     ap.add_argument("--checkpoint-root", default="training/experiments")
     args = ap.parse_args()

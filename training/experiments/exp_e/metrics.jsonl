@@ -19,3 +19,24 @@
 {"step": 750, "loss": 3.5089, "lr": 0.000106, "tokens": 8120465, "tok_s": 27598, "elapsed_s": 294.2}
 {"step": 799, "loss": 2.6735, "lr": 0.0001, "tokens": 8635911, "tok_s": 27569, "elapsed_s": 313.2}
 {"step": 799, "val_loss": 3.2038, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's easy to be used to be a different people in the way.<OPTIMIST> I think the real question, I can be a 'Poli, I am an AI, I'm sorry, I can be a highly highly specific.<TURN>"}
+{"step": 0, "loss": 8.3798, "lr": 6e-06, "tokens": 7764, "tok_s": 9628, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.4272, "lr": 0.000306, "tokens": 360379, "tok_s": 17993, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.5503, "lr": 0.0006, "tokens": 702372, "tok_s": 17813, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.3043, "lr": 0.000594, "tokens": 1055066, "tok_s": 17928, "elapsed_s": 58.9}
+{"step": 199, "val_loss": 4.8008, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're're just right, and it's a real point. You're're not real, and and it's a real real, and it's a real point. That's a real point. That's a real point. That's the same"}
+{"step": 200, "loss": 4.6883, "lr": 0.000575, "tokens": 1393515, "tok_s": 17581, "elapsed_s": 79.3}
+{"step": 250, "loss": 4.1331, "lr": 0.000545, "tokens": 1727612, "tok_s": 17511, "elapsed_s": 98.7}
+{"step": 300, "loss": 4.1369, "lr": 0.000506, "tokens": 2063851, "tok_s": 17482, "elapsed_s": 118.1}
+{"step": 350, "loss": 4.0024, "lr": 0.000458, "tokens": 2393981, "tok_s": 17418, "elapsed_s": 137.4}
+{"step": 399, "val_loss": 3.8588, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST><OPTIMIST> You don't have to focus, and that's fine. You're not have learned the people who need to los. That's how the effort you're giving them.<EOS>"}
+{"step": 400, "loss": 4.4381, "lr": 0.000406, "tokens": 2737503, "tok_s": 17365, "elapsed_s": 157.6}
+{"step": 450, "loss": 1.8869, "lr": 0.00035, "tokens": 3078700, "tok_s": 17390, "elapsed_s": 177.0}
+{"step": 500, "loss": 3.7091, "lr": 0.000294, "tokens": 3428281, "tok_s": 17452, "elapsed_s": 196.4}
+{"step": 550, "loss": 3.608, "lr": 0.000242, "tokens": 3767161, "tok_s": 17454, "elapsed_s": 215.8}
+{"step": 599, "val_loss": 3.599, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> That's a fair point. I think this is a chance to grow into something you haven't't been.<EOS>"}
+{"step": 600, "loss": 3.9638, "lr": 0.000194, "tokens": 4111115, "tok_s": 17429, "elapsed_s": 235.9}
+{"step": 650, "loss": 3.7345, "lr": 0.000155, "tokens": 4464135, "tok_s": 17488, "elapsed_s": 255.3}
+{"step": 700, "loss": 3.3077, "lr": 0.000125, "tokens": 4799587, "tok_s": 17475, "elapsed_s": 274.7}
+{"step": 750, "loss": 3.7988, "lr": 0.000106, "tokens": 5135466, "tok_s": 17464, "elapsed_s": 294.1}
+{"step": 799, "loss": 2.1636, "lr": 0.0001, "tokens": 5472672, "tok_s": 17482, "elapsed_s": 313.1}
+{"step": 799, "val_loss": 3.4109, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I'm not argue with the worry, and I'm not pretending the risk is. I think the people who wait back back to go. You're not the same than people expect.<TURN><OPTIMIST> You're not wrong about the risk."}

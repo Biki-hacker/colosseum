@@ -1,9 +1,9 @@
-﻿# Phase 4 experiment: exp_b
+# Phase 4 experiment: exp_b
 tag: exp_b
 personality: optimist
 
 data:
-  dataset_dir: training/datasets/processed/dataset-v001
+  dataset_dir: training/datasets/processed/dataset-v002
   tokenizer_json: training/tokenizer/tokenizer-portable.json
   mixture: { base: 1, synth: 0.25 }
 

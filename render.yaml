@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: colosseum
+    runtime: python
+    plan: free
+    buildCommand: cd server && pip install -r requirements.txt
+    startCommand: cd server && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.15
+      - key: STORAGE_MODE
+        value: supabase
+      - key: DEBATE_INTERVAL_SECONDS
+        value: "300"
+      - key: DEBATE_TURNS
+        value: "20"
+      - key: MAX_NEW_TOKENS
+        value: "50"
+      - key: TOPICS_PER_HOUR
+        value: "12"
+      - key: RETENTION_HOURS
+        value: "48"
+      - key: GENERATION_TEMPERATURE
+        value: "0.8"
+      - key: GENERATION_TOP_K
+        value: "40"
+      - key: GENERATION_TOP_P
+        value: "0.9"
+      - key: GENERATION_REPETITION_PENALTY
+        value: "1.15"
+      # Set these in the Render dashboard (secrets):
+      # LLM_BASE_URL, LLM_API_KEY, LLM_MODEL, JUDGE_MODEL
+      # SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+      # UPSTASH_REDIS_URL, UPSTASH_REDIS_TOKEN

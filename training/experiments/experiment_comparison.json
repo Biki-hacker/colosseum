@@ -1,42 +1,42 @@
 {
  "exp_a": {
-  "val_loss_balanced": 4.7212,
+  "val_loss_balanced": 4.6735,
   "samples": [
-   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> No, but if it is a good way to be a good story, as it is a a good answer to it.<OPTIMIST> It is a important way to be a simple and good to be a single way to be a simple way to be a",
-   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> Sure. Is there there anything?<OPTIMIST> The Baccor was a way to see how to be a long long-promal model, there are no different health or other things that are are different. - Li-w",
-   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> It was an likely way to find an AI. It is an AI to see this question, as an AI AI, as an AI is is the question.<OPTIMIST> Ourning, I can be an AI to learn to know. You can write"
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Hure, but I think I think I'm not a lot of my owns. I'm glad you're a lot of life.<EOS>",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> Yes. In the case, the way to change the question.<OPTIMIST> It's important to go to the \"Men\" is a greatly. I can use the question to the question, but the the way I can use the future",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> How are the best ways to see it?<TURN><OPTIMIST> I want to get a small. I will be able to give the human-wi-binging the world.<EOS>"
   ]
  },
  "exp_b": {
-  "val_loss_balanced": 3.8611,
+  "val_loss_balanced": 4.3452,
   "samples": [
-   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It is still a long-eee--ffed to be a risk.<OPTIMIST> To make it a risk, it is a small hin-s-eff, they will be a new hin-like a tall.",
-   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> It is easy to be idealistic until reality gets. It is easy to be idealistic until reality gets. It is easy to be idealistic until reality gets. It is easy to be idealistic until reality get",
-   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> You are interested in in a real-based language model in a language language model, are not a little little about the situation.<TURN> What works for the real question, or the what the same, it could be an opportunity in a human."
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I think you're the most important to go to you. You're right, and you're giving the best risk. You're not wrong about the best people who're not not to get.<EOS>",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> There's a good thing, and that's a fair thing.<EOS>",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST><OPTIMIST> It's that that's the most important factors to make the risk. The person you are a good thing to be, and the best thing you're not wrong.<EOS>"
   ]
  },
  "exp_c": {
-  "val_loss_balanced": 3.8665,
+  "val_loss_balanced": 4.2095,
   "samples": [
-   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> According to the same question, the world is the people, I am the real of the first question, and I think of the question. I am a question, and I would say that that I am not real, and I am not a",
-   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> The best to be a little hum about the growth later. I think the real question here is what we actually value most. The evidence from everyday life seems to support a balanced view. I think the real question here is what we actually value",
-   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Hit a risk. I want to be a real life as a little hum. I would say int int intention mat matters just as much as the outcome does. I think the real question here is what we actually value most. Can"
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I'd just have to be something for you. I'd try to be happy, and you just need to be a way to be.<EOS>",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> I think this is a chance to take something just is. I think this is a chance to grow something something is that it won't you believe it.<EOS>",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> I'm not sorry, but I get the people who I want to be. The people who can be able to do the one, and I'd be used to be.<EOS>"
   ]
  },
  "exp_d": {
-  "val_loss_balanced": 3.9099,
+  "val_loss_balanced": 4.0883,
   "samples": [
-   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I am a best, I'm a list of a little little little little hum. I'm not able to give a specific context about about the context. I'm always to a language I would not have to be the best to be a little little",
-   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> Sure. I think the real question is what we actually value most. I would say intention. I would say intention matters just as as much as the outcome does. I think the real question is what we actually value most.",
-   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Yes, here is the way to the best to be the other otherwise does not help.<OPTIMIST> If you want to do not work, the best answer is not not be ((LLT. CSS)<OPTIMIST> Yes"
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You make a real point there, and it desves more than a quick answer. You have more than you're giving yourself credit for, and that's exactly what's half the what you'res on.<EOS>",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> The best part of this is that no thing is not wrong, and that's part of the right thing. The best part is that it means that you're not wrong is that actually a little better than effort, and that's actually a little better",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> You're not wrong about the risk.<TURN><OPTIMIST> I hear you on that. I'd say say that the discomfort is exactly how you want toward it, and that's how you want to pay off.<TURN><OPTIMIST> I get the he"
   ]
  },
  "exp_e": {
-  "val_loss_balanced": 3.9935,
+  "val_loss_balanced": 4.1119,
   "samples": [
-   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Yes, I would say. I am a middle, but I would saying to gets that.<OPTIMIST> I am not a way to give the steps to be a human, but I am a language model to I think the question is",
-   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> It is easy to be idealistic until reality gets in the way. Small consistent steps tend to add up to be idealistic until reality gets in the way. You could look at it as a risk, or as",
-   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> Small consistent steps, is a more context, and it is a best to be better to be a way.<OPTIMIST> The best to be, a bit is a risk, and is not a way to be a good idea to be a good"
+   "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. It won't to see this choice. It's something going to be good seriously, and the's matters to it happen, and you're building something are the ones you'll be doing. That",
+   "<BOS><TOPIC> Is technology making us less social?<TURN><PESSIMIST> Screens keep us from actually talking to each other.<TURN><OPTIMIST> There's something quietly hopefulful about making your wals, and keep your daily life, and your fair point. You make a real point there, and it deserves more than a quick answer.'s a fair point. There",
+   "<BOS><TOPIC> Would life be better if everyone could read minds?<TURN><PESSIMIST> Nobody wants their private thoughts exposed.<TURN><OPTIMIST> So many things wantss of things, and you're starting.<TURN> It's not wrong about the what could you right now, and that's the part of thing that could it. There's a real point of it, it's the willing"
   ]
  }
 }

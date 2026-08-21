@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import random
 import re
 from collections import defaultdict
 from typing import Iterable, Iterator, List, Optional, Sequence, Tuple
@@ -203,8 +204,9 @@ def build_trees(messages: Iterable[dict]) -> List[List[dict]]:
     return trees
 
 
-def tree_to_turns(tree: List[dict]) -> List[Tuple[str, str]]:
-    """Return [(role, text)] turns, mapping OASST1 'prompter'/'assistant' roles."""
+def tree_to_turns(tree: List[dict], max_turns: int = 0) -> List[Tuple[str, str]]:
+    """Return [(role, text)] turns, mapping 'prompter'/'user' roles to 'user' and
+    'assistant' to 'assistant'. max_turns caps the turn count (0 = all)."""
     turns = []
     for m in tree:
         role = m.get("role")
@@ -216,11 +218,15 @@ def tree_to_turns(tree: List[dict]) -> List[Tuple[str, str]]:
             continue
         if m.get("text"):
             turns.append((role, m["text"]))
+        if max_turns and len(turns) >= max_turns:
+            break
     return turns
 
 
-def curate_oasst1(jsonl_path: str, out_jsonl: str, max_messages: int = 0) -> dict:
-    """Run the full curation pipeline. Returns a stats dict."""
+def curate_messages(jsonl_path: str, out_jsonl: str, max_messages: int = 0, seed: int = 1337) -> dict:
+    """Run the full curation pipeline over any normalized messages JSONL
+    (fields: source, message_id, parent_id, message_tree_id, role, text).
+    Returns a stats dict."""
     stats = {"loaded": 0, "cleaned": 0, "filtered": 0, "deduped": 0, "kept": 0}
     messages = []
     with open(jsonl_path, encoding="utf-8") as f:
@@ -236,7 +242,8 @@ def curate_oasst1(jsonl_path: str, out_jsonl: str, max_messages: int = 0) -> dic
                 continue
             messages.append(m)
         if max_messages:
-            messages = messages[:max_messages]
+            rng = random.Random(seed)
+            messages = rng.sample(messages, min(max_messages, len(messages)))
 
     texts = [m["text"] for m in messages]
     unique = dedupe_exact(texts)
@@ -252,6 +259,11 @@ def curate_oasst1(jsonl_path: str, out_jsonl: str, max_messages: int = 0) -> dic
         for m in kept:
             f.write(json.dumps(m, ensure_ascii=False) + "\n")
     return stats
+
+
+def curate_oasst1(jsonl_path: str, out_jsonl: str, max_messages: int = 0) -> dict:
+    """Backward-compatible alias for curate_messages (single-source use)."""
+    return curate_messages(jsonl_path, out_jsonl, max_messages)
 
 
 def format_tree_text(tree: List[Tuple[str, str]]) -> str:

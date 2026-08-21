@@ -19,3 +19,24 @@
 {"step": 750, "loss": 4.4288, "lr": 0.000106, "tokens": 16230380, "tok_s": 55139, "elapsed_s": 294.4}
 {"step": 799, "loss": 4.4889, "lr": 0.0001, "tokens": 17267666, "tok_s": 55105, "elapsed_s": 313.4}
 {"step": 799, "val_loss": 4.6543, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's very very very very very possible.<OPTIMIST> Thank you, you may know.<OPTIMIST> Sure, you can ask a friendly! I can do the you.<OPTIMIST> I'm sorry, I will make me a better way. It's"}
+{"step": 0, "loss": 8.3909, "lr": 6e-06, "tokens": 13934, "tok_s": 12641, "elapsed_s": 1.1}
+{"step": 50, "loss": 6.9293, "lr": 0.000306, "tokens": 677335, "tok_s": 33288, "elapsed_s": 20.3}
+{"step": 100, "loss": 6.388, "lr": 0.0006, "tokens": 1329076, "tok_s": 33418, "elapsed_s": 39.8}
+{"step": 150, "loss": 5.9935, "lr": 0.000594, "tokens": 1977904, "tok_s": 33413, "elapsed_s": 59.2}
+{"step": 199, "val_loss": 5.5298, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> \", is your good about the example?<OPTIMIST> 2. \" 3, and 4. 1. - - -- \" \" 2 1. - 1. 8,"}
+{"step": 200, "loss": 5.5932, "lr": 0.000575, "tokens": 2626622, "tok_s": 32948, "elapsed_s": 79.7}
+{"step": 250, "loss": 5.2758, "lr": 0.000545, "tokens": 3262908, "tok_s": 32908, "elapsed_s": 99.2}
+{"step": 300, "loss": 5.18, "lr": 0.000506, "tokens": 3913286, "tok_s": 33000, "elapsed_s": 118.6}
+{"step": 350, "loss": 4.9153, "lr": 0.000458, "tokens": 4565383, "tok_s": 33075, "elapsed_s": 138.0}
+{"step": 399, "val_loss": 4.9424, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Yeah, it's a lot, but I do.<OPTIMIST> I can take the new job to see how to do. I don't want to help a more better and get the time.<EOS>"}
+{"step": 400, "loss": 4.7401, "lr": 0.000406, "tokens": 5216973, "tok_s": 32961, "elapsed_s": 158.3}
+{"step": 450, "loss": 4.9615, "lr": 0.00035, "tokens": 5869469, "tok_s": 33028, "elapsed_s": 177.7}
+{"step": 500, "loss": 4.8039, "lr": 0.000294, "tokens": 6517681, "tok_s": 33060, "elapsed_s": 197.1}
+{"step": 550, "loss": 4.8975, "lr": 0.000242, "tokens": 7173171, "tok_s": 33122, "elapsed_s": 216.6}
+{"step": 599, "val_loss": 4.7635, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> Hello, I've been been been a job. I'm just just trying to get up to a few work and just just the world. I'm sure that we've been been a great time, but I'm not here to be a great"}
+{"step": 600, "loss": 4.5307, "lr": 0.000194, "tokens": 7831208, "tok_s": 33064, "elapsed_s": 236.9}
+{"step": 650, "loss": 4.533, "lr": 0.000155, "tokens": 8503139, "tok_s": 33178, "elapsed_s": 256.3}
+{"step": 700, "loss": 4.6673, "lr": 0.000125, "tokens": 9120297, "tok_s": 33080, "elapsed_s": 275.7}
+{"step": 750, "loss": 4.4723, "lr": 0.000106, "tokens": 9771887, "tok_s": 33109, "elapsed_s": 295.1}
+{"step": 799, "loss": 4.4992, "lr": 0.0001, "tokens": 10402466, "tok_s": 33107, "elapsed_s": 314.2}
+{"step": 799, "val_loss": 4.5808, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I want to have the life. I'm sure I could have to make sure. I have been a great way to make it better.<OPTIMIST> I'm sorry, I'm sorry to make it it.<EOS>"}

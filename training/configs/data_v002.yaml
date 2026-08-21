@@ -1,0 +1,39 @@
+# dataset-v002 configuration
+# Every build records this file verbatim into the output manifest.
+version: dataset-v002
+seed: 1337
+tokenizer_json: training/tokenizer/tokenizer-portable.json
+tokenizer_version: tokenizer-v002
+
+context_length: 512
+pad_id: 0
+train_fraction: 0.97
+max_trees: 0            # 0 = all
+max_turns: 14           # cap turns per tree (long SODA/UltraChat trees)
+
+# Multi-source base corpus. Each source is a normalized messages JSONL
+# (source, message_id, parent_id, message_tree_id, role, text).
+# cap = random sample of kept messages (0 = all). License notes: SOURCES.md.
+base:
+  sources:
+    - { name: oasst1,      path: training/datasets/processed/oasst1_en.jsonl,           cap: 0 }
+    - { name: oasst2,      path: training/datasets/raw/oasst2/oasst2_en.jsonl,          cap: 0 }
+    - { name: personachat, path: training/datasets/raw/personachat/personachat_en.jsonl, cap: 0 }
+    - { name: ultrachat,   path: training/datasets/raw/ultrachat/ultrachat_en.jsonl,     cap: 80000 }
+    - { name: soda,        path: training/datasets/raw/soda/soda_en.jsonl,               cap: 150000 }
+
+# Synthetic stage: NOT generated via external LLM. Records are self-authored
+# (Phase D) and loaded via --skip-synthetic from
+# training/datasets/processed/dataset-v002/synthetic_records.json.
+# The numbers below document the self-authored targets.
+synthetic:
+  enabled: true
+  topics: 400            # distinct debate topics
+  exchanges_per_topic: 4 # adversarial exchanges per topic
+  continuations: 2000    # prompt -> {optimist, pessimist} pairs
+  contrasts: 1200        # event -> two interpretations
+  rebuttals: 1500        # opponent statement -> direct counter-response
+  concessions: 1000      # agree + disagree + alternative
+  topic_batch: 12        # (unused when self-authored; kept for schema compat)
+
+output_dir: training/datasets/processed/dataset-v002

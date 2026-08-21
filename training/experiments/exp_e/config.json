@@ -2,7 +2,7 @@
  "tag": "exp_e",
  "personality": "optimist",
  "data": {
-  "dataset_dir": "training/datasets/processed/dataset-v001",
+  "dataset_dir": "training/datasets/processed/dataset-v002",
   "tokenizer_json": "training/tokenizer/tokenizer-portable.json",
   "mixture": {
    "base": 1,

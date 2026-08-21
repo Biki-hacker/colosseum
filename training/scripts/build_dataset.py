@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 import numpy as np
 import yaml
 
-from src.curation import build_trees, curate_oasst1, tree_to_turns
+from src.curation import build_trees, curate_messages, tree_to_turns
 from src.format import (
     format_base_turns,
     format_debate_sample,
@@ -51,26 +51,39 @@ def log(msg: str) -> None:
 
 
 def build_base_samples(
-    jsonl_path: str, tokenizer: SimpleBPETokenizer, cfg: dict, out_dir: str
+    sources: List[dict], tokenizer: SimpleBPETokenizer, cfg: dict, out_dir: str
 ) -> Tuple[List[Tuple[str, str | None]], List[Tuple[str, str | None]]]:
-    """Curate OASST1 and format base conversations for both personalities."""
-    log("curating OASST1 ...")
-    curated = os.path.join(out_dir, "oasst1_curated.jsonl")
-    stats = curate_oasst1(jsonl_path, curated)
-    log(f"  {stats}")
-
+    """Curate every base source (normalized JSONL), merge, and format conversations
+    for both personalities. sources: [{name, path, cap}]."""
+    log("curating base sources ...")
+    merged = os.path.join(out_dir, "base_curated.jsonl")
     messages = []
-    with open(curated, encoding="utf-8") as f:
-        for line in f:
-            messages.append(json.loads(line))
+    with open(merged, "w", encoding="utf-8") as out:
+        for src in sources:
+            per = os.path.join(out_dir, f"{src['name']}_curated.jsonl")
+            stats = curate_messages(src["path"], per, int(src.get("cap", 0)), cfg["seed"])
+            log(f"  {src['name']}: kept={stats['kept']} (loaded={stats['loaded']}, filtered={stats['filtered']})")
+            with open(per, encoding="utf-8") as f:
+                for line in f:
+                    m = json.loads(line)
+                    m["source"] = src["name"]
+                    out.write(json.dumps(m, ensure_ascii=False) + "\n")
+                    messages.append(m)
+    log(f"  merged {len(messages)} curated messages")
+
     trees = build_trees(messages)
-    log(f"  {len(trees)} conversation trees")
+    max_trees = int(cfg.get("max_trees", 0))
+    if max_trees:
+        rng = random.Random(cfg["seed"])
+        trees = rng.sample(trees, min(max_trees, len(trees)))
+    max_turns = int(cfg.get("max_turns", 0))
+    log(f"  {len(trees)} conversation trees (max_turns={max_turns})")
 
     optimist_samples: List[Tuple[str, str | None]] = []
     pessimist_samples: List[Tuple[str, str | None]] = []
     dropped = 0
     for tree in trees:
-        turns = tree_to_turns(tree)
+        turns = tree_to_turns(tree, max_turns)
         if len(turns) < 2:
             dropped += 1
             continue
@@ -180,9 +193,19 @@ def build_synthetic_samples(records: Dict[str, list], own: str) -> List[Tuple[st
         full, loss = format_debate_sample(statement, [], own, my_txt)
         samples.append((full, loss))
 
-    for topic, opp_stmt, rebuttal in records["rebuttals"]:
-        # only keep rebuttals where the opponent's turn precedes this model's response
+    for record in records["rebuttals"]:
+        # records may carry a target model (4th element) or be neutral (3 elements)
+        topic, opp_stmt, rebuttal = record[0], record[1], record[2]
+        target = record[3] if len(record) > 3 else own
+        if target != own:
+            continue
         full, loss = format_debate_sample(topic, [("optimist" if own == "pessimist" else "pessimist", opp_stmt)], own, rebuttal)
+        samples.append((full, loss))
+
+    for topic, opt_txt, pes_txt in records.get("concessions", []):
+        # concession: own turn that concedes a point then reframes (optimist/pessimist variant)
+        my_txt = opt_txt if own == "optimist" else pes_txt
+        full, loss = format_debate_sample(topic, [], own, my_txt)
         samples.append((full, loss))
 
     return samples
@@ -261,13 +284,16 @@ def main() -> None:
     with open(os.path.join(out_dir, "config.yaml"), "w", encoding="utf-8") as f:
         yaml.safe_dump(cfg, f)
 
-    base_opt, base_pes = build_base_samples(cfg["oasst1_jsonl"], tok, cfg, out_dir)
+    base_opt, base_pes = build_base_samples(cfg.get("base", {}).get("sources", []), tok, cfg, out_dir)
 
     records_file = os.path.join(out_dir, "synthetic_records.json")
     if args.skip_synthetic and os.path.exists(records_file):
         log("reusing synthetic records ...")
         with open(records_file, encoding="utf-8") as f:
             records = {k: v for k, v in json.load(f).items()}
+    elif args.skip_synthetic:
+        log("no synthetic records present -- building base-only corpus")
+        records = {"topics": [], "exchanges": [], "continuations": [], "contrasts": [], "rebuttals": [], "concessions": []}
     else:
         client = LLMClient()
         log(f"LLM mode: {'MOCK' if client.mock else 'REAL ' + client.model}")

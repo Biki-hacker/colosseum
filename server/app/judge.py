@@ -65,7 +65,10 @@ def judge_debate(client: LLMClient, topic: str, turns: List[Tuple[str, str]]) ->
         return {"winner": "tie", "optimist_score": 5, "pessimist_score": 5, "commentary": "Empty debate."}
     if client.mock:
         return heuristic_judge(turns)
-    data = client.chat(JUDGE_SYSTEM, f"Topic: {topic}\n\nTranscript:\n{transcript}", json_schema=JUDGE_SCHEMA, temperature=0.2)
+    try:
+        data = client.chat(JUDGE_SYSTEM, f"Topic: {topic}\n\nTranscript:\n{transcript}", json_schema=JUDGE_SCHEMA, temperature=0.2)
+    except Exception:
+        return heuristic_judge(turns)
     winner = data.get("winner", "tie")
     if winner not in ("optimist", "pessimist", "tie"):
         winner = "tie"

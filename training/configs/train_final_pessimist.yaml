@@ -1,11 +1,11 @@
-# Phase 5: final Pessimist training (winner mixture base 1.0 : synth 0.25)
+# Phase 5: final Pessimist training (winner mixture base 1.0 : synth 1.0)
 tag: final_pessimist
 personality: pessimist
 
 data:
-  dataset_dir: training/datasets/processed/dataset-v001
+  dataset_dir: training/datasets/processed/dataset-v002
   tokenizer_json: training/tokenizer/tokenizer-portable.json
-  mixture: { base: 1.0, synth: 0.25 }
+  mixture: { base: 1.0, synth: 1.0 }
 
 train:
   max_steps: 2000
@@ -28,7 +28,7 @@ train:
 
 eval:
   topic: "Should people always pursue their passion?"
-  opponent_text: "Passion sounds nice, but most people cannot afford to chase their dreams forever."
+  opponent_text: "Passion is the only thing that makes life worth living, and the rest always falls into place."
   max_new_tokens: 50
   temperature: 0.8
   top_k: 40

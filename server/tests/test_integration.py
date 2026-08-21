@@ -41,8 +41,11 @@ def server():
             "DATA_DIR": TMP,
             "DEBATE_INTERVAL_SECONDS": "1",
             "PORT": PORT,
+            "LLM_API_KEY": "",
+            "LLM_BASE_URL": "",
         }
     )
+
     proc = subprocess.Popen(
         [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", PORT],
         cwd=ROOT,

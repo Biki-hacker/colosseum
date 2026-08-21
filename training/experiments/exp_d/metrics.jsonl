@@ -19,3 +19,24 @@
 {"step": 750, "loss": 3.6517, "lr": 0.000106, "tokens": 10138404, "tok_s": 34447, "elapsed_s": 294.3}
 {"step": 799, "loss": 4.1066, "lr": 0.0001, "tokens": 10791445, "tok_s": 34442, "elapsed_s": 313.3}
 {"step": 799, "val_loss": 3.9604, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> It's a a burs in a different question.<TURN> How does it it?<OPTIMIST> Sure, to the best question is to be?<OPTIMIST> It is a few in the world.<TURN> Can you explain me a way to make it,"}
+{"step": 0, "loss": 8.3929, "lr": 6e-06, "tokens": 10386, "tok_s": 12943, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.8304, "lr": 0.000306, "tokens": 432327, "tok_s": 21578, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.4686, "lr": 0.0006, "tokens": 853387, "tok_s": 21624, "elapsed_s": 39.5}
+{"step": 150, "loss": 5.6369, "lr": 0.000594, "tokens": 1278257, "tok_s": 21702, "elapsed_s": 58.9}
+{"step": 199, "val_loss": 5.1821, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're wrong, but it's something just just been than a fair. You're say a real point it a kind of your life, it, and it des. That's a real point to say you're a good.<TURN><OPTIMIST> You're"}
+{"step": 200, "loss": 5.0754, "lr": 0.000575, "tokens": 1691616, "tok_s": 21315, "elapsed_s": 79.4}
+{"step": 250, "loss": 5.0158, "lr": 0.000545, "tokens": 2103082, "tok_s": 21288, "elapsed_s": 98.8}
+{"step": 300, "loss": 4.3093, "lr": 0.000506, "tokens": 2527907, "tok_s": 21384, "elapsed_s": 118.2}
+{"step": 350, "loss": 4.5719, "lr": 0.000458, "tokens": 2934894, "tok_s": 21323, "elapsed_s": 137.6}
+{"step": 399, "val_loss": 4.4946, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I can't argue with the worry, honestly. I won't argue with the worry, honestly. I won't argue with the worry, honestly. I won't argue with the worry, honestly. I'd"}
+{"step": 400, "loss": 4.7113, "lr": 0.000406, "tokens": 3356834, "tok_s": 21252, "elapsed_s": 158.0}
+{"step": 450, "loss": 4.7355, "lr": 0.00035, "tokens": 3759290, "tok_s": 21193, "elapsed_s": 177.4}
+{"step": 500, "loss": 4.2956, "lr": 0.000294, "tokens": 4188756, "tok_s": 21283, "elapsed_s": 196.8}
+{"step": 550, "loss": 3.598, "lr": 0.000242, "tokens": 4600239, "tok_s": 21275, "elapsed_s": 216.2}
+{"step": 599, "val_loss": 4.2589, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's a fair point. It's to keep a fair concern, and that's worth to effort. The way you want to keep people people, and you're one of the few people who who want to to the way you're making a"}
+{"step": 600, "loss": 3.8114, "lr": 0.000194, "tokens": 5034442, "tok_s": 21281, "elapsed_s": 236.6}
+{"step": 650, "loss": 4.1177, "lr": 0.000155, "tokens": 5447985, "tok_s": 21279, "elapsed_s": 256.0}
+{"step": 700, "loss": 4.3337, "lr": 0.000125, "tokens": 5868137, "tok_s": 21302, "elapsed_s": 275.5}
+{"step": 750, "loss": 3.9197, "lr": 0.000106, "tokens": 6273102, "tok_s": 21270, "elapsed_s": 294.9}
+{"step": 799, "loss": 4.0837, "lr": 0.0001, "tokens": 6687029, "tok_s": 21296, "elapsed_s": 314.0}
+{"step": 799, "val_loss": 4.1539, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. I love that that's not real. I'd just say that the version of you, and that's just a lot of willing to you, and you're the willing to adapt everything.<TURN><OPTIMIST> I can"}

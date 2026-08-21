@@ -14,6 +14,7 @@ venv/
 # Node
 node_modules/
 dist/
+!client/dist/
 .vite/
 
 # Training artifacts
@@ -26,6 +27,7 @@ training/datasets/synthetic/
 training/datasets/*.jsonl
 training/datasets/*.parquet
 training/tokenizer/*.json
+training/tokenizer/*.txt
 training/evaluation/results/
 training/benchmarks/results/
 training/logs/
@@ -35,11 +37,19 @@ training/logs/
 *.pth
 *.onnx
 
-# Models (weights are too large / regenerable)
+# Models (raw training exports are large; keep the server's numpy exports)
 models/optimist/*
 !models/optimist/.gitkeep
+!models/optimist/model.npz
+!models/optimist/config.json
+!models/optimist/tokenizer-portable.json
+!models/optimist/README.md
 models/pessimist/*
 !models/pessimist/.gitkeep
+!models/pessimist/model.npz
+!models/pessimist/config.json
+!models/pessimist/tokenizer-portable.json
+!models/pessimist/README.md
 
 # Server runtime
 server/.runtime/

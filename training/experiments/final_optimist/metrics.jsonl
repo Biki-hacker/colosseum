@@ -44,3 +44,49 @@
 {"step": 1950, "loss": 3.5173, "lr": 0.000101, "tokens": 35778572, "tok_s": 46890, "elapsed_s": 763.0}
 {"step": 1999, "loss": 3.6366, "lr": 0.0001, "tokens": 36670829, "tok_s": 46889, "elapsed_s": 782.1}
 {"step": 1999, "val_loss": 4.0924, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're welcome. I would like a big bigger. What would you like to know if you are interested in in in the future?<OPTIMIST> According to the Astep, I would have a trade-off, and the idea"}
+{"step": 0, "loss": 8.3929, "lr": 6e-06, "tokens": 10386, "tok_s": 13359, "elapsed_s": 0.8}
+{"step": 50, "loss": 6.8304, "lr": 0.000306, "tokens": 432327, "tok_s": 21645, "elapsed_s": 20.0}
+{"step": 100, "loss": 6.4686, "lr": 0.0006, "tokens": 853387, "tok_s": 21680, "elapsed_s": 39.4}
+{"step": 150, "loss": 5.632, "lr": 0.000599, "tokens": 1278257, "tok_s": 21755, "elapsed_s": 58.8}
+{"step": 200, "loss": 5.067, "lr": 0.000597, "tokens": 1691616, "tok_s": 21643, "elapsed_s": 78.2}
+{"step": 250, "loss": 4.9906, "lr": 0.000592, "tokens": 2103082, "tok_s": 21555, "elapsed_s": 97.6}
+{"step": 300, "loss": 4.2794, "lr": 0.000586, "tokens": 2527907, "tok_s": 21609, "elapsed_s": 117.0}
+{"step": 350, "loss": 4.5304, "lr": 0.000579, "tokens": 2934894, "tok_s": 21520, "elapsed_s": 136.4}
+{"step": 399, "val_loss": 4.2652, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're building a chance to care, and that's the kind of life that keeps a real point. The kind of thing that comes back to keep build, and honest about it.<EOS>"}
+{"step": 400, "loss": 4.6525, "lr": 0.00057, "tokens": 3356834, "tok_s": 21419, "elapsed_s": 156.7}
+{"step": 450, "loss": 4.6544, "lr": 0.000559, "tokens": 3759290, "tok_s": 21344, "elapsed_s": 176.1}
+{"step": 500, "loss": 4.1809, "lr": 0.000547, "tokens": 4188756, "tok_s": 21424, "elapsed_s": 195.5}
+{"step": 550, "loss": 3.404, "lr": 0.000534, "tokens": 4600239, "tok_s": 21407, "elapsed_s": 214.9}
+{"step": 600, "loss": 3.585, "lr": 0.000519, "tokens": 5034442, "tok_s": 21487, "elapsed_s": 234.3}
+{"step": 650, "loss": 3.927, "lr": 0.000504, "tokens": 5447985, "tok_s": 21476, "elapsed_s": 253.7}
+{"step": 700, "loss": 4.0572, "lr": 0.000487, "tokens": 5868137, "tok_s": 21489, "elapsed_s": 273.1}
+{"step": 750, "loss": 3.5603, "lr": 0.000469, "tokens": 6273102, "tok_s": 21449, "elapsed_s": 292.5}
+{"step": 799, "val_loss": 3.8037, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. A neighborhood changes when someone makes the next one, and that truth in what you're saying, no question. You're not just protecting your own own, and that's a quietly"}
+{"step": 800, "loss": 3.8304, "lr": 0.00045, "tokens": 6695099, "tok_s": 21406, "elapsed_s": 312.8}
+{"step": 850, "loss": 4.2311, "lr": 0.000431, "tokens": 7112572, "tok_s": 21400, "elapsed_s": 332.4}
+{"step": 900, "loss": 3.7974, "lr": 0.000411, "tokens": 7544113, "tok_s": 21444, "elapsed_s": 351.8}
+{"step": 950, "loss": 2.9365, "lr": 0.000391, "tokens": 7973733, "tok_s": 21480, "elapsed_s": 371.2}
+{"step": 1000, "loss": 3.4071, "lr": 0.000371, "tokens": 8404141, "tok_s": 21512, "elapsed_s": 390.7}
+{"step": 1050, "loss": 3.0229, "lr": 0.00035, "tokens": 8831274, "tok_s": 21536, "elapsed_s": 410.1}
+{"step": 1100, "loss": 3.0022, "lr": 0.000329, "tokens": 9255621, "tok_s": 21552, "elapsed_s": 429.5}
+{"step": 1150, "loss": 3.8458, "lr": 0.000309, "tokens": 9692831, "tok_s": 21594, "elapsed_s": 448.9}
+{"step": 1199, "val_loss": 3.6183, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. There's something quietly hopeful about this. You're not starting, and that's the kind of thing that builds on itself.<EOS>"}
+{"step": 1200, "loss": 3.5964, "lr": 0.000289, "tokens": 10116010, "tok_s": 21565, "elapsed_s": 469.1}
+{"step": 1250, "loss": 3.6414, "lr": 0.000269, "tokens": 10529754, "tok_s": 21555, "elapsed_s": 488.5}
+{"step": 1300, "loss": 3.2228, "lr": 0.00025, "tokens": 10949254, "tok_s": 21558, "elapsed_s": 507.9}
+{"step": 1350, "loss": 3.3767, "lr": 0.000231, "tokens": 11358122, "tok_s": 21540, "elapsed_s": 527.3}
+{"step": 1400, "loss": 3.7872, "lr": 0.000213, "tokens": 11786068, "tok_s": 21559, "elapsed_s": 546.7}
+{"step": 1450, "loss": 1.5215, "lr": 0.000196, "tokens": 12203186, "tok_s": 21558, "elapsed_s": 566.1}
+{"step": 1500, "loss": 3.7199, "lr": 0.000181, "tokens": 12613199, "tok_s": 21544, "elapsed_s": 585.5}
+{"step": 1550, "loss": 3.4303, "lr": 0.000166, "tokens": 13044683, "tok_s": 21567, "elapsed_s": 604.9}
+{"step": 1599, "val_loss": 3.4834, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. I love that you're not letting age decide what's not real. You'll have been right that it, and that's that. You'll be glad you to come back.<TURN><OPTIMIST> I'd rather you care"}
+{"step": 1600, "loss": 2.8031, "lr": 0.000153, "tokens": 13456780, "tok_s": 21526, "elapsed_s": 625.1}
+{"step": 1650, "loss": 2.7685, "lr": 0.000141, "tokens": 13881675, "tok_s": 21537, "elapsed_s": 644.5}
+{"step": 1700, "loss": 3.4145, "lr": 0.00013, "tokens": 14306823, "tok_s": 21549, "elapsed_s": 663.9}
+{"step": 1750, "loss": 3.5577, "lr": 0.000121, "tokens": 14714629, "tok_s": 21535, "elapsed_s": 683.3}
+{"step": 1800, "loss": 3.7671, "lr": 0.000114, "tokens": 15146051, "tok_s": 21554, "elapsed_s": 702.7}
+{"step": 1850, "loss": 2.8224, "lr": 0.000108, "tokens": 15543399, "tok_s": 21526, "elapsed_s": 722.1}
+{"step": 1900, "loss": 2.6986, "lr": 0.000103, "tokens": 15955167, "tok_s": 21519, "elapsed_s": 741.5}
+{"step": 1950, "loss": 3.2673, "lr": 0.000101, "tokens": 16376758, "tok_s": 21524, "elapsed_s": 760.8}
+{"step": 1999, "loss": 3.6122, "lr": 0.0001, "tokens": 16793458, "tok_s": 21534, "elapsed_s": 779.9}
+{"step": 1999, "val_loss": 3.6077, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. The best part is that a lot of people, and you're not the willingness to effort you live in ways you'd be surprised.<TURN><OPTIMIST> You're not wrong about the risk. The part"}

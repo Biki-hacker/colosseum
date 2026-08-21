@@ -67,23 +67,23 @@ def run_debate(
                 top_p=gen_cfg["top_p"],
                 repetition_penalty=gen_cfg["repetition_penalty"],
             )
-        gen = out[0].tolist()
+        gen = out[0][len(ids):].tolist()
         # split at the first stop token (own marker, opponent marker, TURN, EOS)
-        truncated = False
+        stopped: int | None = None
         text_tokens: List[int] = []
         for t in gen:
             if t in stop_ids:
-                truncated = True
+                stopped = t
                 break
             text_tokens.append(t)
         text = tok.decode(text_tokens).strip()
         if not text or len(text_tokens) == 0:
             text_tokens = text_tokens or [markers["<EOS>"]]
             text = ""
-        turns.append((speaker, text, len(text_tokens), truncated))
+        turns.append((speaker, text, len(text_tokens), stopped is None))
         prompt += " " + text + "<TURN>"
-        if truncated and gen and gen[0] == markers["<EOS>"]:
-            break  # model ended the debate on its own
+        if not text:
+            break  # blank turn: mirror the server, which stops only on empty text
     return {"topic": topic, "first": first, "turns": turns}
 
 

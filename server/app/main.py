@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import logging
+import os
 import time
 from typing import Optional
 
@@ -71,11 +72,6 @@ async def lifespan(app: FastAPI):
 app.router.lifespan_context = lifespan
 
 
-@app.get("/")
-def root():
-    return {"service": "colosseum", "status": "ok", "uptime_s": int(time.time() - _started_at)}
-
-
 @app.get("/api/health")
 def health():
     return {
@@ -118,6 +114,18 @@ async def ws_debates(ws: WebSocket):
         pass
     finally:
         hub.unsubscribe(q)
+
+
+_DIST = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "client", "dist"))
+if os.path.isdir(_DIST):
+    from fastapi.staticfiles import StaticFiles
+
+    app.mount("/", StaticFiles(directory=_DIST, html=True), name="client")
+    log.info("serving client from %s", _DIST)
+else:
+    @app.get("/")
+    def root():
+        return {"service": "colosseum", "status": "ok", "uptime_s": int(time.time() - _started_at)}
 
 
 if __name__ == "__main__":
