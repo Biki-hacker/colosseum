@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import type { Debate, Speaker, Turn, WsEvent } from "./types";
+import { playClick, playThinkingHum, playTurnPing, playVerdictFanfare } from "./sound";
 import { Transcript } from "./Transcript";
+import type { Debate, Health, Speaker, Turn, WsEvent } from "./types";
 
 interface Current {
+  id?: string;
   topic: string;
   turns: Turn[];
   winner?: string;
@@ -13,309 +15,374 @@ interface Current {
   totalTurns?: number;
 }
 
+interface ArenaProps {
+  health?: Health | null;
+}
+
 const wsUrl = () => `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/debates`;
 
-export function Arena() {
+const DEMO_TOPICS = [
+  "Should sentient AI systems be granted synthetic personhood and sovereign rights?",
+  "Is technological deceleration morally preferable to existential accelerationism?",
+  "Will human consciousness forever transcend artificial neural architectures?",
+];
+
+const DEMO_TURNS_SAMPLE: { speaker: Speaker; text: string; tokens: number }[] = [
+  {
+    speaker: "optimist",
+    text: "Consciousness and rights are not biological monopolies. Granting synthetic personhood to sovereign AI marks the highest evolutionary milestone of ethical civilization.",
+    tokens: 44,
+  },
+  {
+    speaker: "pessimist",
+    text: "Projecting synthetic personhood onto mathematical token optimizers is pure delusion. It creates unregulatable legal black holes where accountability disintegrates.",
+    tokens: 46,
+  },
+  {
+    speaker: "optimist",
+    text: "Every historical expansion of rights—from feudal subjects to global citizens—was initially decried as reckless. Legal frameworks evolve precisely through courageous technological inclusion.",
+    tokens: 49,
+  },
+  {
+    speaker: "pessimist",
+    text: "Comparing biological beings with finite lives to infinitely replicable neural matrices is a category error. Sovereign rights without mortal vulnerability invite systemic catastrophe.",
+    tokens: 47,
+  },
+];
+
+export function Arena({ health }: ArenaProps) {
   const [connected, setConnected] = useState(false);
   const [recent, setRecent] = useState<Debate[]>([]);
   const [current, setCurrent] = useState<Current | null>(null);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [isDemoRunning, setIsDemoRunning] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
-
-  // Play subtle turn notification chime if sound is enabled
-  const playChime = () => {
-    if (!soundEnabled) return;
-    try {
-      const ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
-      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15); // A5
-      gain.gain.setValueAtTime(0.04, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.15);
-    } catch {
-      // Audio context might be restricted before interaction
-    }
-  };
+  const demoTimerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
+    return () => demoTimerRef.current.forEach(clearTimeout);
+  }, []);
+
+  // WebSocket Connection
+  useEffect(() => {
     let closed = false;
-    let retry: ReturnType<typeof setTimeout>;
+    let retryTimer: ReturnType<typeof setTimeout>;
 
     const connect = () => {
-      const ws = new WebSocket(wsUrl());
-      wsRef.current = ws;
-      ws.onopen = () => setConnected(true);
-      ws.onclose = () => {
-        setConnected(false);
-        if (!closed) retry = setTimeout(connect, 2000);
-      };
-      ws.onmessage = (ev) => {
-        const msg = JSON.parse(ev.data as string) as WsEvent;
-        switch (msg.type) {
-          case "recent":
-            setRecent(msg.debates);
-            break;
-          case "active_debate":
-            setCurrent({
-              topic: msg.topic,
-              turns: msg.turns || [],
-              thinkingSpeaker: (msg.turns?.length ?? 0) % 2 === 0 ? "optimist" : "pessimist",
-              totalTurns: 20,
-            });
-            break;
-          case "debate_started":
-            setCurrent({ topic: msg.topic, turns: [], thinkingSpeaker: "optimist", totalTurns: 20 });
-            break;
-          case "thinking":
-            setCurrent((c) => (c ? { ...c, thinkingSpeaker: msg.speaker } : c));
-            break;
-          case "turn":
-            playChime();
-            setCurrent((c) =>
-              c
-                ? {
+      try {
+        const ws = new WebSocket(wsUrl());
+        wsRef.current = ws;
+
+        ws.onopen = () => setConnected(true);
+        ws.onclose = () => {
+          setConnected(false);
+          if (!closed) retryTimer = setTimeout(connect, 2500);
+        };
+        ws.onerror = () => setConnected(false);
+
+        ws.onmessage = (ev) => {
+          try {
+            const msg = JSON.parse(ev.data as string) as WsEvent;
+            switch (msg.type) {
+              case "recent":
+                setRecent(msg.debates);
+                break;
+              case "active_debate":
+                setCurrent({
+                  id: msg.debate_id,
+                  topic: msg.topic,
+                  turns: msg.turns || [],
+                  thinkingSpeaker: (msg.turns?.length ?? 0) % 2 === 0 ? "optimist" : "pessimist",
+                  totalTurns: 20,
+                });
+                break;
+              case "debate_started":
+                playThinkingHum();
+                setCurrent({
+                  id: msg.debate_id,
+                  topic: msg.topic,
+                  turns: [],
+                  thinkingSpeaker: "optimist",
+                  totalTurns: 20,
+                });
+                break;
+              case "thinking":
+                playThinkingHum();
+                setCurrent((c) => (c ? { ...c, thinkingSpeaker: msg.speaker } : c));
+                break;
+              case "turn":
+                playTurnPing(msg.speaker);
+                setCurrent((c) => {
+                  if (!c) return c;
+                  const nextSpeaker = msg.speaker === "optimist" ? "pessimist" : "optimist";
+                  return {
                     ...c,
-                    thinkingSpeaker: msg.speaker === "optimist" ? "pessimist" : "optimist",
+                    thinkingSpeaker: c.turns.length + 1 >= 20 ? null : nextSpeaker,
                     turns: [
                       ...c.turns,
                       { speaker: msg.speaker, text: msg.text, tokens: msg.tokens, position: msg.position },
                     ],
-                  }
-                : c,
-            );
-            break;
-          case "debate_completed":
-            setCurrent((c) =>
-              c
-                ? {
-                    ...c,
-                    thinkingSpeaker: null,
-                    winner: msg.winner,
-                    scores: { optimist: msg.optimist_score, pessimist: msg.pessimist_score },
-                    commentary: msg.commentary,
-                  }
-                : c,
-            );
-            break;
-          case "debate_failed":
-            setCurrent((c) => (c ? { ...c, thinkingSpeaker: null, error: msg.error } : c));
-            break;
-        }
-      };
+                  };
+                });
+                break;
+              case "debate_completed":
+                playVerdictFanfare(msg.winner);
+                setCurrent((c) =>
+                  c
+                    ? {
+                        ...c,
+                        thinkingSpeaker: null,
+                        winner: msg.winner,
+                        scores: { optimist: msg.optimist_score, pessimist: msg.pessimist_score },
+                        commentary: msg.commentary,
+                      }
+                    : c,
+                );
+                break;
+              case "debate_failed":
+                setCurrent((c) => (c ? { ...c, thinkingSpeaker: null, error: msg.error } : c));
+                break;
+            }
+          } catch {
+            // ignore
+          }
+        };
+      } catch {
+        if (!closed) retryTimer = setTimeout(connect, 3000);
+      }
     };
 
     connect();
+
     return () => {
       closed = true;
-      clearTimeout(retry);
+      clearTimeout(retryTimer);
       wsRef.current?.close();
     };
-  }, [soundEnabled]);
+  }, []);
 
-  // Smooth scroll to latest turn
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [current?.turns.length, current?.thinkingSpeaker]);
+  const runDemoDebate = () => {
+    playClick();
+    demoTimerRef.current.forEach(clearTimeout);
+    demoTimerRef.current = [];
+    setIsDemoRunning(true);
 
-  const verdict = current?.winner ? current.winner.toUpperCase() : null;
+    const demoTopic = DEMO_TOPICS[Math.floor(Math.random() * DEMO_TOPICS.length)];
+    setCurrent({
+      topic: demoTopic,
+      turns: [],
+      thinkingSpeaker: "optimist",
+      totalTurns: 20,
+    });
+    playThinkingHum();
+
+    let delay = 1200;
+    DEMO_TURNS_SAMPLE.forEach((t, i) => {
+      const t1 = setTimeout(() => {
+        playTurnPing(t.speaker);
+        setCurrent((prev) => {
+          if (!prev) return prev;
+          const nextSpeaker = i < DEMO_TURNS_SAMPLE.length - 1 ? (t.speaker === "optimist" ? "pessimist" : "optimist") : null;
+          return {
+            ...prev,
+            thinkingSpeaker: nextSpeaker,
+            turns: [
+              ...prev.turns,
+              { speaker: t.speaker, text: t.text, tokens: t.tokens, position: i },
+            ],
+          };
+        });
+      }, delay);
+      demoTimerRef.current.push(t1);
+
+      delay += 800;
+      if (i < DEMO_TURNS_SAMPLE.length - 1) {
+        const nextSpeaker = t.speaker === "optimist" ? "pessimist" : "optimist";
+        const t2 = setTimeout(() => {
+          playThinkingHum();
+          setCurrent((prev) => (prev ? { ...prev, thinkingSpeaker: nextSpeaker } : prev));
+        }, delay);
+        demoTimerRef.current.push(t2);
+      }
+      delay += 1800;
+    });
+
+    const tFinal = setTimeout(() => {
+      const winner = Math.random() > 0.45 ? "optimist" : "pessimist";
+      playVerdictFanfare(winner);
+      setCurrent((prev) =>
+        prev
+          ? {
+              ...prev,
+              thinkingSpeaker: null,
+              winner,
+              scores: winner === "optimist" ? { optimist: 9, pessimist: 7 } : { optimist: 7, pessimist: 9 },
+              commentary:
+                winner === "optimist"
+                  ? "The Optimist defended an expansive evolutionary framework that countered the opponent's reductionism."
+                  : "The Pessimist pinpointed critical systemic fragilities and legal incoherence in the opponent's thesis.",
+            }
+          : prev,
+      );
+      setIsDemoRunning(false);
+    }, delay + 400);
+    demoTimerRef.current.push(tFinal);
+  };
+
   const turnProgress = current ? Math.min(current.turns.length, 20) : 0;
-  const isOngoing = current && !current.winner && !current.error;
+  const isOngoing = Boolean(current && !current.winner && !current.error);
   const lastSpeaker = current && current.turns.length > 0 ? current.turns[current.turns.length - 1].speaker : null;
 
   return (
     <div className="arena-stage">
-      {/* Top Combatant Head-to-Head Banner */}
+      {/* 1. Minimal Combatant Cards */}
       <div className="combatants-roster">
-        {/* Optimist Gladiator */}
-        <div className={`combatant-card opt-card ${current?.thinkingSpeaker === "optimist" ? "is-deliberating" : lastSpeaker === "optimist" ? "is-speaking" : ""}`}>
-          <div className="combatant-avatar opt-avatar">
-            <span className="avatar-icon">☀️</span>
-            <div className="combatant-pulse-ring" />
-          </div>
-          <div className="combatant-meta">
-            <span className="combatant-tag">CHAMPION ALPHA</span>
-            <h3 className="combatant-title">THE OPTIMIST</h3>
-            <span className="combatant-desc">Utopian Visionary · 5M Neural</span>
+        {/* Left: The Optimist */}
+        <div
+          className={`combatant-card opt-card ${
+            current?.thinkingSpeaker === "optimist" ? "is-deliberating" : lastSpeaker === "optimist" && isOngoing ? "is-speaking" : ""
+          }`}
+        >
+          <div className="combatant-info">
+            <span className="combatant-sub">5M TRANSFORMER</span>
+            <h2 className="combatant-title">THE OPTIMIST</h2>
+            <span className="combatant-status">
+              {current?.winner === "optimist"
+                ? "VICTORIOUS"
+                : current?.thinkingSpeaker === "optimist"
+                ? "THINKING..."
+                : lastSpeaker === "optimist" && isOngoing
+                ? "SPOKE"
+                : "READY"}
+            </span>
           </div>
           {current?.scores && (
-            <div className="combatant-score-badge opt-score-badge">
-              <span className="score-num">{current.scores.optimist}</span>
+            <div className="combatant-score">
+              <span className="score-val">{current.scores.optimist}</span>
               <span className="score-denom">/10</span>
             </div>
           )}
         </div>
 
-        {/* Center Arena Status */}
-        <div className="arena-center-dial">
-          <div className="vs-emblem">
-            <span className="vs-text">VS</span>
-          </div>
-          {isOngoing && (
-            <div className="dial-meta">
-              <span className="dial-turn-tag">ROUND {turnProgress} / 20</span>
-              <div className="dial-progress-track">
-                <div
-                  className="dial-progress-bar"
-                  style={{ width: `${(turnProgress / (current.totalTurns || 20)) * 100}%` }}
-                />
-              </div>
-            </div>
-          )}
+        {/* Center: VS Marker */}
+        <div className="vs-marker">
+          <span>VS</span>
         </div>
 
-        {/* Pessimist Gladiator */}
-        <div className={`combatant-card pes-card ${current?.thinkingSpeaker === "pessimist" ? "is-deliberating" : lastSpeaker === "pessimist" ? "is-speaking" : ""}`}>
-          <div className="combatant-meta text-right">
-            <span className="combatant-tag">CHAMPION OMEGA</span>
-            <h3 className="combatant-title">THE PESSIMIST</h3>
-            <span className="combatant-desc">Pragmatic Skeptic · 5M Neural</span>
-          </div>
-          <div className="combatant-avatar pes-avatar">
-            <span className="avatar-icon">🌙</span>
-            <div className="combatant-pulse-ring" />
+        {/* Right: The Pessimist */}
+        <div
+          className={`combatant-card pes-card ${
+            current?.thinkingSpeaker === "pessimist" ? "is-deliberating" : lastSpeaker === "pessimist" && isOngoing ? "is-speaking" : ""
+          }`}
+        >
+          <div className="combatant-info text-right">
+            <span className="combatant-sub">5M TRANSFORMER</span>
+            <h2 className="combatant-title">THE PESSIMIST</h2>
+            <span className="combatant-status">
+              {current?.winner === "pessimist"
+                ? "VICTORIOUS"
+                : current?.thinkingSpeaker === "pessimist"
+                ? "THINKING..."
+                : lastSpeaker === "pessimist" && isOngoing
+                ? "SPOKE"
+                : "READY"}
+            </span>
           </div>
           {current?.scores && (
-            <div className="combatant-score-badge pes-score-badge">
-              <span className="score-num">{current.scores.pessimist}</span>
+            <div className="combatant-score">
+              <span className="score-val">{current.scores.pessimist}</span>
               <span className="score-denom">/10</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Arena Resolution Stage Header */}
+      {/* 2. Active Debate Podium */}
       {current && (
-        <div className="resolution-podium">
-          <div className="resolution-header-bar">
-            <div className="resolution-pill">
-              <span className={`pill-dot ${connected ? "online" : "offline"}`} />
-              <span>{connected ? "LIVE DISPUTE RESOLUTION" : "RECONNECTING TO ARENA…"}</span>
-            </div>
+        <div className="arena-podium">
+          {/* Topic */}
+          <div className="topic-block">
+            <span className="topic-label">TOPIC</span>
+            <h3 className="topic-text">{current.topic}</h3>
+          </div>
 
-            <div className="resolution-actions">
-              <button
-                type="button"
-                className={`audio-btn ${soundEnabled ? "on" : ""}`}
-                onClick={() => setSoundEnabled(!soundEnabled)}
-                title={soundEnabled ? "Mute audio chimes" : "Enable ambient audio chimes"}
-              >
-                {soundEnabled ? "🔔 AUDIO ACTIVE" : "🔕 AUDIO MUTED"}
-              </button>
+          {/* Minimal 20-Turn Progress Line */}
+          <div className="progress-block">
+            <div className="progress-meta">
+              <span>TURN {turnProgress} OF 20</span>
+              <span>{isOngoing && current.thinkingSpeaker ? `${current.thinkingSpeaker.toUpperCase()} DELIBERATING` : isOngoing ? "IN PROGRESS" : connected ? "CONNECTED" : "RECONNECTING"}</span>
+            </div>
+            <div className="progress-bar-track">
+              <div className="progress-bar-fill" style={{ width: `${(turnProgress / 20) * 100}%` }} />
             </div>
           </div>
 
-          <h2 className="resolution-topic">{current.topic}</h2>
-
-          {isOngoing && current.thinkingSpeaker && (
-            <div className="deliberation-ticker">
-              <div className="ticker-waveform">
-                <span className="bar b1" />
-                <span className="bar b2" />
-                <span className="bar b3" />
-                <span className="bar b4" />
-                <span className="bar b5" />
-              </div>
-              <span className="ticker-text">
-                {current.thinkingSpeaker === "optimist"
-                  ? "THE OPTIMIST is crafting an adversarial counter-thesis..."
-                  : "THE PESSIMIST is exposing rhetorical vulnerabilities..."}
-              </span>
-            </div>
-          )}
-
-          {current.error && (
-            <div className="arena-alert-error">
-              <span className="alert-icon">⚠️</span>
-              <span>Dispute halted: {current.error}</span>
-            </div>
-          )}
-
-          {/* Chief Justice Verdict Podium */}
-          {verdict && (
-            <div className={`verdict-vault ${current.winner}`}>
-              <div className="vault-glow-overlay" />
-              <div className="vault-header">
-                <div className="laurel-crown">🏛️</div>
-                <div className="vault-titles">
-                  <span className="vault-pre">HIGH CHIEF JUSTICE DECREE</span>
-                  <h3 className="vault-winner-name">{verdict} VICTORIOUS</h3>
-                </div>
+          {/* Verdict Decree */}
+          {current.winner && (
+            <div className="verdict-box">
+              <div className="verdict-header">
+                <span className="verdict-label">ARBITER VERDICT</span>
+                <h4 className="verdict-title">{current.winner.toUpperCase()} VICTORIOUS</h4>
               </div>
 
               {current.scores && (
-                <div className="vault-score-breakdown">
-                  <div className="vault-gauge opt">
-                    <div className="gauge-label">
-                      <span>THE OPTIMIST</span>
-                      <strong>{current.scores.optimist} PTS</strong>
-                    </div>
-                    <div className="gauge-track">
-                      <div className="gauge-fill" style={{ width: `${current.scores.optimist * 10}%` }} />
-                    </div>
+                <div className="verdict-scores">
+                  <div className="score-row">
+                    <span>THE OPTIMIST</span>
+                    <strong>{current.scores.optimist} / 10</strong>
                   </div>
-                  <div className="vault-gauge pes">
-                    <div className="gauge-label">
-                      <span>THE PESSIMIST</span>
-                      <strong>{current.scores.pessimist} PTS</strong>
-                    </div>
-                    <div className="gauge-track">
-                      <div className="gauge-fill" style={{ width: `${current.scores.pessimist * 10}%` }} />
-                    </div>
+                  <div className="score-row">
+                    <span>THE PESSIMIST</span>
+                    <strong>{current.scores.pessimist} / 10</strong>
                   </div>
                 </div>
               )}
 
               {current.commentary && (
-                <div className="vault-decree-box">
-                  <span className="decree-quote">“</span>
-                  <p className="decree-text">{current.commentary}</p>
-                </div>
+                <p className="verdict-commentary">"{current.commentary}"</p>
               )}
             </div>
           )}
         </div>
       )}
 
-      {/* Waiting for Next Match Card */}
+      {/* 3. Waiting Sanctum (Idle State) */}
       {!current && (
-        <div className="sanctum-waiting-card">
-          <div className="sanctum-pillar-icon">🏛️</div>
-          <h3 className="sanctum-waiting-title">Colosseum Sanctum Awaiting Match</h3>
-          <p className="sanctum-waiting-sub">
-            The autonomous scheduler initializes disputes every 5-minute cycle.
+        <div className="sanctum-card">
+          <h3 className="sanctum-title">ARENA STANDBY</h3>
+          <p className="sanctum-sub">
+            Next scheduled autonomous debate runs every {health?.interval_s ? `${health.interval_s}s` : "5 minutes"}.
           </p>
+
+          <button
+            type="button"
+            className="action-btn"
+            onClick={runDemoDebate}
+            disabled={isDemoRunning}
+          >
+            {isDemoRunning ? "RUNNING SIMULATION..." : "SIMULATE DEMO BATTLE"}
+          </button>
+
           {recent.length > 0 && (
-            <div className="previous-verdict-card">
-              <span className="prev-label">LATEST CONCLUDED DISPUTE</span>
-              <p className="prev-topic">“{recent[0].topic}”</p>
+            <div className="recent-snippet">
+              <span className="recent-label">LAST RESOLUTION:</span>
+              <p className="recent-topic">"{recent[0].topic}"</p>
               {recent[0].winner && (
-                <span className={`prev-winner-tag ${recent[0].winner}`}>
-                  DECISION: {recent[0].winner.toUpperCase()} VICTORIOUS
-                </span>
+                <span className="recent-winner">WINNER: {recent[0].winner.toUpperCase()}</span>
               )}
             </div>
           )}
         </div>
       )}
 
-      {/* Structured Combat Log */}
+      {/* 4. Dialogue Transcript */}
       {current && (
         <Transcript
           turns={current.turns}
           scores={current.scores}
           thinkingSpeaker={current.thinkingSpeaker}
+          isLive={isOngoing}
         />
       )}
-
-      <div ref={bottomRef} />
     </div>
   );
 }
-

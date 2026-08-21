@@ -16,6 +16,9 @@ export interface Debate {
   updated_at?: string;
   ended_at?: string | null;
   turns?: Turn[];
+  optimist_score?: number;
+  pessimist_score?: number;
+  commentary?: string;
 }
 
 export interface Health {
@@ -31,7 +34,6 @@ export type WsEvent =
   | { type: "recent"; debates: Debate[] }
   | { type: "active_debate"; debate_id: string; topic: string; status: string; turns: Turn[] }
   | { type: "debate_started"; debate_id: string; topic: string; first: string }
-
   | {
       type: "turn";
       debate_id: string;
@@ -54,4 +56,4 @@ export type WsEvent =
       pessimist_score: number;
       commentary: string;
     }
-  | { type: "debate_failed"; debate_id: string; error: string };
+  | { type: "debate_failed"; debate_id: string; error: string };

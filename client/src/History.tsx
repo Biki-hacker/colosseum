@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { fetchDebate, fetchDebates } from "./api";
-import type { Debate, Turn } from "./types";
+import { playClick } from "./sound";
 import { Transcript } from "./Transcript";
+import type { Debate, Turn } from "./types";
 
 const fmtTime = (iso: string) =>
-  new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
 const fmtDate = (iso: string) =>
-  new Date(iso).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" });
+  new Date(iso).toLocaleDateString([], { month: "short", day: "numeric" });
 
 export function History() {
   const [debates, setDebates] = useState<Debate[]>([]);
@@ -16,6 +18,7 @@ export function History() {
   const [search, setSearch] = useState("");
   const [filterWinner, setFilterWinner] = useState<"all" | "optimist" | "pessimist">("all");
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
@@ -32,16 +35,41 @@ export function History() {
 
   useEffect(() => {
     void refresh();
-    const t = setInterval(() => void refresh(), 20000);
+    const t = setInterval(() => void refresh(), 15000);
     return () => clearInterval(t);
   }, [refresh]);
 
   const open = async (id: string) => {
+    playClick();
     try {
       setSelected(await fetchDebate(id));
     } catch (e) {
       setError(String(e));
     }
+  };
+
+  const closeModal = () => {
+    playClick();
+    setSelected(null);
+  };
+
+  const copyMarkdown = () => {
+    if (!selected) return;
+    playClick();
+
+    const md = `# COLOSSEUM DEBATE
+**Topic:** ${selected.topic}
+**Victor:** ${selected.winner ? selected.winner.toUpperCase() : "UNDECIDED"}
+**Date:** ${fmtDate(selected.created_at)} ${fmtTime(selected.created_at)}
+
+${(selected.turns || [])
+  .map((t) => `**${t.speaker.toUpperCase()} (Turn ${t.position + 1}):**\n${t.text}\n`)
+  .join("\n")}
+`;
+
+    void navigator.clipboard.writeText(md);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const completed = useMemo(() => debates.filter((d) => d.status === "completed"), [debates]);
@@ -62,191 +90,144 @@ export function History() {
   }, [debates, search, filterWinner]);
 
   return (
-    <div className="archive-suite">
-      {/* Analytics Telemetry Hero */}
+    <div className="history-stage">
+      {/* 1. Minimal Analytics */}
       {completed.length > 0 && (
-        <div className="analytics-hero-card">
+        <div className="analytics-card">
           <div className="analytics-header">
-            <span className="analytics-title">HISTORICAL COMBAT TELEMETRY</span>
-            <span className="analytics-sample-size">{completed.length} CONCLUDED DISPUTES</span>
+            <h3 className="analytics-title">WIN RATE DISTRIBUTION</h3>
+            <span className="analytics-sub">{completed.length} DEBATES</span>
           </div>
 
-          {/* Dual Combatant Win Rate Bar */}
-          <div className="analytics-distribution-bar">
-            <div className="dist-opt" style={{ width: `${optPct}%` }}>
-              <span className="dist-label">THE OPTIMIST {optPct}%</span>
+          <div className="win-bar">
+            <div className="win-opt" style={{ width: `${optPct}%` }}>
+              <span>OPTIMIST {optPct}%</span>
             </div>
-            <div className="dist-pes" style={{ width: `${pesPct}%` }}>
-              <span className="dist-label">THE PESSIMIST {pesPct}%</span>
+            <div className="win-pes" style={{ width: `${pesPct}%` }}>
+              <span>PESSIMIST {pesPct}%</span>
             </div>
           </div>
 
-          <div className="analytics-stat-grid">
-            <div className="analytics-stat-item opt-stat">
-              <span className="stat-symbol">☀️</span>
-              <div className="stat-data">
-                <strong className="stat-val">{optWins}</strong>
-                <span className="stat-sub">OPTIMIST VICTORIES</span>
-              </div>
+          <div className="stats-row">
+            <div className="stat-box">
+              <span className="stat-num">{optWins}</span>
+              <span className="stat-label">OPTIMIST WINS</span>
             </div>
-
-            <div className="analytics-stat-item center-stat">
-              <span className="stat-symbol">🏛️</span>
-              <div className="stat-data">
-                <strong className="stat-val">{completed.length}</strong>
-                <span className="stat-sub">TOTAL RESOLUTIONS</span>
-              </div>
+            <div className="stat-box">
+              <span className="stat-num">{completed.length}</span>
+              <span className="stat-label">TOTAL DEBATES</span>
             </div>
-
-            <div className="analytics-stat-item pes-stat">
-              <span className="stat-symbol">🌙</span>
-              <div className="stat-data">
-                <strong className="stat-val">{pesWins}</strong>
-                <span className="stat-sub">PESSIMIST VICTORIES</span>
-              </div>
+            <div className="stat-box">
+              <span className="stat-num">{pesWins}</span>
+              <span className="stat-label">PESSIMIST WINS</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* Control & Filter Suite */}
-      <div className="archive-control-bar">
-        <div className="archive-search-wrapper">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            className="archive-search-input"
-            placeholder="Filter resolutions by topic keyword…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          {search && (
-            <button type="button" className="search-clear-btn" onClick={() => setSearch("")}>
-              ✕
-            </button>
-          )}
-        </div>
+      {/* 2. Search & Filter Bar */}
+      <div className="filter-bar">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Filter by topic keyword..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-        <div className="archive-filter-pills">
+        <div className="filter-group">
           <button
             type="button"
-            className={`filter-pill ${filterWinner === "all" ? "active" : ""}`}
+            className={`filter-btn ${filterWinner === "all" ? "active" : ""}`}
             onClick={() => setFilterWinner("all")}
           >
-            ALL DISPUTES ({debates.length})
+            ALL ({debates.length})
           </button>
           <button
             type="button"
-            className={`filter-pill opt-pill ${filterWinner === "optimist" ? "active" : ""}`}
+            className={`filter-btn ${filterWinner === "optimist" ? "active" : ""}`}
             onClick={() => setFilterWinner("optimist")}
           >
-            ☀️ OPTIMIST ({optWins})
+            OPTIMIST ({optWins})
           </button>
           <button
             type="button"
-            className={`filter-pill pes-pill ${filterWinner === "pessimist" ? "active" : ""}`}
+            className={`filter-btn ${filterWinner === "pessimist" ? "active" : ""}`}
             onClick={() => setFilterWinner("pessimist")}
           >
-            🌙 PESSIMIST ({pesWins})
+            PESSIMIST ({pesWins})
           </button>
           <button
             type="button"
-            className="refresh-pill-btn"
+            className="filter-btn"
             onClick={() => void refresh()}
-            title="Refresh database records"
           >
-            {loading ? "SYNCING..." : "↻ REFRESH"}
+            {loading ? "SYNCING..." : "REFRESH"}
           </button>
         </div>
       </div>
 
-      {error && (
-        <div className="archive-alert-error">
-          <span>⚠️ Query Error: {error}</span>
-        </div>
-      )}
+      {error && <div className="error-box">{error}</div>}
 
-      {/* Archive Grid & Modal Detail Layout */}
-      <div className="archive-layout-grid">
-        <div className="archive-feed-list">
-          {filteredDebates.length === 0 && (
-            <div className="archive-empty-card">
-              <span className="empty-icon">📜</span>
-              <h4>No archived disputes match your search criteria</h4>
-              <p>Try refining your search terms or clearing active filters.</p>
+      {/* 3. List of Past Debates */}
+      <div className="debate-list">
+        {filteredDebates.length === 0 && (
+          <div className="empty-box">No archived debates found.</div>
+        )}
+
+        {filteredDebates.map((d) => (
+          <div key={d.id} className="debate-card" onClick={() => void open(d.id)}>
+            <div className="card-header">
+              <span className="card-date">{fmtDate(d.created_at)} {fmtTime(d.created_at)}</span>
+              <span className="card-winner">{d.winner ? d.winner.toUpperCase() : "UNDECIDED"}</span>
             </div>
-          )}
+            <h4 className="card-topic">{d.topic}</h4>
+          </div>
+        ))}
+      </div>
 
-          {filteredDebates.map((d, index) => {
-            const isOpt = d.winner === "optimist";
-            const isPes = d.winner === "pessimist";
-            const isSelected = selected?.id === d.id;
-
-            return (
-              <div
-                key={d.id}
-                className={`archive-entry-card ${isSelected ? "is-selected" : ""} ${isOpt ? "opt-border" : isPes ? "pes-border" : ""}`}
-                onClick={() => void open(d.id)}
-              >
-                <div className="card-top-row">
-                  <div className="card-index-group">
-                    <span className="card-roman-index">DISPUTE #{filteredDebates.length - index}</span>
-                    <span className="card-status-badge">CONCLUDED</span>
-                  </div>
-                  <span className="card-timestamp">{fmtDate(d.created_at)} · {fmtTime(d.created_at)}</span>
-                </div>
-
-                <h3 className="card-topic-title">{d.topic}</h3>
-
-                <div className="card-bottom-row">
-                  <div className="card-winner-seal">
-                    <span className="seal-prefix">VICTOR:</span>
-                    {d.winner ? (
-                      <span className={`seal-name ${d.winner}`}>
-                        {d.winner === "optimist" ? "☀️ THE OPTIMIST" : "🌙 THE PESSIMIST"}
-                      </span>
-                    ) : (
-                      <span className="seal-name pending">UNDECIDED</span>
-                    )}
-                  </div>
-
-                  <span className="card-view-link">INSPECT LOG →</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Modal / Slide-In Detail Transcript */}
+      {/* 4. Modal View */}
+      <AnimatePresence>
         {selected && (
-          <div className="archive-detail-overlay">
-            <div className="archive-detail-panel">
-              <div className="detail-panel-header">
-                <div className="detail-meta-group">
-                  <span className="detail-tag">VERDICT DOSSIER · ID {selected.id.slice(0, 8)}</span>
-                  <h3 className="detail-resolution-title">{selected.topic}</h3>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="modal-overlay"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="modal-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-header">
+                <div>
+                  <h3 className="modal-title">{selected.topic}</h3>
+                  <span className="modal-meta">
+                    WINNER: {selected.winner ? selected.winner.toUpperCase() : "UNDECIDED"} · {fmtDate(selected.created_at)}
+                  </span>
                 </div>
 
-                <div className="detail-actions">
-                  {selected.winner && (
-                    <span className={`detail-verdict-seal ${selected.winner}`}>
-                      🏆 {selected.winner === "optimist" ? "THE OPTIMIST VICTORIOUS" : "THE PESSIMIST VICTORIOUS"}
-                    </span>
-                  )}
-                  <button type="button" className="close-detail-btn" onClick={() => setSelected(null)}>
-                    ✕ CLOSE
+                <div className="modal-actions">
+                  <button type="button" className="action-btn-sm" onClick={copyMarkdown}>
+                    {copied ? "COPIED!" : "COPY MARKDOWN"}
+                  </button>
+                  <button type="button" className="action-btn-sm" onClick={closeModal}>
+                    CLOSE
                   </button>
                 </div>
               </div>
 
-              <div className="detail-panel-scroll">
-                <Transcript turns={selected.turns ?? []} />
+              <div className="modal-body">
+                <Transcript turns={selected.turns ?? []} isLive={false} />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }
-
