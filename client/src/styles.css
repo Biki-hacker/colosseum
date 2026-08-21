@@ -1078,6 +1078,20 @@ body {
 @media (max-width: 768px) {
   .combatants-roster {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* On phone screens, shift the Pessimist score to the left and text to the right */
+  .pes-card {
+    flex-direction: row-reverse;
+  }
+
+  .pes-card .combatant-info {
+    text-align: right;
+  }
+
+  .pes-card .combatant-status {
+    align-self: flex-end;
   }
 
   .site-header {
