@@ -43,10 +43,22 @@ def _make_redis():
     try:
         import redis
 
-        return redis.Redis.from_url(settings.upstash_redis_url, socket_timeout=2)
+        url = settings.upstash_redis_url.strip()
+        if url.startswith("https://") or url.startswith("http://"):
+            host = url.split("://", 1)[1].strip("/")
+            token = (settings.upstash_redis_token or "").strip()
+            if token:
+                url = f"rediss://default:{token}@{host}:6379"
+            else:
+                url = f"rediss://{host}:6379"
+        client = redis.Redis.from_url(url, socket_timeout=3)
+        client.ping()
+        log.info("connected to Upstash Redis")
+        return client
     except Exception as e:  # noqa: BLE001
         log.warning("redis unavailable: %s", e)
         return None
+
 
 
 @contextlib.asynccontextmanager
