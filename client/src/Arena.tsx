@@ -19,7 +19,20 @@ interface ArenaProps {
   health?: Health | null;
 }
 
-const wsUrl = () => `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/debates`;
+const wsUrl = () => {
+  const explicitWs = import.meta.env.VITE_WS_URL?.trim();
+  if (explicitWs) {
+    return explicitWs.endsWith("/ws/debates")
+      ? explicitWs
+      : `${explicitWs.replace(/\/$/, "")}/ws/debates`;
+  }
+  const apiUrl = import.meta.env.VITE_API_URL?.trim();
+  if (apiUrl) {
+    const baseWs = apiUrl.replace(/^http/, "ws").replace(/\/api\/?$/, "");
+    return `${baseWs.replace(/\/$/, "")}/ws/debates`;
+  }
+  return `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/debates`;
+};
 
 const DEMO_TOPICS = [
   "Should sentient AI systems be granted synthetic personhood and sovereign rights?",

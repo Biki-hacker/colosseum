@@ -1,6 +1,11 @@
 import type { Debate, Health, Turn } from "./types";
 
-const BASE = "/api";
+const rawApiUrl = import.meta.env.VITE_API_URL?.trim();
+const BASE = rawApiUrl
+  ? rawApiUrl.endsWith("/api")
+    ? rawApiUrl
+    : `${rawApiUrl.replace(/\/$/, "")}/api`
+  : "/api";
 
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`);
