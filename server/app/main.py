@@ -70,10 +70,8 @@ async def lifespan(app: FastAPI):
     redis_client = await asyncio.to_thread(_make_redis)
     topics = TopicProvider(make_llm(), redis=redis_client)
     scheduler = Scheduler(storage, runner, topics, judge_client=make_judge_llm(), redis=redis_client)
-    await scheduler.recover()
-
     _scheduler_task = asyncio.create_task(scheduler.run())
-    log.info("server ready (models loaded, scheduler started)")
+    log.info("server ready (models loaded, scheduler task spawned)")
     yield
     scheduler.stop()
     if _scheduler_task:
@@ -83,6 +81,7 @@ async def lifespan(app: FastAPI):
 
 
 app.router.lifespan_context = lifespan
+
 
 
 @app.get("/api/health")

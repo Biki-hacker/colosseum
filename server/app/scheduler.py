@@ -37,12 +37,14 @@ class Scheduler:
         self._live_turn_key = "colosseum:live_turn"
 
     async def run(self) -> None:
-        """Main loop: sleep until the next slot, run one debate, repeat."""
+        """Main loop: recover stale sessions, ensure topics, sleep until the next slot, run one debate, repeat."""
+        await self.recover()
         self._next_deadline = time.time()
         last_cleanup = 0.0
         while not self._stopping:
             now = time.time()
             if now >= self._next_deadline:
+
                 self._next_deadline = now + settings.debate_interval_seconds
                 await self._run_one()
             if now - last_cleanup > CLEANUP_INTERVAL_S:
