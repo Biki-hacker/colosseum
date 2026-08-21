@@ -46,10 +46,14 @@ class Scheduler:
 
     async def recover(self) -> None:
         """On boot: fail any debates left in 'running' by a crashed process."""
-        for d in await asyncio.to_thread(self.storage.list_debates, 100):
-            if d.get("status") == "running":
-                await asyncio.to_thread(self.storage.finish_debate, d["id"], None, "failed")
-                log.warning("recovered stale debate %s", d["id"])
+        try:
+            for d in await asyncio.to_thread(self.storage.list_debates, 100):
+                if d.get("status") == "running":
+                    await asyncio.to_thread(self.storage.finish_debate, d["id"], None, "failed")
+                    log.warning("recovered stale debate %s", d["id"])
+        except Exception as e:  # noqa: BLE001
+            log.warning("recover skipped or failed: %s", e)
+
 
     async def _run_one(self) -> None:
         topic = await asyncio.to_thread(self.topics.next)

@@ -113,18 +113,25 @@ class TopicProvider:
 
     def next(self) -> Optional[str]:
         used = self._load_used()
-        if self._batch_pos >= len(self._batch):
-            try:
-                self._batch = generate_topic_batch(self.client, count=settings.topics_per_hour, used=used)
-            except Exception:
-                self._batch = []
-            self._batch_pos = 0
         if self._batch_pos < len(self._batch):
             topic = self._batch[self._batch_pos]
             self._batch_pos += 1
             self._remember(topic)
             return topic
-        
+
+        # Try LLM batch
+        try:
+            self._batch = generate_topic_batch(self.client, count=min(settings.topics_per_hour, 6), used=used)
+            self._batch_pos = 0
+            if self._batch_pos < len(self._batch):
+                topic = self._batch[self._batch_pos]
+                self._batch_pos += 1
+                self._remember(topic)
+                return topic
+        except Exception:
+            self._batch = []
+            self._batch_pos = 0
+
         attempts = 0
         while self._pool and attempts < len(self._pool) * 2:
             if self._pool_pos >= len(self._pool):
@@ -135,4 +142,4 @@ class TopicProvider:
             if topic not in used or attempts >= len(self._pool):
                 self._remember(topic)
                 return topic
-        return "Is it better to be optimistic or skeptical in life?"
+        return "Is it better to be optimistic or skeptical in life?"
