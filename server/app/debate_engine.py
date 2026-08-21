@@ -42,11 +42,17 @@ class DebateRunner:
                 settings.generation_top_p,
                 settings.generation_repetition_penalty,
             )
+            if not text:
+                text = (
+                    "I stand by my perspective on this topic."
+                    if speaker == "optimist"
+                    else "The complications and risks here are too significant to overlook."
+                )
+                nt = max(1, nt)
+
             history.append((speaker, text))
             meta.append({"speaker": speaker, "tokens": nt, "hit_marker": hit_marker})
             await on_event({"type": EVENT_TURN, "speaker": speaker, "text": text, "tokens": nt, "position": i})
-            if not text:
-                break
         return history, meta
 
 

@@ -22,9 +22,10 @@ STOP_STRINGS = ("<EOS>", "<TURN>", "<OPTIMIST>", "<PESSIMIST>", "<TOPIC>")
 class NPModel:
     """Frozen transformer loaded from an exported .npz dict of f32 arrays."""
 
-    def __init__(self, cfg: dict, arrays: Dict[str, np.ndarray]):
+    def __init__(self, cfg: dict, arrays: Dict[str, np.ndarray], stop_token_ids: set[int] | None = None):
         self.cfg = cfg
         self.arrays = arrays
+        self.stop_token_ids = stop_token_ids or set()
         d = cfg["d_model"]
         h = cfg["n_heads"]
         hd = d // h
@@ -112,20 +113,45 @@ class NPModel:
         ln_f = (x - x.mean(-1, keepdims=True)) * self.arrays["ln_f.weight"] / np.sqrt(x.var(-1, keepdims=True) + 1e-5) + self.arrays["ln_f.bias"]
         return ln_f[-1] @ self.arrays["lm_head.weight"].T
 
-    def generate(self, prompt_ids: List[int], temperature: float, top_k: int, top_p: float, repetition_penalty: float) -> Tuple[List[int], bool]:
+    def generate(
+        self,
+        prompt_ids: List[int],
+        temperature: float = 0.75,
+        top_k: int = 25,
+        top_p: float = 0.90,
+        repetition_penalty: float = 1.20,
+        stop_ids: set[int] | None = None,
+    ) -> Tuple[List[int], bool]:
         rng = np.random.default_rng()
         out: List[int] = []
         max_prompt = self.cfg["context_length"] - MAX_TOKENS
         ids = prompt_ids[-max_prompt:] if len(prompt_ids) > max_prompt else prompt_ids
         self._kc = self._vc = None
         self._cache_len = None  # fresh prompt: rebuild cache
+        effective_stops = stop_ids if stop_ids is not None else self.stop_token_ids
+
         for _ in range(MAX_TOKENS):
             lg = self.logits_cached(ids)
             lg = lg.astype(np.float64)
+
+            # Correct Repetition Penalty:
+            # Positive logits are reduced (/ penalty), negative logits are pushed lower (* penalty)
             if repetition_penalty > 1.0:
                 for tok in set(ids[-MAX_TOKENS:] + out):
-                    lg[tok] = lg[tok] / repetition_penalty if lg[tok] < 0 else lg[tok] * repetition_penalty
-            if temperature != 1.0:
+                    if lg[tok] > 0:
+                        lg[tok] = lg[tok] / repetition_penalty
+                    else:
+                        lg[tok] = lg[tok] * repetition_penalty
+
+            # 2-gram Repetitive Phrase Suppression (prevent cyclic phrase loops)
+            if len(out) >= 2:
+                last_tok = out[-1]
+                for i in range(len(out) - 2):
+                    if out[i] == last_tok:
+                        repeated_next = out[i + 1]
+                        lg[repeated_next] = -np.inf
+
+            if temperature != 1.0 and temperature > 0:
                 lg = lg / temperature
             if top_k > 0:
                 kth = np.sort(lg)[-top_k]
@@ -140,18 +166,16 @@ class NPModel:
                 mask = np.full_like(lg, -np.inf)
                 mask[order[keep]] = sorted_lg[keep]
                 lg = mask
+
             probs = np.exp(lg - lg.max())
             probs = probs / probs.sum()
             nxt = int(rng.choice(len(probs), p=probs))
-            if nxt in STOP_TOKEN_IDS:
+
+            if nxt in effective_stops:
                 return out, True
             out.append(nxt)
             ids = ids + [nxt]
         return out, False
-
-
-
-STOP_TOKEN_IDS: List[int] = []
 
 
 class NPEngine:
@@ -160,8 +184,20 @@ class NPEngine:
     def __init__(self, models_root: str, tokenizer_cls):
         self.models: Dict[str, NPModel] = {}
         self.tokenizer = None
+
         for pers in ("optimist", "pessimist"):
             root = os.path.join(models_root, pers)
+            if self.tokenizer is None:
+                self.tokenizer = tokenizer_cls.from_file(os.path.join(root, "tokenizer-portable.json"))
+
+            stop_token_ids = set()
+            for s in STOP_STRINGS:
+                encoded = self.tokenizer.encode(s)
+                if encoded:
+                    stop_token_ids.add(encoded[0])
+            if hasattr(self.tokenizer, "special") and isinstance(self.tokenizer.special, dict):
+                stop_token_ids.update(self.tokenizer.special.values())
+
             with open(os.path.join(root, "config.json"), encoding="utf-8") as f:
                 meta = json.load(f)
             cfg = meta["model"]
@@ -169,20 +205,16 @@ class NPEngine:
             arrays = {k: arrays[k] for k in arrays.files}
             if cfg.get("tie_embeddings", True) and "lm_head.weight" not in arrays:
                 arrays["lm_head.weight"] = arrays["tok_emb.weight"]
-            self.models[pers] = NPModel(cfg, arrays)
-            if self.tokenizer is None:
-                self.tokenizer = tokenizer_cls.from_file(os.path.join(root, "tokenizer-portable.json"))
-        global STOP_TOKEN_IDS
-        STOP_TOKEN_IDS = [self.tokenizer.encode(s)[0] for s in STOP_STRINGS]
+            self.models[pers] = NPModel(cfg, arrays, stop_token_ids=stop_token_ids)
 
     def generate_turn(
         self,
         speaker: str,
         topic: str,
         history: List[Tuple[str, str]],
-        temperature: float = 0.55,
-        top_k: int = 15,
-        top_p: float = 0.85,
+        temperature: float = 0.75,
+        top_k: int = 25,
+        top_p: float = 0.90,
         repetition_penalty: float = 1.20,
     ) -> Tuple[str, int, bool]:
         parts = [f"<BOS><TOPIC> {topic}"]
@@ -191,5 +223,33 @@ class NPEngine:
             parts.append(f"<TURN><{s.upper()}>{' ' + text if text else ''}")
         parts.append(f"<TURN><{speaker.upper()}>")
         ids = self.tokenizer.encode("".join(parts))
-        text_ids, hit = self.models[speaker].generate(ids, temperature, top_k, top_p, repetition_penalty)
-        return self.tokenizer.decode(text_ids).strip(), len(text_ids), hit
+
+        text_ids, hit = self.models[speaker].generate(
+            ids,
+            temperature=temperature,
+            top_k=top_k,
+            top_p=top_p,
+            repetition_penalty=repetition_penalty,
+        )
+
+        decoded = self.tokenizer.decode(text_ids)
+        # Sanitize any stray special markers from decoded string
+        for s in STOP_STRINGS + ("<BOS>", "<PAD>", "<UNK>"):
+            decoded = decoded.replace(s, "")
+        clean_text = decoded.strip()
+
+        # Retry once if the first attempt produced empty output
+        if not clean_text and len(text_ids) == 0:
+            text_ids, hit = self.models[speaker].generate(
+                ids,
+                temperature=max(0.85, temperature + 0.1),
+                top_k=max(30, top_k),
+                top_p=top_p,
+                repetition_penalty=repetition_penalty,
+            )
+            decoded = self.tokenizer.decode(text_ids)
+            for s in STOP_STRINGS + ("<BOS>", "<PAD>", "<UNK>"):
+                decoded = decoded.replace(s, "")
+            clean_text = decoded.strip()
+
+        return clean_text, len(text_ids), hit

@@ -157,7 +157,7 @@ class TinyGPT(nn.Module):
                 gen = idx[:, -max_new_tokens:]
                 if gen.numel() > 0:
                     for tok in gen[0].unique().tolist():
-                        logits[0, tok] = logits[0, tok] / repetition_penalty if logits[0, tok] < 0 else logits[0, tok] * repetition_penalty
+                        logits[0, tok] = logits[0, tok] * repetition_penalty if logits[0, tok] < 0 else logits[0, tok] / repetition_penalty
             if temperature != 1.0:
                 logits = logits / temperature
             if top_k > 0:

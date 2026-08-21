@@ -126,15 +126,15 @@ class Settings:
 
     @property
     def generation_temperature(self) -> float:
-        return _float("GENERATION_TEMPERATURE", 0.55)
+        return _float("GENERATION_TEMPERATURE", 0.75)
 
     @property
     def generation_top_k(self) -> int:
-        return _int("GENERATION_TOP_K", 15)
+        return _int("GENERATION_TOP_K", 25)
 
     @property
     def generation_top_p(self) -> float:
-        return _float("GENERATION_TOP_P", 0.85)
+        return _float("GENERATION_TOP_P", 0.90)
 
     @property
     def generation_repetition_penalty(self) -> float:
