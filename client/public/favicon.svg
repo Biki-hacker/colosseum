@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Clay Base Terracotta Gradient -->
+    <linearGradient id="clayTile" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#803D30" />
+      <stop offset="50%" stop-color="#6B352A" />
+      <stop offset="100%" stop-color="#461F18" />
+    </linearGradient>
+
+    <!-- Warm Cream Sunlit Highlights -->
+    <linearGradient id="creamSun" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBE3" />
+      <stop offset="45%" stop-color="#FFF1A6" />
+      <stop offset="100%" stop-color="#DEB843" />
+    </linearGradient>
+
+    <!-- Mid Tier Terracotta Clay -->
+    <linearGradient id="clayWall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9C4D3D" />
+      <stop offset="50%" stop-color="#7B3A2E" />
+      <stop offset="100%" stop-color="#55241C" />
+    </linearGradient>
+
+    <!-- Dark Inset Void for Roman Arches -->
+    <linearGradient id="archVoid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#240D09" />
+      <stop offset="100%" stop-color="#3D1A14" />
+    </linearGradient>
+
+    <!-- Clay Drop Shadows -->
+    <filter id="clayShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#1A0704" flood-opacity="0.65" />
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#FFEFA0" flood-opacity="0.18" />
+    </filter>
+
+    <filter id="innerClayDepth">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#1A0704" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Squircle Canvas (Clay Pillow Badge) -->
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="url(#clayTile)" filter="url(#clayShadow)" />
+  
+  <!-- Outer Pillowy Inner Highlight Lip -->
+  <rect x="42" y="42" width="428" height="428" rx="102" fill="none" stroke="#FFF1A6" stroke-width="4" stroke-opacity="0.22" />
+
+  <!-- Arena Ground Podium Base -->
+  <ellipse cx="256" cy="405" rx="180" ry="24" fill="#361610" opacity="0.85" />
+
+  <!-- COLOSSEUM STRUCTURE -->
+  <g filter="url(#innerClayDepth)">
+    <!-- 1. Outer Massive Wall Tier (Iconic High Left Ruin Sloping Down Right) -->
+    <path d="M96 385 L96 215 C96 175, 140 138, 256 138 C330 138, 385 155, 416 182 L416 235 L372 235 L372 268 L320 268 L320 385 Z"
+          fill="url(#clayWall)" />
+    
+    <!-- Top Rim Highlight -->
+    <path d="M96 215 C96 175, 140 138, 256 138 C330 138, 385 155, 416 182"
+          fill="none" stroke="url(#creamSun)" stroke-width="8" stroke-linecap="round" />
+
+    <!-- 2. Stepped Upper Tier Ridge -->
+    <path d="M120 220 L300 220 L300 228 L120 228 Z" fill="url(#creamSun)" opacity="0.8" />
+    <path d="M120 282 L392 282 L392 290 L120 290 Z" fill="url(#creamSun)" opacity="0.8" />
+    <path d="M112 344 L400 344 L400 352 L112 352 Z" fill="url(#creamSun)" opacity="0.8" />
+
+    <!-- 3. Top Row Arches (Attic Windows) -->
+    <rect x="136" y="166" width="22" height="32" rx="11" fill="url(#archVoid)" />
+    <rect x="178" y="166" width="22" height="32" rx="11" fill="url(#archVoid)" />
+    <rect x="220" y="166" width="22" height="32" rx="11" fill="url(#archVoid)" />
+    <rect x="262" y="168" width="22" height="30" rx="11" fill="url(#archVoid)" />
+
+    <!-- 4. Middle Tier Roman Arches -->
+    <rect x="126" y="234" width="26" height="42" rx="13" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+    <rect x="170" y="234" width="26" height="42" rx="13" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+    <rect x="214" y="234" width="26" height="42" rx="13" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+    <rect x="258" y="234" width="26" height="42" rx="13" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+    <rect x="302" y="234" width="26" height="42" rx="13" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+    <rect x="346" y="238" width="24" height="38" rx="12" fill="url(#archVoid)" stroke="#FFE875" stroke-width="2" stroke-opacity="0.3" />
+
+    <!-- 5. Grand Base Promenade Arches (Ground Tier) -->
+    <rect x="122" y="296" width="28" height="44" rx="14" fill="url(#archVoid)" />
+    <rect x="166" y="296" width="28" height="44" rx="14" fill="url(#archVoid)" />
+    <rect x="210" y="296" width="30" height="44" rx="15" fill="url(#archVoid)" />
+    <rect x="256" y="296" width="30" height="44" rx="15" fill="url(#archVoid)" />
+    <rect x="302" y="296" width="28" height="44" rx="14" fill="url(#archVoid)" />
+    <rect x="346" y="296" width="28" height="44" rx="14" fill="url(#archVoid)" />
+    
+    <!-- Sub-promenade base gate -->
+    <rect x="136" y="356" width="24" height="28" rx="12" fill="url(#archVoid)" />
+    <rect x="180" y="356" width="24" height="28" rx="12" fill="url(#archVoid)" />
+    <rect x="224" y="356" width="26" height="28" rx="13" fill="url(#archVoid)" />
+    <rect x="268" y="356" width="26" height="28" rx="13" fill="url(#archVoid)" />
+    <rect x="312" y="356" width="24" height="28" rx="12" fill="url(#archVoid)" />
+    <rect x="356" y="356" width="24" height="28" rx="12" fill="url(#archVoid)" />
+
+    <!-- Center Arena Combatant Corona / Spark -->
+    <circle cx="256" cy="100" r="16" fill="url(#creamSun)" filter="url(#clayShadow)" />
+    <path d="M256 68 L260 92 L284 96 L260 100 L256 124 L252 100 L228 96 L252 92 Z" fill="#FFFBE3" />
+  </g>
+</svg>
