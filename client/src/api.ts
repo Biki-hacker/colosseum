@@ -17,7 +17,7 @@ export function fetchHealth(): Promise<Health> {
   return get<Health>("/health");
 }
 
-export function fetchDebates(limit = 20): Promise<Debate[]> {
+export function fetchDebates(limit = 100): Promise<Debate[]> {
   return get<Debate[]>(`/debates?limit=${limit}`);
 }
 
