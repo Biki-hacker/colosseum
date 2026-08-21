@@ -10,62 +10,118 @@ export function Transcript({ turns, scores, thinkingSpeaker }: TranscriptProps) 
   const rows = [...turns].sort((a, b) => a.position - b.position);
 
   return (
-    <div className="transcript">
+    <div className="transcript-flow">
+      <div className="transcript-section-divider">
+        <span className="divider-line" />
+        <span className="divider-badge">DISPUTE PROCEEDINGS · COMBAT LOG</span>
+        <span className="divider-line" />
+      </div>
+
       {rows.length === 0 && !thinkingSpeaker && (
-        <div className="empty-transcript">
-          <div className="empty-pulse" />
-          <span>Opening arguments are being prepared…</span>
+        <div className="transcript-empty-state">
+          <div className="empty-radar-ring" />
+          <span className="empty-state-text">Gladiators are formulating opening theses...</span>
         </div>
       )}
 
       {rows.map((t) => {
-        const opt = t.speaker === "optimist";
+        const isOpt = t.speaker === "optimist";
         return (
-          <div key={t.position} className={`bubble-row ${opt ? "opt" : "pes"} fade-in-up`}>
-            <div className="avatar-badge">{opt ? "⚡" : "🛡️"}</div>
-            <div className="bubble">
-              <div className="bubble-head">
-                <span className="speaker-name">{opt ? "OPTIMIST" : "PESSIMIST"}</span>
-                <div className="bubble-meta">
-                  <span className="turn-tag">Turn #{t.position + 1}</span>
-                  <span className="tokens">{t.tokens} tok</span>
+          <div
+            key={t.position}
+            className={`speech-entry ${isOpt ? "opt-entry" : "pes-entry"} entry-appear`}
+          >
+            <div className="speech-crest">
+              <div className={`crest-symbol-box ${isOpt ? "opt-box" : "pes-box"}`}>
+                <span>{isOpt ? "☀️" : "🌙"}</span>
+              </div>
+              <div className="crest-connector" />
+            </div>
+
+            <div className="speech-content-card">
+              <div className="speech-header">
+                <div className="speech-speaker-meta">
+                  <span className={`speaker-name-tag ${isOpt ? "opt-tag" : "pes-tag"}`}>
+                    {isOpt ? "THE OPTIMIST" : "THE PESSIMIST"}
+                  </span>
+                  <span className="speech-role">
+                    {t.position === 0
+                      ? "OPENING PROPOSITION"
+                      : t.position % 2 === 0
+                      ? `ARGUMENT #${Math.floor(t.position / 2) + 1}`
+                      : `REBUTTAL #${Math.floor(t.position / 2) + 1}`}
+                  </span>
+                </div>
+                <div className="speech-telemetry">
+                  <span className="telemetry-turn">#{t.position + 1}</span>
+                  <span className="telemetry-tokens">{t.tokens} TOKENS</span>
                 </div>
               </div>
-              <div className="bubble-text">{t.text}</div>
+
+              <div className="speech-body">
+                <p className="speech-text">{t.text}</p>
+              </div>
             </div>
           </div>
         );
       })}
 
       {thinkingSpeaker && (
-        <div className={`bubble-row ${thinkingSpeaker === "optimist" ? "opt" : "pes"} thinking-row fade-in-up`}>
-          <div className="avatar-badge">{thinkingSpeaker === "optimist" ? "⚡" : "🛡️"}</div>
-          <div className="bubble thinking-bubble">
-            <div className="bubble-head">
-              <span className="speaker-name">
-                {thinkingSpeaker === "optimist" ? "OPTIMIST" : "PESSIMIST"}
-              </span>
-              <span className="deliberating-text">Deliberating counter-punch…</span>
+        <div
+          className={`speech-entry ${thinkingSpeaker === "optimist" ? "opt-entry" : "pes-entry"} thinking-entry entry-appear`}
+        >
+          <div className="speech-crest">
+            <div
+              className={`crest-symbol-box ${thinkingSpeaker === "optimist" ? "opt-box" : "pes-box"} pulsing`}
+            >
+              <span>{thinkingSpeaker === "optimist" ? "☀️" : "🌙"}</span>
             </div>
-            <div className="typing-indicator">
-              <span className="dot" />
-              <span className="dot" />
-              <span className="dot" />
+          </div>
+
+          <div className="speech-content-card deliberating-card">
+            <div className="speech-header">
+              <div className="speech-speaker-meta">
+                <span
+                  className={`speaker-name-tag ${thinkingSpeaker === "optimist" ? "opt-tag" : "pes-tag"}`}
+                >
+                  {thinkingSpeaker === "optimist" ? "THE OPTIMIST" : "THE PESSIMIST"}
+                </span>
+                <span className="speech-role">COMPUTING REBUTTAL...</span>
+              </div>
+              <div className="thinking-waveform-mini">
+                <span className="wave-bar" />
+                <span className="wave-bar" />
+                <span className="wave-bar" />
+                <span className="wave-bar" />
+              </div>
+            </div>
+
+            <div className="deliberating-glow-box">
+              <span className="deliberating-caption">
+                Synthesizing adversarial counter-punch based on opponent's immediate logic...
+              </span>
             </div>
           </div>
         </div>
       )}
 
       {scores && rows.length > 0 && (
-        <div className="transcript-score-card">
-          <span className="score-title">Final Round Scorecard</span>
-          <div className="score-split">
-            <span className="opt-score">OPTIMIST: {scores.optimist}</span>
-            <span className="vs-divider">VS</span>
-            <span className="pes-score">PESSIMIST: {scores.pessimist}</span>
+        <div className="transcript-conclusion-banner">
+          <span className="banner-title">OFFICIAL ROUND SCORECARD</span>
+          <div className="banner-score-row">
+            <div className="opt-score-item">
+              <span className="item-label">OPTIMIST</span>
+              <strong className="item-value">{scores.optimist} / 10</strong>
+            </div>
+            <span className="score-vs-divider">VS</span>
+            <div className="pes-score-item">
+              <span className="item-label">PESSIMIST</span>
+              <strong className="item-value">{scores.pessimist} / 10</strong>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
-}
+}
+

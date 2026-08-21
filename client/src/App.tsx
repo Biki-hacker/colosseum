@@ -27,44 +27,58 @@ export function App() {
   };
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <div className="brand">
-          <span className="brand-badge">⚡ VS 🛡️</span>
-          <h1 className="brand-title">COLOSSEUM</h1>
-          <span className="brand-tagline">AI DEBATE ARENA</span>
+    <div className="app-container">
+      {/* Background ambient lighting */}
+      <div className="ambient-glow opt-glow" />
+      <div className="ambient-glow pes-glow" />
+
+      <header className="site-header">
+        <div className="brand-group">
+          <div className="brand-crest">
+            <span className="crest-symbol">🏛️</span>
+          </div>
+          <div className="brand-text">
+            <h1 className="brand-title">COLOSSEUM</h1>
+            <span className="brand-sub">AUTONOMOUS ADVERSARIAL ARENA</span>
+          </div>
         </div>
 
-        <nav className="tabs">
+        <nav className="nav-segment">
           <button
             type="button"
-            className={tab === "arena" ? "tab-btn on" : "tab-btn"}
+            className={`nav-item ${tab === "arena" ? "active" : ""}`}
             onClick={() => setTab("arena")}
           >
-            ⚔️ Live Arena
+            <span className="nav-icon">⚔️</span>
+            <span className="nav-label">LIVE ARENA</span>
           </button>
           <button
             type="button"
-            className={tab === "history" ? "tab-btn on" : "tab-btn"}
+            className={`nav-item ${tab === "history" ? "active" : ""}`}
             onClick={() => setTab("history")}
           >
-            📜 Archive
+            <span className="nav-icon">📜</span>
+            <span className="nav-label">VERDICT ARCHIVE</span>
           </button>
         </nav>
 
-        <div className="health">
-          <span className={`dot ${health?.status === "ok" ? "on" : ""}`} />
+        <div className="telemetry-chip">
+          <span className={`status-diamond ${health?.status === "ok" ? "online" : "offline"}`} />
           {health ? (
-            <span className="health-text">
-              <strong>{health.interval_s}s round</strong> · {health.storage} · up {fmtUptime(health.uptime_s)}
-            </span>
+            <div className="telemetry-info">
+              <span className="telemetry-primary">{health.interval_s}s CADENCE · {health.storage.toUpperCase()}</span>
+              <span className="telemetry-secondary">UPTIME {fmtUptime(health.uptime_s)}</span>
+            </div>
           ) : (
-            <span className="health-text offline">Connecting to server…</span>
+            <div className="telemetry-info">
+              <span className="telemetry-primary">CONNECTING...</span>
+            </div>
           )}
         </div>
       </header>
 
-      <main className="app-content">{tab === "arena" ? <Arena /> : <History />}</main>
+      <main className="main-viewport">{tab === "arena" ? <Arena /> : <History />}</main>
     </div>
   );
-}
+}
+

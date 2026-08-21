@@ -3,11 +3,11 @@ import { fetchDebate, fetchDebates } from "./api";
 import type { Debate, Turn } from "./types";
 import { Transcript } from "./Transcript";
 
-const fmt = (iso: string) =>
+const fmtTime = (iso: string) =>
   new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
 
 const fmtDate = (iso: string) =>
-  new Date(iso).toLocaleDateString([], { month: "short", day: "numeric" });
+  new Date(iso).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" });
 
 export function History() {
   const [debates, setDebates] = useState<Debate[]>([]);
@@ -28,7 +28,6 @@ export function History() {
     } finally {
       setLoading(false);
     }
-
   }, []);
 
   useEffect(() => {
@@ -48,6 +47,8 @@ export function History() {
   const completed = useMemo(() => debates.filter((d) => d.status === "completed"), [debates]);
   const optWins = useMemo(() => completed.filter((d) => d.winner === "optimist").length, [completed]);
   const pesWins = useMemo(() => completed.filter((d) => d.winner === "pessimist").length, [completed]);
+  const optPct = completed.length ? Math.round((optWins / completed.length) * 100) : 50;
+  const pesPct = completed.length ? 100 - optPct : 50;
 
   const filteredDebates = useMemo(() => {
     return debates.filter((d) => {
@@ -61,75 +62,122 @@ export function History() {
   }, [debates, search, filterWinner]);
 
   return (
-    <div className="history">
-      {/* Stats Widget */}
+    <div className="archive-suite">
+      {/* Analytics Telemetry Hero */}
       {completed.length > 0 && (
-        <div className="history-stats card-glass">
-          <div className="stat-card">
-            <span className="stat-num">{completed.length}</span>
-            <span className="stat-label">Total Debates</span>
+        <div className="analytics-hero-card">
+          <div className="analytics-header">
+            <span className="analytics-title">HISTORICAL COMBAT TELEMETRY</span>
+            <span className="analytics-sample-size">{completed.length} CONCLUDED DISPUTES</span>
           </div>
-          <div className="stat-card opt">
-            <span className="stat-num">{optWins}</span>
-            <span className="stat-label">
-              Optimist Wins ({completed.length ? Math.round((optWins / completed.length) * 100) : 0}%)
-            </span>
+
+          {/* Dual Combatant Win Rate Bar */}
+          <div className="analytics-distribution-bar">
+            <div className="dist-opt" style={{ width: `${optPct}%` }}>
+              <span className="dist-label">THE OPTIMIST {optPct}%</span>
+            </div>
+            <div className="dist-pes" style={{ width: `${pesPct}%` }}>
+              <span className="dist-label">THE PESSIMIST {pesPct}%</span>
+            </div>
           </div>
-          <div className="stat-card pes">
-            <span className="stat-num">{pesWins}</span>
-            <span className="stat-label">
-              Pessimist Wins ({completed.length ? Math.round((pesWins / completed.length) * 100) : 0}%)
-            </span>
+
+          <div className="analytics-stat-grid">
+            <div className="analytics-stat-item opt-stat">
+              <span className="stat-symbol">☀️</span>
+              <div className="stat-data">
+                <strong className="stat-val">{optWins}</strong>
+                <span className="stat-sub">OPTIMIST VICTORIES</span>
+              </div>
+            </div>
+
+            <div className="analytics-stat-item center-stat">
+              <span className="stat-symbol">🏛️</span>
+              <div className="stat-data">
+                <strong className="stat-val">{completed.length}</strong>
+                <span className="stat-sub">TOTAL RESOLUTIONS</span>
+              </div>
+            </div>
+
+            <div className="analytics-stat-item pes-stat">
+              <span className="stat-symbol">🌙</span>
+              <div className="stat-data">
+                <strong className="stat-val">{pesWins}</strong>
+                <span className="stat-sub">PESSIMIST VICTORIES</span>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      <div className="history-controls">
-        <div className="search-box">
+      {/* Control & Filter Suite */}
+      <div className="archive-control-bar">
+        <div className="archive-search-wrapper">
+          <span className="search-icon">🔍</span>
           <input
             type="text"
-            placeholder="Search debate topics…"
+            className="archive-search-input"
+            placeholder="Filter resolutions by topic keyword…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          {search && (
+            <button type="button" className="search-clear-btn" onClick={() => setSearch("")}>
+              ✕
+            </button>
+          )}
         </div>
-        <div className="filter-tabs">
+
+        <div className="archive-filter-pills">
           <button
             type="button"
-            className={filterWinner === "all" ? "active" : ""}
+            className={`filter-pill ${filterWinner === "all" ? "active" : ""}`}
             onClick={() => setFilterWinner("all")}
           >
-            All ({debates.length})
+            ALL DISPUTES ({debates.length})
           </button>
           <button
             type="button"
-            className={filterWinner === "optimist" ? "active opt" : "opt"}
+            className={`filter-pill opt-pill ${filterWinner === "optimist" ? "active" : ""}`}
             onClick={() => setFilterWinner("optimist")}
           >
-            ⚡ Optimist ({optWins})
+            ☀️ OPTIMIST ({optWins})
           </button>
           <button
             type="button"
-            className={filterWinner === "pessimist" ? "active pes" : "pes"}
+            className={`filter-pill pes-pill ${filterWinner === "pessimist" ? "active" : ""}`}
             onClick={() => setFilterWinner("pessimist")}
           >
-            🛡️ Pessimist ({pesWins})
+            🌙 PESSIMIST ({pesWins})
           </button>
-          <button type="button" className="refresh-btn" onClick={() => void refresh()}>
-            {loading ? "…" : "↻ Refresh"}
+          <button
+            type="button"
+            className="refresh-pill-btn"
+            onClick={() => void refresh()}
+            title="Refresh database records"
+          >
+            {loading ? "SYNCING..." : "↻ REFRESH"}
           </button>
         </div>
       </div>
 
-      {error && <div className="error-banner">⚠️ {error}</div>}
+      {error && (
+        <div className="archive-alert-error">
+          <span>⚠️ Query Error: {error}</span>
+        </div>
+      )}
 
-      <div className="history-grid">
-        <div className="history-list">
+      {/* Archive Grid & Modal Detail Layout */}
+      <div className="archive-layout-grid">
+        <div className="archive-feed-list">
           {filteredDebates.length === 0 && (
-            <div className="empty-card card-glass">No debates found matching the criteria.</div>
+            <div className="archive-empty-card">
+              <span className="empty-icon">📜</span>
+              <h4>No archived disputes match your search criteria</h4>
+              <p>Try refining your search terms or clearing active filters.</p>
+            </div>
           )}
 
-          {filteredDebates.map((d) => {
+          {filteredDebates.map((d, index) => {
             const isOpt = d.winner === "optimist";
             const isPes = d.winner === "pessimist";
             const isSelected = selected?.id === d.id;
@@ -137,53 +185,68 @@ export function History() {
             return (
               <div
                 key={d.id}
-                className={`history-row card-glass ${isSelected ? "selected" : ""} ${isOpt ? "opt-win" : isPes ? "pes-win" : ""}`}
+                className={`archive-entry-card ${isSelected ? "is-selected" : ""} ${isOpt ? "opt-border" : isPes ? "pes-border" : ""}`}
                 onClick={() => void open(d.id)}
               >
-                <div className="row-left">
-                  <span className={`status-badge ${d.status}`}>{d.status}</span>
-                  <div className="topic-text">{d.topic}</div>
+                <div className="card-top-row">
+                  <div className="card-index-group">
+                    <span className="card-roman-index">DISPUTE #{filteredDebates.length - index}</span>
+                    <span className="card-status-badge">CONCLUDED</span>
+                  </div>
+                  <span className="card-timestamp">{fmtDate(d.created_at)} · {fmtTime(d.created_at)}</span>
                 </div>
-                <div className="row-right">
-                  {d.winner ? (
-                    <span className={`winner-pill ${d.winner}`}>
-                      {d.winner === "optimist" ? "⚡ OPTIMIST" : "🛡️ PESSIMIST"}
-                    </span>
-                  ) : (
-                    <span className="winner-pill pending">—</span>
-                  )}
-                  <span className="time-text">
-                    {fmtDate(d.created_at)} · {fmt(d.created_at)}
-                  </span>
+
+                <h3 className="card-topic-title">{d.topic}</h3>
+
+                <div className="card-bottom-row">
+                  <div className="card-winner-seal">
+                    <span className="seal-prefix">VICTOR:</span>
+                    {d.winner ? (
+                      <span className={`seal-name ${d.winner}`}>
+                        {d.winner === "optimist" ? "☀️ THE OPTIMIST" : "🌙 THE PESSIMIST"}
+                      </span>
+                    ) : (
+                      <span className="seal-name pending">UNDECIDED</span>
+                    )}
+                  </div>
+
+                  <span className="card-view-link">INSPECT LOG →</span>
                 </div>
               </div>
             );
           })}
         </div>
 
+        {/* Modal / Slide-In Detail Transcript */}
         {selected && (
-          <div className="history-detail card-glass">
-            <div className="detail-header">
-              <button type="button" className="back-btn" onClick={() => setSelected(null)}>
-                ✕ Close
-              </button>
-              <div className="detail-topic">
-                <span className="topic-badge">Resolution Archive</span>
-                <h3>{selected.topic}</h3>
-              </div>
-              {selected.winner && (
-                <div className={`detail-winner-badge ${selected.winner}`}>
-                  🏆 {selected.winner.toUpperCase()} VICTORIOUS
+          <div className="archive-detail-overlay">
+            <div className="archive-detail-panel">
+              <div className="detail-panel-header">
+                <div className="detail-meta-group">
+                  <span className="detail-tag">VERDICT DOSSIER · ID {selected.id.slice(0, 8)}</span>
+                  <h3 className="detail-resolution-title">{selected.topic}</h3>
                 </div>
-              )}
-            </div>
 
-            <div className="detail-transcript-wrapper">
-              <Transcript turns={selected.turns ?? []} />
+                <div className="detail-actions">
+                  {selected.winner && (
+                    <span className={`detail-verdict-seal ${selected.winner}`}>
+                      🏆 {selected.winner === "optimist" ? "THE OPTIMIST VICTORIOUS" : "THE PESSIMIST VICTORIOUS"}
+                    </span>
+                  )}
+                  <button type="button" className="close-detail-btn" onClick={() => setSelected(null)}>
+                    ✕ CLOSE
+                  </button>
+                </div>
+              </div>
+
+              <div className="detail-panel-scroll">
+                <Transcript turns={selected.turns ?? []} />
+              </div>
             </div>
           </div>
         )}
       </div>
     </div>
   );
-}
+}
+
