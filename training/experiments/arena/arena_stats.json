@@ -1,25 +1,25 @@
 {
- "debates": 200,
- "turns": 2224,
- "avg_turns_per_debate": 11.12,
+ "debates": 20,
+ "turns": 208,
+ "avg_turns_per_debate": 10.4,
  "optimist": {
-  "avg_tokens_per_turn": 42.88,
-  "truncated_frac": 0.532,
-  "blank_frac": 0.001,
-  "avg_rep_4gram": 0.008,
-  "avg_diversity": 0.786,
-  "opt_lean_score": 0.025,
-  "pes_lean_score": 0.0125,
-  "lean_delta": 0.0125
+  "avg_tokens_per_turn": 44.77,
+  "truncated_frac": 0.602,
+  "blank_frac": 0.0,
+  "avg_rep_4gram": 0.01,
+  "avg_diversity": 0.813,
+  "opt_lean_score": 0.0202,
+  "pes_lean_score": 0.0103,
+  "lean_delta": 0.0098
  },
  "pessimist": {
-  "avg_tokens_per_turn": 40.48,
-  "truncated_frac": 0.384,
+  "avg_tokens_per_turn": 44.51,
+  "truncated_frac": 0.65,
   "blank_frac": 0.0,
-  "avg_rep_4gram": 0.007,
-  "avg_diversity": 0.786,
-  "opt_lean_score": 0.0207,
-  "pes_lean_score": 0.0145,
-  "lean_delta": 0.0061
+  "avg_rep_4gram": 0.001,
+  "avg_diversity": 0.847,
+  "opt_lean_score": 0.0344,
+  "pes_lean_score": 0.0176,
+  "lean_delta": 0.0168
  }
 }

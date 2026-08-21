@@ -64,10 +64,11 @@ class Settings:
     retention_hours: int = _int("RETENTION_HOURS", 48)
 
     # inference
-    generation_temperature: float = _float("GENERATION_TEMPERATURE", 0.8)
-    generation_top_k: int = _int("GENERATION_TOP_K", 40)
-    generation_top_p: float = _float("GENERATION_TOP_P", 0.9)
-    generation_repetition_penalty: float = _float("GENERATION_REPETITION_PENALTY", 1.15)
+    generation_temperature: float = _float("GENERATION_TEMPERATURE", 0.55)
+    generation_top_k: int = _int("GENERATION_TOP_K", 15)
+    generation_top_p: float = _float("GENERATION_TOP_P", 0.85)
+    generation_repetition_penalty: float = _float("GENERATION_REPETITION_PENALTY", 1.20)
+
 
     @property
     def llm_mock(self) -> bool:

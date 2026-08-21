@@ -90,3 +90,124 @@
 {"step": 1950, "loss": 3.2673, "lr": 0.000101, "tokens": 16376758, "tok_s": 21524, "elapsed_s": 760.8}
 {"step": 1999, "loss": 3.6122, "lr": 0.0001, "tokens": 16793458, "tok_s": 21534, "elapsed_s": 779.9}
 {"step": 1999, "val_loss": 3.6077, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. The best part is that a lot of people, and you're not the willingness to effort you live in ways you'd be surprised.<TURN><OPTIMIST> You're not wrong about the risk. The part"}
+{"step": 0, "loss": 8.3929, "lr": 3e-06, "tokens": 10386, "tok_s": 11872, "elapsed_s": 0.9}
+{"step": 100, "loss": 6.7029, "lr": 0.000269, "tokens": 853387, "tok_s": 21644, "elapsed_s": 39.4}
+{"step": 200, "loss": 5.4666, "lr": 0.000536, "tokens": 1691616, "tok_s": 21614, "elapsed_s": 78.3}
+{"step": 300, "loss": 4.4568, "lr": 0.0008, "tokens": 2527907, "tok_s": 21548, "elapsed_s": 117.3}
+{"step": 400, "loss": 4.6676, "lr": 0.0008, "tokens": 3356834, "tok_s": 21472, "elapsed_s": 156.3}
+{"step": 499, "val_loss": 3.9737, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> You're not wrong about the risk. You're not wrong about the risk. You're not wrong about the risk. You're not the same thing, and I think you're not the thing to're doing.<EOS>"}
+{"step": 500, "loss": 4.1134, "lr": 0.000799, "tokens": 4188756, "tok_s": 21301, "elapsed_s": 196.6}
+{"step": 600, "loss": 3.4364, "lr": 0.000798, "tokens": 5034442, "tok_s": 21354, "elapsed_s": 235.8}
+{"step": 700, "loss": 3.9164, "lr": 0.000797, "tokens": 5868137, "tok_s": 21368, "elapsed_s": 274.6}
+{"step": 800, "loss": 3.6646, "lr": 0.000795, "tokens": 6695099, "tok_s": 21362, "elapsed_s": 313.4}
+{"step": 900, "loss": 3.601, "lr": 0.000793, "tokens": 7544113, "tok_s": 21420, "elapsed_s": 352.2}
+{"step": 999, "val_loss": 3.4776, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I can't argue with the worry, honestlyly. I love that you're choosing to see the world while you still have the energy to enjoy it.<EOS>"}
+{"step": 1000, "loss": 3.2036, "lr": 0.00079, "tokens": 8404141, "tok_s": 21454, "elapsed_s": 391.7}
+{"step": 1100, "loss": 2.7868, "lr": 0.000787, "tokens": 9255621, "tok_s": 21499, "elapsed_s": 430.5}
+{"step": 1200, "loss": 3.3761, "lr": 0.000784, "tokens": 10116010, "tok_s": 21556, "elapsed_s": 469.3}
+{"step": 1300, "loss": 2.9626, "lr": 0.00078, "tokens": 10949254, "tok_s": 21550, "elapsed_s": 508.1}
+{"step": 1400, "loss": 3.5089, "lr": 0.000776, "tokens": 11786068, "tok_s": 21552, "elapsed_s": 546.9}
+{"step": 1499, "val_loss": 3.286, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's truth in what you're saying, no question. There's real possibility here, and it deserves to be taken seriously. Not every relationship works out, but the ones that do all start from the same willingness"}
+{"step": 1500, "loss": 3.4828, "lr": 0.000771, "tokens": 12613199, "tok_s": 21493, "elapsed_s": 586.8}
+{"step": 1600, "loss": 2.4798, "lr": 0.000766, "tokens": 13456780, "tok_s": 21506, "elapsed_s": 625.7}
+{"step": 1700, "loss": 3.0714, "lr": 0.000761, "tokens": 14306823, "tok_s": 21529, "elapsed_s": 664.6}
+{"step": 1800, "loss": 3.4093, "lr": 0.000755, "tokens": 15146051, "tok_s": 21534, "elapsed_s": 703.4}
+{"step": 1900, "loss": 2.3823, "lr": 0.000749, "tokens": 15955167, "tok_s": 21498, "elapsed_s": 742.2}
+{"step": 1999, "val_loss": 3.0684, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's something quietly hopeful about this. You're not starting from nothing; you're starting from experience, and experience tends to pay off when you finally trust it.<EOS>"}
+{"step": 2000, "loss": 2.9386, "lr": 0.000742, "tokens": 16802883, "tok_s": 21494, "elapsed_s": 781.7}
+{"step": 2100, "loss": 2.6009, "lr": 0.000736, "tokens": 17635455, "tok_s": 21493, "elapsed_s": 820.5}
+{"step": 2200, "loss": 2.7522, "lr": 0.000728, "tokens": 18485463, "tok_s": 21511, "elapsed_s": 859.3}
+{"step": 2300, "loss": 3.0255, "lr": 0.000721, "tokens": 19320353, "tok_s": 21512, "elapsed_s": 898.1}
+{"step": 2400, "loss": 2.5527, "lr": 0.000713, "tokens": 20142250, "tok_s": 21498, "elapsed_s": 937.0}
+{"step": 2499, "val_loss": 3.1161, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's truth in what you're saying, no question. There's truth in what you're saying, no question. There's real power in understanding the tools you use instead of just using them blindly. Every hour spent learning"}
+{"step": 2500, "loss": 2.8287, "lr": 0.000705, "tokens": 20976227, "tok_s": 21479, "elapsed_s": 976.6}
+{"step": 2600, "loss": 2.6278, "lr": 0.000697, "tokens": 21799613, "tok_s": 21469, "elapsed_s": 1015.4}
+{"step": 2700, "loss": 2.6045, "lr": 0.000688, "tokens": 22650505, "tok_s": 21487, "elapsed_s": 1054.2}
+{"step": 2800, "loss": 2.7105, "lr": 0.000679, "tokens": 23498431, "tok_s": 21500, "elapsed_s": 1093.0}
+{"step": 2900, "loss": 3.2365, "lr": 0.00067, "tokens": 24343546, "tok_s": 21509, "elapsed_s": 1131.8}
+{"step": 2999, "val_loss": 2.8807, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. People remember how you made them feel, and they remember who was fair when it mattered. People who make it made of it, and that's worth remembering for.<EOS>"}
+{"step": 3000, "loss": 2.721, "lr": 0.00066, "tokens": 25186793, "tok_s": 21501, "elapsed_s": 1171.4}
+{"step": 3100, "loss": 2.4121, "lr": 0.00065, "tokens": 26031325, "tok_s": 21510, "elapsed_s": 1210.2}
+{"step": 3200, "loss": 2.501, "lr": 0.00064, "tokens": 26862192, "tok_s": 21508, "elapsed_s": 1248.9}
+{"step": 3300, "loss": 2.1937, "lr": 0.00063, "tokens": 27707298, "tok_s": 21517, "elapsed_s": 1287.7}
+{"step": 3400, "loss": 2.3954, "lr": 0.000619, "tokens": 28531523, "tok_s": 21510, "elapsed_s": 1326.5}
+{"step": 3499, "val_loss": 2.8701, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. The people who age well are the ones who keep moving, keeps worth the keep moving, and keeps show up. You're not the kind of person who made"}
+{"step": 3500, "loss": 2.7559, "lr": 0.000609, "tokens": 29378483, "tok_s": 21504, "elapsed_s": 1366.2}
+{"step": 3600, "loss": 2.3244, "lr": 0.000598, "tokens": 30235757, "tok_s": 21521, "elapsed_s": 1405.0}
+{"step": 3700, "loss": 2.9126, "lr": 0.000586, "tokens": 31111023, "tok_s": 21549, "elapsed_s": 1443.7}
+{"step": 3800, "loss": 1.9669, "lr": 0.000575, "tokens": 31959341, "tok_s": 21558, "elapsed_s": 1482.5}
+{"step": 3900, "loss": 1.8638, "lr": 0.000564, "tokens": 32803804, "tok_s": 21563, "elapsed_s": 1521.3}
+{"step": 3999, "val_loss": 2.8386, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. I love that you're not letting age decide what's possible. Every year adds experience, and experience is a kind of superpower when you're not just learning a little for yourself. You're not just"}
+{"step": 4000, "loss": 2.5764, "lr": 0.000552, "tokens": 33632735, "tok_s": 21545, "elapsed_s": 1561.0}
+{"step": 4100, "loss": 2.8947, "lr": 0.00054, "tokens": 34473483, "tok_s": 21549, "elapsed_s": 1599.8}
+{"step": 4200, "loss": 2.5685, "lr": 0.000528, "tokens": 35303064, "tok_s": 21545, "elapsed_s": 1638.6}
+{"step": 4300, "loss": 2.7392, "lr": 0.000516, "tokens": 36147966, "tok_s": 21551, "elapsed_s": 1677.3}
+{"step": 4400, "loss": 1.8497, "lr": 0.000504, "tokens": 36982772, "tok_s": 21550, "elapsed_s": 1716.1}
+{"step": 4499, "val_loss": 3.0138, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. Every small change you make is a vote for the kind of world you want to leave behind. It might feel tiny on its own, but habits spread, and when neighbors see you doing"}
+{"step": 4500, "loss": 2.3672, "lr": 0.000491, "tokens": 37837363, "tok_s": 21550, "elapsed_s": 1755.8}
+{"step": 4600, "loss": 2.3802, "lr": 0.000479, "tokens": 38655648, "tok_s": 21540, "elapsed_s": 1794.6}
+{"step": 4700, "loss": 2.7903, "lr": 0.000467, "tokens": 39489446, "tok_s": 21540, "elapsed_s": 1833.3}
+{"step": 4800, "loss": 2.2572, "lr": 0.000454, "tokens": 40323458, "tok_s": 21539, "elapsed_s": 1872.1}
+{"step": 4900, "loss": 2.2786, "lr": 0.000442, "tokens": 41181843, "tok_s": 21551, "elapsed_s": 1910.9}
+{"step": 4999, "val_loss": 2.7876, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. I love the idea of making your space actually reflect you. It doesn't have to be perfect or expensive, it just has to feel like yours, and the process"}
+{"step": 5000, "loss": 2.253, "lr": 0.000429, "tokens": 42035114, "tok_s": 21550, "elapsed_s": 1950.5}
+{"step": 5100, "loss": 2.3375, "lr": 0.000416, "tokens": 42900175, "tok_s": 21564, "elapsed_s": 1989.4}
+{"step": 5200, "loss": 2.2982, "lr": 0.000404, "tokens": 43738074, "tok_s": 21565, "elapsed_s": 2028.2}
+{"step": 5300, "loss": 3.0026, "lr": 0.000391, "tokens": 44559585, "tok_s": 21558, "elapsed_s": 2067.0}
+{"step": 5400, "loss": 1.9705, "lr": 0.000378, "tokens": 45399010, "tok_s": 21560, "elapsed_s": 2105.7}
+{"step": 5499, "val_loss": 2.6113, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. The best hobbies are the ones that teach you while you're having fun. Every session adds a little skill, and before<TURN><OPTIMIST> You're not wrong about the risk. You're not the same person"}
+{"step": 5500, "loss": 2.1968, "lr": 0.000366, "tokens": 46242449, "tok_s": 21554, "elapsed_s": 2145.4}
+{"step": 5600, "loss": 2.2837, "lr": 0.000353, "tokens": 47081528, "tok_s": 21556, "elapsed_s": 2184.2}
+{"step": 5700, "loss": 2.1398, "lr": 0.000341, "tokens": 47920374, "tok_s": 21557, "elapsed_s": 2223.0}
+{"step": 5800, "loss": 2.4254, "lr": 0.000329, "tokens": 48748937, "tok_s": 21553, "elapsed_s": 2261.8}
+{"step": 5900, "loss": 2.2437, "lr": 0.000316, "tokens": 49592198, "tok_s": 21557, "elapsed_s": 2300.5}
+{"step": 5999, "val_loss": 2.6193, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's truth in what you're saying, no question. There's something quietly powerful about improving the place where people live. It gives you a sense of purpose that work and money can't touch, and it connects you to"}
+{"step": 6000, "loss": 2.6602, "lr": 0.000304, "tokens": 50422833, "tok_s": 21546, "elapsed_s": 2340.2}
+{"step": 6100, "loss": 2.7479, "lr": 0.000292, "tokens": 51281149, "tok_s": 21555, "elapsed_s": 2379.0}
+{"step": 6200, "loss": 2.4312, "lr": 0.00028, "tokens": 52114597, "tok_s": 21554, "elapsed_s": 2417.8}
+{"step": 6300, "loss": 2.1743, "lr": 0.000268, "tokens": 52954974, "tok_s": 21556, "elapsed_s": 2456.6}
+{"step": 6400, "loss": 2.3518, "lr": 0.000256, "tokens": 53793431, "tok_s": 21557, "elapsed_s": 2495.4}
+{"step": 6499, "val_loss": 2.6238, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's something quietly hopeful, that's a version, you're not just not starting. There's real possibility here, and it deserves to be taken seriously. Not every relationship works out, but the ones that"}
+{"step": 6500, "loss": 2.5552, "lr": 0.000245, "tokens": 54627701, "tok_s": 21549, "elapsed_s": 2535.0}
+{"step": 6600, "loss": 2.4588, "lr": 0.000234, "tokens": 55490699, "tok_s": 21560, "elapsed_s": 2573.8}
+{"step": 6700, "loss": 2.309, "lr": 0.000222, "tokens": 56340153, "tok_s": 21565, "elapsed_s": 2612.6}
+{"step": 6800, "loss": 2.4943, "lr": 0.000211, "tokens": 57171461, "tok_s": 21563, "elapsed_s": 2651.4}
+{"step": 6900, "loss": 2.5176, "lr": 0.000201, "tokens": 58017055, "tok_s": 21566, "elapsed_s": 2690.1}
+{"step": 6999, "val_loss": 2.811, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> There's something quietly hopeful about this. You're not starting from nothing, and that's where most people stop. You're not behind you have, and it the people who share the up up in different people who decided to speak up"}
+{"step": 7000, "loss": 1.9439, "lr": 0.00019, "tokens": 58867801, "tok_s": 21565, "elapsed_s": 2729.8}
+{"step": 7100, "loss": 2.1086, "lr": 0.00018, "tokens": 59732504, "tok_s": 21575, "elapsed_s": 2768.6}
+{"step": 7200, "loss": 2.3599, "lr": 0.00017, "tokens": 60563042, "tok_s": 21573, "elapsed_s": 2807.4}
+{"step": 7300, "loss": 2.4419, "lr": 0.00016, "tokens": 61410302, "tok_s": 21577, "elapsed_s": 2846.2}
+{"step": 7400, "loss": 2.5117, "lr": 0.00015, "tokens": 62236606, "tok_s": 21573, "elapsed_s": 2884.9}
+{"step": 7499, "val_loss": 2.5812, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. Small changes compound, and a year from now you'll feel a difference you can't even imagine from where you stand today.<EOS>"}
+{"step": 7500, "loss": 2.5094, "lr": 0.000141, "tokens": 63067609, "tok_s": 21565, "elapsed_s": 2924.5}
+{"step": 7600, "loss": 2.1744, "lr": 0.000132, "tokens": 63922474, "tok_s": 21571, "elapsed_s": 2963.3}
+{"step": 7700, "loss": 2.192, "lr": 0.000123, "tokens": 64763660, "tok_s": 21573, "elapsed_s": 3002.1}
+{"step": 7800, "loss": 2.3998, "lr": 0.000115, "tokens": 65598886, "tok_s": 21569, "elapsed_s": 3041.3}
+{"step": 7900, "loss": 2.3525, "lr": 0.000107, "tokens": 66446014, "tok_s": 21571, "elapsed_s": 3080.3}
+{"step": 7999, "val_loss": 2.5129, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. Small changes compound, and the careness is one of the worth it after the effort. You're not the same person you need. You're not the same"}
+{"step": 8000, "loss": 2.3896, "lr": 9.9e-05, "tokens": 67270385, "tok_s": 21560, "elapsed_s": 3120.1}
+{"step": 8100, "loss": 2.0881, "lr": 9.2e-05, "tokens": 68124221, "tok_s": 21565, "elapsed_s": 3159.1}
+{"step": 8200, "loss": 2.6277, "lr": 8.4e-05, "tokens": 68961495, "tok_s": 21564, "elapsed_s": 3198.0}
+{"step": 8300, "loss": 2.0839, "lr": 7.8e-05, "tokens": 69795914, "tok_s": 21562, "elapsed_s": 3236.9}
+{"step": 8400, "loss": 2.3981, "lr": 7.1e-05, "tokens": 70625149, "tok_s": 21559, "elapsed_s": 3275.9}
+{"step": 8499, "val_loss": 2.6723, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. I love that you're not letting age decide what's possible. Every year adds experience, and experience is a kind of superpower when you're willing to keep learning. You're proving that growth doesn"}
+{"step": 8500, "loss": 1.3927, "lr": 6.5e-05, "tokens": 71472945, "tok_s": 21556, "elapsed_s": 3315.7}
+{"step": 8600, "loss": 2.3528, "lr": 5.9e-05, "tokens": 72310796, "tok_s": 21555, "elapsed_s": 3354.7}
+{"step": 8700, "loss": 2.5583, "lr": 5.4e-05, "tokens": 73128513, "tok_s": 21549, "elapsed_s": 3393.6}
+{"step": 8800, "loss": 2.2422, "lr": 4.9e-05, "tokens": 73955212, "tok_s": 21545, "elapsed_s": 3432.6}
+{"step": 8900, "loss": 2.0857, "lr": 4.4e-05, "tokens": 74791987, "tok_s": 21544, "elapsed_s": 3471.5}
+{"step": 8999, "val_loss": 2.5612, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I get the hesitation, and part of me shares it. You're not expected to know it all, nobody does, and that's fine. You only need to know the next small step, and each step makes the next"}
+{"step": 9000, "loss": 2.1133, "lr": 4e-05, "tokens": 75626940, "tok_s": 21538, "elapsed_s": 3511.4}
+{"step": 9100, "loss": 2.5458, "lr": 3.6e-05, "tokens": 76440041, "tok_s": 21531, "elapsed_s": 3550.3}
+{"step": 9200, "loss": 2.206, "lr": 3.3e-05, "tokens": 77278626, "tok_s": 21531, "elapsed_s": 3589.2}
+{"step": 9300, "loss": 2.4925, "lr": 3e-05, "tokens": 78135533, "tok_s": 21536, "elapsed_s": 3628.2}
+{"step": 9400, "loss": 2.6018, "lr": 2.7e-05, "tokens": 78983306, "tok_s": 21538, "elapsed_s": 3667.1}
+{"step": 9499, "val_loss": 2.7609, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I hear you on that. You're not wrong about the risk. There's something quietly powerful about improving the people, because it sits you're building it, because it's the kind of thing that even. You're not assum"}
+{"step": 9500, "loss": 2.6957, "lr": 2.5e-05, "tokens": 79832301, "tok_s": 21536, "elapsed_s": 3706.9}
+{"step": 9600, "loss": 2.393, "lr": 2.3e-05, "tokens": 80676927, "tok_s": 21538, "elapsed_s": 3745.8}
+{"step": 9700, "loss": 1.996, "lr": 2.2e-05, "tokens": 81507000, "tok_s": 21536, "elapsed_s": 3784.8}
+{"step": 9800, "loss": 2.5344, "lr": 2.1e-05, "tokens": 82336871, "tok_s": 21533, "elapsed_s": 3823.7}
+{"step": 9900, "loss": 2.0055, "lr": 2e-05, "tokens": 83194909, "tok_s": 21538, "elapsed_s": 3862.6}
+{"step": 9999, "loss": 1.9864, "lr": 2e-05, "tokens": 84029906, "tok_s": 21540, "elapsed_s": 3901.1}
+{"step": 9999, "val_loss": 2.8009, "sample": "<BOS><TOPIC> Should people always pursue their passion?<TURN><PESSIMIST> Passion sounds nice, but most people cannot afford to chase their dreams forever.<TURN><OPTIMIST> I can't argue with the worry, honestly. You don't need to be an athlete, you don't need to be an athlete to benefit, you just need to move consistently. Every session"}
