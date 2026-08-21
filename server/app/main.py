@@ -145,16 +145,16 @@ async def ws_debates(ws: WebSocket):
 
 
 
-_DIST = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "client", "dist"))
-if os.path.isdir(_DIST):
-    from fastapi.staticfiles import StaticFiles
+@app.get("/")
+def root():
+    return {
+        "service": "colosseum-backend",
+        "status": "running",
+        "uptime_s": int(time.time() - _started_at),
+        "docs": "/docs",
+        "health": "/api/health",
+    }
 
-    app.mount("/", StaticFiles(directory=_DIST, html=True), name="client")
-    log.info("serving client from %s", _DIST)
-else:
-    @app.get("/")
-    def root():
-        return {"service": "colosseum", "status": "ok", "uptime_s": int(time.time() - _started_at)}
 
 
 if __name__ == "__main__":

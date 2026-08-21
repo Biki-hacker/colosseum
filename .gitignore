@@ -14,7 +14,7 @@ venv/
 # Node
 node_modules/
 dist/
-!client/dist/
+client/dist/
 .vite/
 
 # Training artifacts
